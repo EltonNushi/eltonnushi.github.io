@@ -11075,11 +11075,6 @@ footer a:hover, footer a:active, footer a:focus {
   color: rgba(255, 255, 255, 0.75);
   text-decoration: underline;
 }
-(<!-- comment here .masthead {
-  background-color: #f8f9fa;
-  padding-top: 9.5rem;
-  padding-bottom: 5rem;
-}-->)
 
 .masthead .masthead-device-mockup {
   display: flex;
