@@ -11160,3 +11160,29 @@ footer a:hover, footer a:active, footer a:focus {
     max-width: 17rem;
   }
 }
+
+
+/* Custom Optimization Fixes for SwiftTech Mobile */
+body, .bg-black {
+    background-color: #000000 !important;
+}
+
+/* Fix text contrast in footer links and add hover states */
+.footer-links a {
+    transition: color 0.2s ease-in-out;
+}
+.footer-links a:hover {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+}
+
+/* Ensure consistent video scaling inside mockup frameworks */
+.screen video {
+    border-radius: 20px;
+    background-color: #000000;
+}
+
+/* Navigation brand hover animation */
+.navbar-brand:hover {
+    opacity: 0.9;
+}
