@@ -8,17 +8,81 @@
     <title>SwiftTech Mobile</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <!-- Bootstrap icons (FIXED: Added correct subdomain path) -->
+    <!-- Clean subdomains for CDN handshakes -->
     <link href="https://jsdelivr.net" rel="stylesheet" />
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link href="https://googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&family=Mulish:wght@300;500;600;700&family=Kanit:wght@400&display=swap" rel="stylesheet" />
 
-    <!-- Google fonts (FIXED: Corrected asset routing & pre-connect handshakes) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&family=Mulish:wght@300;500;600;700&family=Kanit:wght@400&display=swap" rel="stylesheet" />
-
-    <!-- Using the clean internal home stylesheet to bypass render blocks -->
+    <!-- Light-weight stylesheet strategy to skip parsing lag -->
     <link href="css/home.css" rel="stylesheet" />
 </head>
+
+<body id="page-top" class="bg-black" style="background-color: #000000;">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-secondary navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+        <div class="container px-5">
+            <a class="navbar-brand fw-bold text-white" style="font-size:2em;" href="#page-top">SwiftTech Mobile</a>
+            <a class="px-5 px-sm-0">
+                <img class="app-badge rounded-circle" src="assets/img/logo.JPG" alt="SwiftTech logo" width="50" height="50" style="object-fit: cover;" />
+            </a>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu <i class="bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                    <li class="nav-item fw-bold"><a class="nav-link me-lg-3 text-white" style="font-size:1.3em;" href="index.html">Home</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link me-lg-3 text-white" style="font-size:1.3em;" href="apps.html">Apps</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link me-lg-3 text-white" style="font-size:1.3em;" href="#download">Download</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link me-lg-3 text-white" style="font-size:1.3em;" href="aboutUs.html">About</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link me-lg-3 text-white" style="font-size:1.3em;" href="mailto:info@swifttechmobile.co.uk">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="bg-black masthead text-center py-5">
+        <div class="bg-black container px-5">
+            <div class="row gx-5 align-items-center">
+                <div class="bg-black col-lg-6">
+                    <div class="mb-1 mb-lg-0 text-center text-lg-start">
+                        <h2 class="font-alt text-white">Transforming Ideas Into Powerful Solutions</h2>
+                        <p class="lead fw-normal text-muted mb-3">Discover our latest mobile applications. We strive to provide the best in-app features for an enhanced user experience. With our passion for innovation and dedication to quality, we aim to deliver exceptional value.</p>
+                        <div class="mt-4">
+                            <a href="apps.html" class="btn btn-outline-light btn-lg font-alt px-4 py-2">Explore Our Apps</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-black masthead-device-mockup">
+                        <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org">
+                            <defs>
+                                <linearGradient id="circleGradient" gradientTransform="rotate(45)">
+                                    <stop class="gradient-start-color" offset="0%"></stop>
+                                    <stop class="gradient-end-color" offset="100%"></stop>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <svg class="shape-1 d-none d-sm-block" viewBox="0 0 240.83 240.83" xmlns="http://w3.org">
+                            <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
+                            <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect>
+                        </svg>
+                        <svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://w3.org"><circle cx="50" cy="50" r="50"></circle></svg>
+                        <div class="device-wrapper">
+                            <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
+                                <div class="screen bg-transparent d-flex align-items-center justify-content-center">
+                                    <img src="assets/img/innovativetech-preview.png" alt="App Preview Interface" style="max-width: 100%; height: auto;" loading="eager" onerror="this.style.display='none';">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
 <body id="page-top" class="bg-black" style="background-color: black;">
 
