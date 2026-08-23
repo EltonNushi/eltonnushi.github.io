@@ -14,7 +14,8 @@
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&family=Mulish:wght@300;500;600;700&family=Kanit:wght@400&display=swap" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
+
+    <!-- Using the clean internal home stylesheet to bypass render blocks -->
     <link href="css/home.css" rel="stylesheet" />
 </head>
 
@@ -24,15 +25,12 @@
     <nav class="bg-secondary navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
         <div class="container px-5">
             <a class="navbar-brand fw-bold text-white" style="font-size:2em;" href="#page-top">SwiftTech Mobile</a>
-
             <a class="px-5 px-sm-0">
                 <img class="app-badge rounded-circle" src="assets/img/logo.JPG" alt="SwiftTech logo" width="50" height="50" style="object-fit: cover;" />
             </a>
-
             <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu <i class="bi-list"></i>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
                     <li class="nav-item fw-bold"><a class="nav-link me-lg-3 text-white" style="font-size:1.3em;" href="apps.html">Apps</a></li>
@@ -44,7 +42,7 @@
         </div>
     </nav>
 
-    <!-- Masthead header (Replaced heavy autoplay video loop with an optimised crisp preview placeholder) -->
+    <!-- Masthead header -->
     <header class="bg-black masthead text-center py-5">
         <div class="bg-black container px-5">
             <div class="row gx-5 align-items-center">
@@ -76,7 +74,6 @@
                         <div class="device-wrapper">
                             <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
                                 <div class="screen bg-transparent d-flex align-items-center justify-content-center">
-                                    <!-- Highly optimized static showcase replacement. Change to a crisp .PNG mockup asset to preserve performance. -->
                                     <img src="assets/img/innovativetech-preview.png" alt="App Preview Interface" style="max-width: 100%; height: auto; object-fit: contain;" loading="eager" onerror="this.style.display='none';">
                                 </div>
                             </div>
@@ -86,7 +83,7 @@
             </div>
         </div>
     </header>
-    <!-- Main Showcase Features Section (Completely stripped of heavy text descriptions per request) -->
+    <!-- Main Info Banner Section -->
     <section id="features" class="bg-black py-5">
         <div class="container px-5">
             <div class="row gx-5 align-items-center justify-content-center text-center">
@@ -140,36 +137,46 @@
             <div class="text-white-50 small">
                 <div class="mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
                 <div class="footer-links">
-                    <a href="policy.html" class="text-decoration-none text-white-50 heading-hover">Privacy Policy</a>
+                    <a href="policy.html" class="text-decoration-none text-white-50">Privacy Policy</a>
                     <span class="mx-2">&middot;</span>
-                    <a href="terms.html" class="text-decoration-none text-white-50 heading-hover">Terms and Conditions</a>
+                    <a href="terms.html" class="text-decoration-none text-white-50">Terms and Conditions</a>
                     <span class="mx-2">&middot;</span>
-                    <a href="FAQ.html" class="text-decoration-none text-white-50 heading-hover">FAQ</a>
+                    <a href="FAQ.html" class="text-decoration-none text-white-50">FAQ</a>
                     <span class="mx-2">&middot;</span>
-                    <a href="mailto:info@swifttechmobile.co.uk" class="text-decoration-none text-white-50 heading-hover">Contact Us</a>
+                    <a href="mailto:info@swifttechmobile.co.uk" class="text-decoration-none text-white-50">Contact Us</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap core JS -->
-    <script src="https://jsdelivr.net"></script>
-    <!-- Core theme JS -->
-    <script src="js/scripts.js"></script>
-    <!-- SB Forms JS -->
-    <script src="https://startbootstrap.com" defer></script>
+    <!-- Bootstrap Core JS (Deferred to keep layout from freezing) -->
+    <script src="https://jsdelivr.net" defer></script>
+    <script src="js/scripts.js" defer></script>
 
-    <!-- ✅ FIXED & PERFORMANCE LAZY-OPTIMISED TAWK.TO LIVE CHAT SCRIPT -->
+    <!-- ✅ LIGHTSPEED SMART INTERACTIVE TAWK.TO LOADER -->
     <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function(){
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://tawk.to';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
+        function loadTawkChat() {
+            if (window.tawkLoaded) return;
+            window.tawkLoaded = true;
+
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function(){
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://tawk.to';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        }
+
+        // Triggers chat download only when user interacts with page (scroll, move mouse, or touch)
+        window.addEventListener('scroll', loadTawkChat, { passive: true });
+        window.addEventListener('mousemove', loadTawkChat, { passive: true });
+        window.addEventListener('touchstart', loadTawkChat, { passive: true });
+
+        // Fallback: If no interaction occurs, force load chat safely after 4 seconds
+        setTimeout(loadTawkChat, 4000);
     </script>
 </body>
 </html>
