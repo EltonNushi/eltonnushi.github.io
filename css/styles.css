@@ -11075,12 +11075,12 @@ footer a:hover, footer a:active, footer a:focus {
   color: rgba(255, 255, 255, 0.75);
   text-decoration: underline;
 }
-
-.masthead {
+(<!-- comment here .masthead {
   background-color: #f8f9fa;
   padding-top: 9.5rem;
   padding-bottom: 5rem;
-}
+}-->)
+
 .masthead .masthead-device-mockup {
   display: flex;
   align-items: center;
@@ -11159,30 +11159,4 @@ footer a:hover, footer a:active, footer a:focus {
   .masthead .masthead-device-mockup .device-wrapper {
     max-width: 17rem;
   }
-}
-
-
-/* Custom Optimization Fixes for SwiftTech Mobile */
-body, .bg-black {
-    background-color: #000000 !important;
-}
-
-/* Fix text contrast in footer links and add hover states */
-.footer-links a {
-    transition: color 0.2s ease-in-out;
-}
-.footer-links a:hover {
-    color: #ffffff !important;
-    text-decoration: underline !important;
-}
-
-/* Ensure consistent video scaling inside mockup frameworks */
-.screen video {
-    border-radius: 20px;
-    background-color: #000000;
-}
-
-/* Navigation brand hover animation */
-.navbar-brand:hover {
-    opacity: 0.9;
 }
