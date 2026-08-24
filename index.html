@@ -7,18 +7,12 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
-    <!-- Tab Icon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-    <!-- Vector Icons -->
     <link href="https://jsdelivr.net" rel="stylesheet" />
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Kanit:wght@400;600&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Standalone Ultra-Light Design Matrix -->
     <style>
         html, body {
             margin: 0; padding: 0; width: 100%; min-height: 100vh;
@@ -30,7 +24,6 @@
         .text-muted { color: #6c757d !important; }
         .font-alt { font-family: 'Kanit', sans-serif; }
 
-        /* Navigation alignment fixes */
         .navbar {
             padding: 1.2rem 0; background-color: rgba(15, 15, 15, 0.95) !important;
             backdrop-filter: blur(10px); border-bottom: 1px solid #222;
@@ -40,7 +33,6 @@
         .nav-link { font-size: 1.1rem; text-decoration: none; color: rgba(255,255,255,0.7) !important; transition: color 0.2s; }
         .nav-link:hover { color: #ffffff !important; }
 
-        /* Robust Flexbox Grid Alignment Engine */
         .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
         .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
         .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
@@ -51,26 +43,22 @@
         .align-items-center { align-items: center !important; }
         .text-center { text-align: center !important; }
 
-        /* Layout Padding Modifiers */
         .py-5 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
         .my-5 { margin-top: 4rem !important; margin-bottom: 4rem !important; }
         .mb-3 { margin-bottom: 1rem !important; }
         .mb-4 { margin-bottom: 1.5rem !important; }
         .me-3 { margin-right: 1rem !important; }
 
-        /* Smooth Desktop-to-Mobile Responsive Breakdown Matrix */
         @media (max-width: 991px) {
             .col-lg-6, .col-lg-9 { width: 100% !important; text-align: center !important; }
             .row { flex-direction: column; gap: 2rem; }
             .navbar .container { flex-direction: column; gap: 1rem; }
         }
 
-        /* Hero Container Area Setup */
         .masthead { padding-top: 13rem; padding-bottom: 7rem; background: radial-gradient(circle at top right, #121212 0%, #000000 80%); }
         .display-4 { font-size: 3.5rem; font-weight: 700; line-height: 1.15; margin: 0; }
         .lead { font-size: 1.25rem; font-weight: 300; line-height: 1.6; }
 
-        /* Call To Action Custom Buttons */
         .btn {
             display: inline-block; font-weight: 700; text-align: center; vertical-align: middle;
             padding: .85rem 1.75rem; font-size: 1rem; border-radius: 50rem; text-decoration: none;
@@ -86,10 +74,14 @@
         .flex-column { flex-direction: column !important; }
         @media (min-width: 576px) { .flex-sm-row { flex-direction: row !important; } }
 
-        /* Premium Phone Frame Visual Simulation */
+        /* Premium Phone Frame Simulation with CSS Glow Instead of Image */
         .device-wrapper { width: 100%; max-width: 260px; margin: 0 auto; position: relative; }
-        .screen { border-radius: 40px; border: 6px solid #222; overflow: hidden; aspect-ratio: 9 / 19.5; box-shadow: 0 25px 50px rgba(0,0,0,0.6); background-color: #0d0d0d; }
-        .screen img { width: 100%; height: 100%; object-fit: cover; }
+        .screen {
+            border-radius: 40px; border: 6px solid #222; overflow: hidden; aspect-ratio: 9 / 19.5;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            background: linear-gradient(185deg, #111118 0%, #050505 100%);
+            display: flex; align-items: center; justify-content: center;
+        }
 
         .bg-gradient-primary-to-secondary { background: linear-gradient(135deg, #1d4ed8 0%, #6b21a8 100%) !important; }
         .rounded-circle { border-radius: 50% !important; }
@@ -129,14 +121,18 @@
                 <div class="col-lg-6 mt-5 mt-lg-0">
                     <div class="device-wrapper">
                         <div class="screen">
-                            <img src="assets/img/logo.JPG" alt="SwiftTech Portfolio Show" />
+                            <!-- TEST MODE: Replaced image asset loop with a premium tech-styled ambient glow structure -->
+                            <div class="text-center p-4">
+                                <i class="bi bi-cpu text-primary mb-2" style="font-size: 2.5rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                                <div class="font-alt fw-bold text-white small" style="letter-spacing: 1px;">SWIFTTECH</div>
+                                <div class="text-muted" style="font-size: 0.75rem; margin-top: 4px;">Premium Apps</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
     <!-- Innovative Technology Overview Section -->
     <section class="bg-black py-5">
         <div class="container my-5">
@@ -165,45 +161,38 @@
         </div>
     </section>
 
-    <!-- Footer Block Links Mapping (CLEAN FIXED VERSION) -->
-  <footer class="py-5" style="background-color: #050505; border-top: 1px solid #111;">
-      <div class="container text-center">
-           <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem; font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
-           <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-           <div class="d-flex justify-content-center gap-3">
-               <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-               <span class="text-muted">&middot;</span>
-               <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
-               <span class="text-muted">&middot;</span>
-               <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
-           </div>
-      </div>
-  </footer>
+    <!-- Footer Block Links Mapping -->
+    <footer class="py-5" style="background-color: #050505; border-top: 1px solid #111;">
+        <div class="container text-center">
+             <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem; font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
+             <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+             <div class="d-flex justify-content-center gap-3">
+                 <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+                 <span class="text-muted">&middot;</span>
+                 <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
+                 <span class="text-muted">&middot;</span>
+                 <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
+             </div>
+        </div>
+    </footer>
 
-  <!-- ✅ TAWK.TO LIVE INTERACTIVE CHAT ENGINE LAZY-LOADER -->
-  <script type="text/javascript">
-      function loadTawkChat() {
-          if (window.tawkLoaded) return;
-          window.tawkLoaded = true;
-
-          var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-          (function(){
-              var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
-              s1.async = true;
-              s1.src = 'https://tawk.to'; // Fixed path
-              s1.charset = 'UTF-8';
-              s1.setAttribute('crossorigin','*');
-              s0.parentNode.insertBefore(s1, s0);
-          })();
-      }
-
-      // Activates thread handshakes on initial mobile/desktop user interaction vectors
-      window.addEventListener('scroll', loadTawkChat, { passive: true });
-      window.addEventListener('mousemove', loadTawkChat, { passive: true });
-      window.addEventListener('touchstart', loadTawkChat, { passive: true });
-
-      // Safety Fallback trigger configuration path
-      setTimeout(loadTawkChat, 5000);
-  </script>
+    <!-- Fixed Live Chat Handler Setup -->
+    <script type="text/javascript">
+        function loadTawkChat() {
+            if (window.tawkLoaded) return;
+            window.tawkLoaded = true;
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function(){
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
+                s1.async = true; s1.src = 'https://tawk.to';
+                s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        }
+        window.addEventListener('scroll', loadTawkChat, { passive: true });
+        window.addEventListener('mousemove', loadTawkChat, { passive: true });
+        window.addEventListener('touchstart', loadTawkChat, { passive: true });
+        setTimeout(loadTawkChat, 5000);
+    </script>
 </body>
 </html>
