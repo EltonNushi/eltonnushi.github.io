@@ -7,7 +7,7 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
-
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://jsdelivr.net" rel="stylesheet" />
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
@@ -176,23 +176,38 @@
         </div>
     </footer>
 
-    <!-- Fixed Live Chat Handler Setup -->
+    <!-- ✅ PREMIUM PERFORMANCE CHAT SYSTEM (0ms Initial Page Impact) -->
+    <div id="chat-trigger-btn" onclick="activateLiveChat()" style="position: fixed; bottom: 20px; right: 20px; background: linear-gradient(45deg, #2563eb, #7c3aed); color: white; padding: 12px 20px; border-radius: 50px; font-family: 'Kanit', sans-serif; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 99999; display: flex; align-items: center; gap: 8px; transition: transform 0.2s ease-in-out;">
+        <i class="bi bi-chat-text-fill"></i> Live Support
+    </div>
+
     <script type="text/javascript">
-        function loadTawkChat() {
+        function activateLiveChat() {
+            // Instantly remove the manual visual button container to prevent clutter
+            var element = document.getElementById("chat-trigger-btn");
+            if (element) element.remove();
+
             if (window.tawkLoaded) return;
             window.tawkLoaded = true;
+
+            // Execute the official cloud widget injection securely
             var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
             (function(){
-                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
-                s1.async = true; s1.src = 'https://tawk.to';
-                s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://tawk.to';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin','*');
                 s0.parentNode.insertBefore(s1, s0);
             })();
         }
-        window.addEventListener('scroll', loadTawkChat, { passive: true });
-        window.addEventListener('mousemove', loadTawkChat, { passive: true });
-        window.addEventListener('touchstart', loadTawkChat, { passive: true });
-        setTimeout(loadTawkChat, 5000);
+
+        // ONLY automatically triggers if a user actively scrolls down past the header view area
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                activateLiveChat();
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>
