@@ -7,13 +7,16 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
+    <!-- Keeping your exact tab icon asset path -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Clean, verified framework vectors -->
     <link href="https://jsdelivr.net" rel="stylesheet" />
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Kanit:wght@400;600&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- EMBEDDED LIGHTSPEED CORE ENGINE: Kills 404 file lag entirely -->
+    <!-- EMBEDDED LIGHTSPEED ENGINE: Rebuilds premium desktop layout alignments instantly -->
     <style>
         html, body {
             margin: 0; padding: 0; width: 100%; min-height: 100vh;
@@ -25,66 +28,67 @@
         .text-muted { color: #6c757d !important; }
         .font-alt { font-family: 'Kanit', sans-serif; }
 
-        /* Navigation Frame styling */
+        /* Navigation alignment fixes */
         .navbar {
-            padding: 1rem 0; background-color: rgba(15, 15, 15, 0.95) !important;
+            padding: 1.2rem 0; background-color: rgba(15, 15, 15, 0.95) !important;
             backdrop-filter: blur(10px); border-bottom: 1px solid #222;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
         }
-        .navbar-brand { font-size: 1.6rem; text-decoration: none; }
-        .nav-link { font-size: 1.1rem; text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
-        .nav-link:hover { opacity: 1; }
+        .navbar-brand { font-size: 1.6rem; text-decoration: none; font-weight: bold; color: #ffffff !important; }
+        .nav-link { font-size: 1.1rem; text-decoration: none; color: rgba(255,255,255,0.7) !important; transition: color 0.2s; }
+        .nav-link:hover { color: #ffffff !important; }
 
-        /* Hardware-Accelerated Layout Structural Grid */
-        .container { width: 100%; padding-right: 3rem; padding-left: 3rem; margin-right: auto; margin-left: auto; max-width: 1320px; box-sizing: border-box; }
-        .row { display: flex; flex-wrap: wrap; margin-right: -1.5rem; margin-left: -1.5rem; }
-        .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1.5rem; box-sizing: border-box; }
-        .col-lg-9 { flex: 0 0 auto; width: 75%; padding: 0 1.5rem; box-sizing: border-box; }
+        /* Robust Flexbox Grid Alignment Engine (Fixes the ugly layout flat stacking) */
+        .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
+        .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
+        .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
+        .col-lg-9 { flex: 0 0 auto; width: 75%; padding: 0 1rem; box-sizing: border-box; }
         .mx-auto { margin-left: auto !important; margin-right: auto !important; }
         .justify-content-center { justify-content: center !important; }
         .justify-content-between { justify-content: space-between !important; }
         .align-items-center { align-items: center !important; }
         .text-center { text-align: center !important; }
 
-        /* Spacing Helpers */
-        .py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
-        .my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+        /* Layout Padding Modifiers */
+        .py-5 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+        .my-5 { margin-top: 4rem !important; margin-bottom: 4rem !important; }
         .mb-3 { margin-bottom: 1rem !important; }
         .mb-4 { margin-bottom: 1.5rem !important; }
-        .mb-5 { margin-bottom: 3rem !important; }
         .me-3 { margin-right: 1rem !important; }
 
-        /* Responsive Layout Overrides */
+        /* Smooth Desktop-to-Mobile Responsive Breakdown Matrix */
         @media (max-width: 991px) {
-            .col-lg-6, .col-lg-9 { width: 100%; text-align: center !important; }
-            .row { flex-direction: column; }
+            .col-lg-6, .col-lg-9 { width: 100% !important; text-align: center !important; }
+            .row { flex-direction: column; gap: 2rem; }
+            .navbar .container { flex-direction: column; gap: 1rem; }
         }
 
-        /* Masthead Header layout logic */
-        .masthead { padding-top: 12rem; padding-bottom: 6rem; background: radial-gradient(circle at top right, #111 0%, #000 70%); }
+        /* Hero Container Area Setup */
+        .masthead { padding-top: 13rem; padding-bottom: 7rem; background: radial-gradient(circle at top right, #121212 0%, #000000 80%); }
         .display-4 { font-size: 3.5rem; font-weight: 700; line-height: 1.15; margin: 0; }
         .lead { font-size: 1.25rem; font-weight: 300; line-height: 1.6; }
 
-        /* Premium Buttons */
+        /* Call To Action Custom Buttons */
         .btn {
             display: inline-block; font-weight: 700; text-align: center; vertical-align: middle;
-            padding: .75rem 1.5rem; font-size: 1rem; border-radius: 50rem; text-decoration: none;
-            transition: all 0.2s ease-in-out; cursor: pointer;
+            padding: .85rem 1.75rem; font-size: 1rem; border-radius: 50rem; text-decoration: none;
+            transition: all 0.2s ease-in-out; cursor: pointer; border: 1px solid transparent;
         }
-        .btn-primary { background: linear-gradient(45deg, #2563eb, #7c3aed); color: #fff; border: none; }
+        .btn-primary { background: linear-gradient(45deg, #2563eb, #7c3aed); color: #fff; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
         .btn-outline-light { color: #f8f9fa; border: 1px solid rgba(255,255,255,0.3); }
         .btn-outline-light:hover { background-color: #f8f9fa; color: #000; }
-        .btn-light { color: #1e1b4b; background-color: #ffffff; border: none; }
+        .btn-light { color: #1e1b4b; background-color: #ffffff; }
         .gap-3 { gap: 1rem; }
         .d-flex { display: flex !important; }
         .flex-column { flex-direction: column !important; }
         @media (min-width: 576px) { .flex-sm-row { flex-direction: row !important; } }
 
-        /* Device Frame Styling */
-        .device-wrapper { width: 100%; max-width: 270px; margin: 0 auto; position: relative; }
-        .screen { border-radius: 36px; border: 4px solid #222; overflow: hidden; aspect-ratio: 9 / 19.5; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        /* Premium Phone Frame Visual Simulation */
+        .device-wrapper { width: 100%; max-width: 260px; margin: 0 auto; position: relative; }
+        .screen { border-radius: 40px; border: 6px solid #222; overflow: hidden; aspect-ratio: 9 / 19.5; box-shadow: 0 25px 50px rgba(0,0,0,0.6); background-color: #0d0d0d; }
         .screen img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Full Portfolio Callout Gradient */
         .bg-gradient-primary-to-secondary { background: linear-gradient(135deg, #1d4ed8 0%, #6b21a8 100%) !important; }
         .rounded-circle { border-radius: 50% !important; }
         footer { background-color: #050505 !important; border-top: 1px solid #111; }
@@ -93,17 +97,17 @@
 <body id="page-top">
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm">
+    <nav class="navbar">
         <div class="container justify-content-between align-items-center d-flex">
             <div class="d-flex align-items-center">
                 <img class="rounded-circle me-3" src="assets/img/logo.JPG" alt="SwiftTech Logo" width="45" height="45" style="object-fit: cover; border: 2px solid rgba(255,255,255,0.2);" />
-                <a class="navbar-brand fw-bold text-white font-alt" href="#page-top">SwiftTech Mobile</a>
+                <a class="navbar-brand font-alt" href="#page-top">SwiftTech Mobile</a>
             </div>
 
             <div class="d-flex gap-3">
-                <a class="nav-link text-white px-2" href="index.html">Home</a>
-                <a class="nav-link text-white px-2" href="apps.html">Apps</a>
-                <a class="nav-link text-white px-2" href="aboutUs.html">About</a>
+                <a class="nav-link" href="index.html" style="color: #ffffff !important; font-weight: bold;">Home</a>
+                <a class="nav-link" href="apps.html">Apps</a>
+                <a class="nav-link" href="aboutUs.html">About</a>
             </div>
         </div>
     </nav>
@@ -115,7 +119,7 @@
                 <div class="col-lg-6 text-center text-lg-start">
                     <h1 class="text-white fw-bold mb-3 display-4 font-alt">Transforming Ideas Into<br><span style="background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Powerful Solutions</span></h1>
                     <p class="lead fw-normal text-muted mb-4">Discover our latest mobile applications. We strive to provide the best in-app features for an enhanced user experience. With our passion for innovation and dedication to quality, we aim to deliver exceptional value.</p>
-                    <div class="d-flex flex-column flex-sm-row gap-3">
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
                         <a href="apps.html" class="btn btn-primary">Explore Our Apps</a>
                         <a href="aboutUs.html" class="btn btn-outline-light">About Us</a>
                     </div>
@@ -123,8 +127,7 @@
                 <div class="col-lg-6 mt-5 mt-lg-0">
                     <div class="device-wrapper">
                         <div class="screen">
-                            <!-- Directly loading logo file to eliminate external 404 layout loops -->
-                            <img src="assets/img/logo.JPG" alt="SwiftTech Portfolio Mockup" />
+                            <img src="assets/img/logo.JPG" alt="SwiftTech Portfolio Show" />
                         </div>
                     </div>
                 </div>
@@ -132,13 +135,13 @@
         </div>
     </header>
 
-    <!-- Innovative Technology Section -->
+    <!-- Innovative Technology Overview Section -->
     <section class="bg-black py-5">
         <div class="container my-5">
             <div class="row justify-content-center text-center">
                 <div class="col-lg-9">
                     <h2 class="font-alt text-white display-5 mb-4 fw-bold">Innovative Technology</h2>
-                    <p class="lead fw-normal text-muted mb-0">
+                    <p class="lead fw-normal text-muted mb-0 mx-auto" style="line-height: 1.7;">
                         "Revolutionary apps that take user experiences to the next level. Featuring cutting-edge tools and highly intuitive interfaces, our catalog provides the perfect companions for your daily needs. Whether you are a beginner or a power user, SwiftTech Mobile builds something exceptional for everyone."
                     </p>
                 </div>
@@ -146,7 +149,7 @@
         </div>
     </section>
 
-    <!-- App Badge Call To Action Section -->
+    <!-- App Store Download Action Badge Section -->
     <section class="py-5 bg-gradient-primary-to-secondary" id="download">
         <div class="container my-5 text-center text-white">
             <h2 class="font-alt mb-3 fw-bold display-5">Get the app now!</h2>
@@ -160,35 +163,45 @@
         </div>
     </section>
 
-    <!-- Footer Area Structure -->
-    <footer class="py-5">
-        <div class="container text-center">
-             <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem;">SwiftTech Mobile</h2>
-             <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-             <div class="d-flex justify-content-center gap-3">
-                 <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem;">Privacy Policy</a>
-                 <!-- ✅ FIXED LIGHTSPEED TAWK.TO LIVE CHAT ENGINE -->
-                 <script type="text/javascript">
-                     function loadTawkChat() {
-                         if (window.tawkLoaded) return;
-                         window.tawkLoaded = true;
+          <!-- Footer Area Structure -->
+          <footer class="py-5" style="background-color: #050505; border-top: 1px solid #111;">
+              <div class="container text-center">
+                   <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem; font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
+                   <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+                   <div class="d-flex justify-content-center gap-3">
+                       <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+                       <span class="text-muted">&middot;</span>
+                       <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
+                       <span class="text-muted">&middot;</span>
+                       <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
+                   </div>
+              </div>
+          </footer>
 
-                         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-                         (function(){
-                             var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0]; // FIXED: Added [0] index
-                             s1.async = true;
-                             s1.src = 'https://tawk.to'; // FIXED: Fully valid source path URL
-                             s1.charset = 'UTF-8';
-                             s1.setAttribute('crossorigin','*');
-                             s0.parentNode.insertBefore(s1, s0);
-                         })();
-                     }
+          <!-- ✅ FIXED AND WRAPPED CHAT SCRIPT ENGINE (Hides the text leak entirely) -->
+          <script type="text/javascript">
+              function loadTawkChat() {
+                  if (window.tawkLoaded) return;
+                  window.tawkLoaded = true;
 
-                     // Delays loading chat components until the user interacts to optimize Core Web Vitals
-                     window.addEventListener('scroll', loadTawkChat, { passive: true });
-                     window.addEventListener('mousemove', loadTawkChat, { passive: true });
-                     window.addEventListener('touchstart', loadTawkChat, { passive: true });
+                  var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+                  (function(){
+                      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0]; // FIXED: Added missing index pointer [0]
+                      s1.async = true;
+                      s1.src = 'https://tawk.to'; // FIXED: Restored full secure live connection path
+                      s1.charset = 'UTF-8';
+                      s1.setAttribute('crossorigin','*');
+                      s0.parentNode.insertBefore(s1, s0);
+                  })();
+              }
 
-                     // Fallback: If no interaction occurs, force load chat safely after 5 seconds
-                     setTimeout(loadTawkChat, 5000);
-                 </script>
+              // Lazy loads chat components on user interaction to keep desktop performance ultra-fast
+              window.addEventListener('scroll', loadTawkChat, { passive: true });
+              window.addEventListener('mousemove', loadTawkChat, { passive: true });
+              window.addEventListener('touchstart', loadTawkChat, { passive: true });
+
+              // Fallback safety trigger
+              setTimeout(loadTawkChat, 5000);
+          </script>
+      </body>
+      </html>
