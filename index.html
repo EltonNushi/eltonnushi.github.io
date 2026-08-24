@@ -1,213 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Discover our latest mobile applications at SwiftTech Mobile." />
-    <meta name="author" content="SwiftTech Mobile" />
-    <title>SwiftTech Mobile</title>
-
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://jsdelivr.net" rel="stylesheet" />
-    <link rel="preconnect" href="https://googleapis.com" />
-    <link rel="preconnect" href="https://gstatic.com" crossorigin />
-    <link href="https://googleapis.com/css2?family=Kanit:wght@400;600&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
-
-    <style>
-        html, body {
-            margin: 0; padding: 0; width: 100%; min-height: 100vh;
-            background-color: #000000 !important; color: #ffffff;
-            font-family: 'Mulish', sans-serif; scroll-behavior: smooth;
-        }
-        .bg-black { background-color: #000000 !important; }
-        .text-white { color: #ffffff !important; }
-        .text-muted { color: #6c757d !important; }
-        .font-alt { font-family: 'Kanit', sans-serif; }
-
-        .navbar {
-            padding: 1.2rem 0; background-color: rgba(15, 15, 15, 0.95) !important;
-            backdrop-filter: blur(10px); border-bottom: 1px solid #222;
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-        }
-        .navbar-brand { font-size: 1.6rem; text-decoration: none; font-weight: bold; color: #ffffff !important; }
-        .nav-link { font-size: 1.1rem; text-decoration: none; color: rgba(255,255,255,0.7) !important; transition: color 0.2s; }
-        .nav-link:hover { color: #ffffff !important; }
-
-        .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
-        .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
-        .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
-        .col-lg-9 { flex: 0 0 auto; width: 75%; padding: 0 1rem; box-sizing: border-box; }
-        .mx-auto { margin-left: auto !important; margin-right: auto !important; }
-        .justify-content-center { justify-content: center !important; }
-        .justify-content-between { justify-content: space-between !important; }
-        .align-items-center { align-items: center !important; }
-        .text-center { text-align: center !important; }
-
-        .py-5 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
-        .my-5 { margin-top: 4rem !important; margin-bottom: 4rem !important; }
-        .mb-3 { margin-bottom: 1rem !important; }
-        .mb-4 { margin-bottom: 1.5rem !important; }
-        .me-3 { margin-right: 1rem !important; }
-
-        @media (max-width: 991px) {
-            .col-lg-6, .col-lg-9 { width: 100% !important; text-align: center !important; }
-            .row { flex-direction: column; gap: 2rem; }
-            .navbar .container { flex-direction: column; gap: 1rem; }
-        }
-
-        .masthead { padding-top: 13rem; padding-bottom: 7rem; background: radial-gradient(circle at top right, #121212 0%, #000000 80%); }
-        .display-4 { font-size: 3.5rem; font-weight: 700; line-height: 1.15; margin: 0; }
-        .lead { font-size: 1.25rem; font-weight: 300; line-height: 1.6; }
-
-        .btn {
-            display: inline-block; font-weight: 700; text-align: center; vertical-align: middle;
-            padding: .85rem 1.75rem; font-size: 1rem; border-radius: 50rem; text-decoration: none;
-            transition: all 0.2s ease-in-out; cursor: pointer; border: 1px solid transparent;
-        }
-        .btn-primary { background: linear-gradient(45deg, #2563eb, #7c3aed); color: #fff; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-outline-light { color: #f8f9fa; border: 1px solid rgba(255,255,255,0.3); }
-        .btn-outline-light:hover { background-color: #f8f9fa; color: #000; }
-        .btn-light { color: #1e1b4b; background-color: #ffffff; }
-        .gap-3 { gap: 1rem; }
-        .d-flex { display: flex !important; }
-        .flex-column { flex-direction: column !important; }
-        @media (min-width: 576px) { .flex-sm-row { flex-direction: row !important; } }
-
-        /* Premium Phone Frame Simulation with CSS Glow Instead of Image */
-        .device-wrapper { width: 100%; max-width: 260px; margin: 0 auto; position: relative; }
-        .screen {
-            border-radius: 40px; border: 6px solid #222; overflow: hidden; aspect-ratio: 9 / 19.5;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            background: linear-gradient(185deg, #111118 0%, #050505 100%);
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .bg-gradient-primary-to-secondary { background: linear-gradient(135deg, #1d4ed8 0%, #6b21a8 100%) !important; }
-        .rounded-circle { border-radius: 50% !important; }
-        footer { background-color: #050505 !important; border-top: 1px solid #111; }
-    </style>
-</head>
-<body id="page-top">
-
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="container justify-content-between align-items-center d-flex">
-            <div class="d-flex align-items-center">
-                <img class="rounded-circle me-3" src="assets/img/logo.JPG" alt="SwiftTech Logo" width="45" height="45" style="object-fit: cover; border: 2px solid rgba(255,255,255,0.2);" />
-                <a class="navbar-brand font-alt" href="#page-top">SwiftTech Mobile</a>
-            </div>
-
-            <div class="d-flex gap-3">
-                <a class="nav-link" href="index.html" style="color: #ffffff !important; font-weight: bold;">Home</a>
-                <a class="nav-link" href="apps.html">Apps</a>
-                <a class="nav-link" href="aboutUs.html">About</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Masthead Hero Layout -->
-    <header class="masthead">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6 text-center text-lg-start">
-                    <h1 class="text-white fw-bold mb-3 display-4 font-alt">Transforming Ideas Into<br><span style="background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Powerful Solutions</span></h1>
-                    <p class="lead fw-normal text-muted mb-4">Discover our latest mobile applications. We strive to provide the best in-app features for an enhanced user experience. With our passion for innovation and dedication to quality, we aim to deliver exceptional value.</p>
-                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
-                        <a href="apps.html" class="btn btn-primary">Explore Our Apps</a>
-                        <a href="aboutUs.html" class="btn btn-outline-light">About Us</a>
-                    </div>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>SwiftTech</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://jsdelivr.net" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link rel="preconnect" href="https://gstatic.com" />
+        <link href="https://googleapis.com" rel="stylesheet" />
+        <link href="https://googleapis.com" rel="stylesheet" />
+        <link href="https://googleapis.com" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+            <div class="container px-5">
+                <a class="navbar-brand fw-bold" href="#page-top">SwiftTech Mobile</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="bi-list"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                        <li class="nav-item"><a class="nav-link me-lg-3" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link me-lg-3" href="apps.html">Apps</a></li>
+                        <li class="nav-item"><a class="nav-link me-lg-3" href="aboutUs.html">About</a></li>
+                    </ul>
                 </div>
-                <div class="col-lg-6 mt-5 mt-lg-0">
-                    <div class="device-wrapper">
-                        <div class="screen">
-                            <!-- TEST MODE: Replaced image asset loop with a premium tech-styled ambient glow structure -->
-                            <div class="text-center p-4">
-                                <i class="bi bi-cpu text-primary mb-2" style="font-size: 2.5rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-                                <div class="font-alt fw-bold text-white small" style="letter-spacing: 1px;">SWIFTTECH</div>
-                                <div class="text-muted" style="font-size: 0.75rem; margin-top: 4px;">Premium Apps</div>
+            </div>
+        </nav>
+        <!-- Mashead header-->
+        <header class="masthead">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <!-- Mashead text and app badges-->
+                        <div class="mb-5 mb-lg-0 text-center text-lg-start">
+                            <h1 class="display-1 lh-1 mb-3">Transforming Ideas Into Powerful Solutions</h1>
+                            <p class="lead fw-normal text-muted mb-5">Discover our latest mobile applications. We strive to provide the best in-app features for an enhanced user experience. With our passion for innovation and dedication to quality, we aim to deliver exceptional value.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- Masthead device mockup feature-->
+                        <div class="masthead-device-mockup">
+                            <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org">
+                                <defs>
+                                    <linearGradient id="circleGradient" gradientTransform="rotate(45)">
+                                        <stop class="gradient-start-color" offset="0%"></stop>
+                                        <stop class="gradient-end-color" offset="100%"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg class="shape-1 d-none d-sm-block" viewBox="0 0 240.83 240.83" xmlns="http://w3.org">
+                                <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
+                                <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect>
+                            </svg>
+                            <svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://w3.org"><circle cx="50" cy="50" r="50"></circle></svg>
+                            <div class="device-wrapper">
+                                <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
+                                    <div class="screen bg-black">
+                                        <!-- Media asset completely removed for baseline speed testing -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <!-- Innovative Technology Overview Section -->
-    <section class="bg-black py-5">
-        <div class="container my-5">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-9">
-                    <h2 class="font-alt text-white display-5 mb-4 fw-bold">Innovative Technology</h2>
-                    <p class="lead fw-normal text-muted mb-0 mx-auto" style="line-height: 1.7;">
-                        "Revolutionary apps that take user experiences to the next level. Featuring cutting-edge tools and highly intuitive interfaces, our catalog provides the perfect companions for your daily needs. Whether you are a beginner or a power user, SwiftTech Mobile builds something exceptional for everyone."
-                    </p>
+        </header>
+        <!-- App features section-->
+        <section id="features">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-12">
+                        <div class="container-fluid px-5 text-center">
+                            <h2 class="display-4 font-alt mb-4">Innovative Technology</h2>
+                            <p class="lead fw-normal text-muted mb-0">"Revolutionary apps that take user experiences to the next level. Featuring cutting-edge tools and highly intuitive interfaces, our catalog provides the perfect companions for your daily needs. Whether you are a beginner or a power user, SwiftTech Mobile builds something exceptional for everyone."</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- App Store Download Action Badge Section -->
-    <section class="py-5 bg-gradient-primary-to-secondary" id="download">
-        <div class="container my-5 text-center text-white">
-            <h2 class="font-alt mb-3 fw-bold display-5">Get the app now!</h2>
-            <p class="text-white-50 mb-4 mx-auto" style="max-width: 550px;">Ready to experience the future of personal workflow mechanics? Tap below to access our full portfolio suite natively.</p>
-            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
-                <a href="apps.html" class="btn btn-light">Explore All Apps</a>
-                <a href="https://apple.com" target="_blank" rel="noopener">
-                    <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem;" loading="lazy" />
-                </a>
+        <!-- Footer-->
+        <footer class="bg-black text-center py-5">
+            <div class="container px-5">
+                <div class="text-white-50 small">
+                    <div class="mb-2">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+                    <a href="policy.html">Privacy Policy</a>
+                    <span class="mx-1">&middot;</span>
+                    <a href="terms.html">Terms and Conditions</a>
+                    <span class="mx-1">&middot;</span>
+                    <a href="FAQ.html">FAQ</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </footer>
 
-    <!-- Footer Block Links Mapping -->
-    <footer class="py-5" style="background-color: #050505; border-top: 1px solid #111;">
-        <div class="container text-center">
-             <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem; font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
-             <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-             <div class="d-flex justify-content-center gap-3">
-                 <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-                 <span class="text-muted">&middot;</span>
-                 <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
-                 <span class="text-muted">&middot;</span>
-                 <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
-             </div>
-        </div>
-    </footer>
-
-    <!-- ✅ PREMIUM PERFORMANCE CHAT SYSTEM (0ms Initial Page Impact) -->
-    <div id="chat-trigger-btn" onclick="activateLiveChat()" style="position: fixed; bottom: 20px; right: 20px; background: linear-gradient(45deg, #2563eb, #7c3aed); color: white; padding: 12px 20px; border-radius: 50px; font-family: 'Kanit', sans-serif; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 99999; display: flex; align-items: center; gap: 8px; transition: transform 0.2s ease-in-out;">
-        <i class="bi bi-chat-text-fill"></i> Live Support
-    </div>
-
-    <script type="text/javascript">
-        function activateLiveChat() {
-            // Instantly remove the manual visual button container to prevent clutter
-            var element = document.getElementById("chat-trigger-btn");
-            if (element) element.remove();
-
-            if (window.tawkLoaded) return;
-            window.tawkLoaded = true;
-
-            // Execute the official cloud widget injection securely
-            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-            (function(){
-                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-                s1.async = true;
-                s1.src = 'https://tawk.to';
-                s1.charset = 'UTF-8';
-                s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1, s0);
-            })();
-        }
-
-        // ONLY automatically triggers if a user actively scrolls down past the header view area
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                activateLiveChat();
-            }
-        }, { passive: true });
-    </script>
-</body>
+        <!-- Bootstrap core JS-->
+        <script src="https://jsdelivr.net"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
