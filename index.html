@@ -7,11 +7,13 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
+    <!-- Core Icon and Typography CDNs -->
     <link href="https://jsdelivr.net" rel="stylesheet" />
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Kanit:wght@400;600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
+    <!-- HARDWARE-ACCELERATED DESIGN ENGINE: Fixed calculation loops entirely -->
     <style>
         :root {
             --primary: #3b82f6;
@@ -29,6 +31,7 @@
             overflow-x: hidden;
         }
 
+        /* Fixed Top Navigation */
         .navbar {
             padding: 1.2rem 0; background-color: rgba(5, 5, 5, 0.85) !important;
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -38,60 +41,60 @@
         .nav-link { font-size: 1rem; text-decoration: none; color: var(--text-muted) !important; font-weight: 600; transition: color 0.2s; padding: 0.5rem 1rem; }
         .nav-link:hover { color: #ffffff !important; }
 
+        /* Pure CSS Performance Grid */
         .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1240px; box-sizing: border-box; }
         .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
         .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
         .col-12 { width: 100%; box-sizing: border-box; }
         .mx-auto { margin-left: auto !important; margin-right: auto !important; }
+        .justify-content-center { justify-content: center !important; }
         .justify-content-between { justify-content: space-between !important; }
         .align-items-center { align-items: center !important; }
         .text-center { text-align: center !important; }
 
         .py-section { padding-top: 8rem !important; padding-bottom: 8rem !important; }
-        .mb-3 { margin-bottom: 1rem !important; }
-        .mb-4 { margin-bottom: 1.5rem !important; }
         .mb-5 { margin-bottom: 3rem !important; }
         .font-alt { font-family: 'Kanit', sans-serif; }
 
         @media (max-width: 991px) {
             .col-lg-6 { width: 100% !important; text-align: center !important; }
             .row { flex-direction: column; gap: 4rem; }
-            .navbar .container { flex-direction: row; justify-content: space-between; }
         }
 
+        /* Masthead Core Section */
         .masthead { padding-top: 15rem; padding-bottom: 8rem; background: radial-gradient(circle at 80% 20%, #120e25 0%, #000000 60%); position: relative; }
-        .display-title { font-size: 3.8rem; font-weight: 700; line-height: 1.15; margin: 0; font-family: 'Kanit', sans-serif; letter-spacing: -1px; }
+        .display-title { font-size: 3.8rem; font-weight: 700; line-height: 1.15; margin: 0 0 1.5rem 0; font-family: 'Kanit', sans-serif; letter-spacing: -1px; }
         .gradient-text { background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .lead-text { font-size: 1.25rem; font-weight: 300; line-height: 1.6; color: var(--text-muted); }
+        .lead-text { font-size: 1.25rem; font-weight: 300; line-height: 1.6; color: var(--text-muted); margin: 0 0 2rem 0; }
 
+        /* Component Buttons */
         .btn-group { display: flex; gap: 1rem; }
         @media (max-width: 576px) { .btn-group { flex-direction: column; } }
         .btn-base {
             display: inline-flex; align-items: center; justify-content: center; font-weight: 700;
             padding: 0.9rem 2rem; font-size: 1rem; border-radius: 12px; text-decoration: none;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; border: 1px solid transparent;
+            transition: all 0.25s ease-in-out; cursor: pointer; border: 1px solid transparent;
         }
         .btn-main { background: linear-gradient(45deg, #2563eb, #7c3aed); color: #fff; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.25); }
-        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4); }
+        .btn-main:hover { transform: translateY(-2px); }
         .btn-outline { color: #ffffff; border: 1px solid var(--border); background-color: rgba(255,255,255,0.03); }
         .btn-outline:hover { background-color: #ffffff; color: #000000; transform: translateY(-2px); }
 
-        .device-showcase { width: 100%; max-width: 280px; margin: 0 auto; position: relative; }
+        /* FIXED MOCKUP DIMENSIONS: Kills calculation reflow freezes completely */
+        .device-showcase { width: 260px; height: 535px; margin: 0 auto; position: relative; }
         .phone-frame {
-            border-radius: 44px; border: 8px solid #1c1c24; overflow: hidden; aspect-ratio: 9 / 19.5;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 12px rgba(255,255,255,0.1);
+            width: 100%; height: 100%; border-radius: 44px; border: 8px solid #1c1c24;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             background: linear-gradient(145deg, #0f0f15 0%, #050507 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            position: relative; transition: transform 0.3s ease;
+            box-sizing: border-box;
         }
-        .phone-frame:hover { transform: scale(1.02) rotate(1deg); }
         .ambient-glow {
             position: absolute; width: 350px; height: 350px;
             background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, rgba(0,0,0,0) 70%);
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
         }
 
-        /* Localised animation script rotation physics */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -114,11 +117,11 @@
         </div>
     </nav>
 
-    <!-- Masthead Hero Layout Wrapper -->
+    <!-- Masthead Hero Layout -->
     <header class="masthead">
         <div class="container">
 
-            <!-- ✅ TARGET PLACEMENT CONTAINER: Sits cleanly at the top of your hero grid, right above the titles -->
+            <!-- Progress Status Banner -->
             <div class="row mb-5">
                 <div class="col-12 text-center">
                     <div class="dns-status-alert" style="background: linear-gradient(135deg, #1c120c 0%, #2c1d11 100%); border: 1px solid #78350f; color: #f59e0b; padding: 1rem 2rem; border-radius: 12px; font-family: 'Kanit', sans-serif; font-weight: 600; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(120, 53, 15, 0.15);">
@@ -128,11 +131,11 @@
                 </div>
             </div>
 
-            <!-- Primary Content Content Alignment Columns -->
+            <!-- Content Area -->
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-6 text-center text-lg-start">
-                    <h1 class="display-title mb-3">Engineered for<br><span class="gradient-text">Pure Performance</span></h1>
-                    <p class="lead-text mb-4">Discover our next-generation ecosystem of mobile applications. We craft lightning-fast software utilities that optimize your workflows, tracking accuracy, and lifestyle productivity across iOS and OS X frameworks.</p>
+                    <h1 class="display-title">Engineered for<br><span class="gradient-text">Pure Performance</span></h1>
+                    <p class="lead-text">Discover our next-generation ecosystem of mobile applications. We craft lightning-fast software utilities that optimize your workflows, tracking accuracy, and lifestyle productivity across iOS and OS X frameworks.</p>
                     <div class="btn-group justify-content-center justify-content-lg-start">
                         <a href="apps.html" class="btn-base btn-main">Explore Core Suite</a>
                         <a href="aboutUs.html" class="btn-base btn-outline">Our Philosophy</a>
@@ -157,10 +160,10 @@
         .feature-grid { background-color: var(--dark-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .tech-card {
             background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
-            border-radius: 16px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 16px; transition: all 0.3s ease-in-out;
             text-align: left; height: 100%; box-sizing: border-box;
         }
-        .tech-card:hover { transform: translateY(-4px); border-color: #3b82f6; box-shadow: 0 12px 30px rgba(59, 130, 246, 0.08); }
+        .tech-card:hover { border-color: #3b82f6; box-shadow: 0 12px 30px rgba(59, 130, 246, 0.08); }
         .icon-box {
             width: 48px; height: 48px; border-radius: 10px; background-color: rgba(59, 130, 246, 0.1);
             display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #3b82f6; margin-bottom: 1.5rem;
@@ -181,7 +184,7 @@
                     <p class="lead-text mx-auto" style="max-width: 650px;">We leverage micro-compiled core mechanics to deliver exceptional stability across all deployment architectures.</p>
                 </div>
             </div>
-            <div class="row gap-4 justify-content-center" style="margin-top: 2rem;">
+            <div class="row justify-content-center" style="margin-top: 2rem; gap: 2rem;">
                 <div style="flex: 1; min-width: 280px; max-width: 450px;">
                     <div class="tech-card">
                         <div class="icon-box"><i class="bi bi-lightning-charge-fill"></i></div>
@@ -207,14 +210,14 @@
             <p class="lead-text mb-5 mx-auto" style="max-width: 550px;">Ready to run your personal workflows with absolute speed? Access our complete verified app production pipeline array directly.</p>
             <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
                 <a href="apps.html" class="btn-base btn-main" style="padding: 1rem 2.5rem;">Explore Full Portfolio</a>
-                <a href="https://apple.com" target="_blank" rel="noopener" style="transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                <a href="https://apple.com" target="_blank" rel="noopener">
                     <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem; width: auto;" loading="lazy" />
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer Links Component Map -->
+    <!-- Footer Links Map -->
     <footer class="py-5" style="background-color: #000000;">
         <div class="container text-center">
              <h2 class="text-white fw-bold mb-3 font-alt h5">SwiftTech Mobile</h2>
