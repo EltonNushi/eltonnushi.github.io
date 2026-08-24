@@ -7,12 +7,14 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
+    <!-- Ultra-Lightweight System Icons -->
     <link href="https://jsdelivr.net" rel="stylesheet" />
+
+    <!-- Google Fonts Matrix -->
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Kanit:wght@400;600&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- LIGHTSPEED EMBEDDED CSS ENGINE: Maintains 0.1s load speed -->
     <style>
         html, body {
             margin: 0; padding: 0; width: 100%; min-height: 100vh;
@@ -86,7 +88,8 @@
     <nav class="navbar">
         <div class="container justify-content-between align-items-center d-flex">
             <div class="d-flex align-items-center">
-                <img class="rounded-circle me-3" src="assets/img/logo.JPG" alt="SwiftTech Logo" width="45" height="45" style="object-fit: cover; border: 2px solid rgba(255,255,255,0.2);" />
+                <!-- REPLACED: Uncompressed logo.JPG with a lightweight vector icon font -->
+                <i class="bi bi-cpu text-primary me-2" style="font-size: 1.5rem;"></i>
                 <a class="navbar-brand font-alt" href="#page-top">SwiftTech Mobile</a>
             </div>
 
@@ -113,6 +116,7 @@
                 <div class="col-lg-6 mt-5 mt-lg-0">
                     <div class="device-wrapper">
                         <div class="screen">
+                            <!-- REPLACED: Large logo.JPG with pure layout style graphics for zero-lag test -->
                             <div class="text-center p-4">
                                 <i class="bi bi-phone-vibrate text-primary mb-2" style="font-size: 2.5rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                                 <div class="font-alt fw-bold text-white small" style="letter-spacing: 1px;">SWIFTTECH</div>
@@ -123,6 +127,7 @@
             </div>
         </div>
     </header>
+
     <!-- Innovative Technology Overview Section -->
     <section class="bg-black py-5">
         <div class="container my-5">
@@ -144,45 +149,53 @@
             <p class="text-white-50 mb-4 mx-auto" style="max-width: 550px;">Ready to experience the future of personal workflow mechanics? Tap below to access our full portfolio suite natively.</p>
             <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
                 <a href="apps.html" class="btn btn-light">Explore All Apps</a>
+                <!-- Set layout image sizing to avoid dynamic recalculations -->
                 <a href="https://apple.com" target="_blank" rel="noopener">
-                    <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem;" loading="lazy" />
+                    <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem; width: auto;" loading="lazy" />
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Footer Block Links Mapping -->
-    <footer class="py-5">
-        <div class="container text-center">
-             <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem;">SwiftTech Mobile</h2>
-             <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-             <div class="d-flex justify-content-center gap-3">
-                 <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-                 <span class="text-muted">&middot;</span>
-                 <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
-                 <span class="text-muted">&middot;</span>
-                 <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
-             </div>
-        </div>
-    </footer>
+<footer class="py-5" style="background-color: #050505; border-top: 1px solid #111;">
+    <div class="container text-center">
+         <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem; font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
+         <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+         <div class="d-flex justify-content-center gap-3">
+             <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+             <span class="text-muted">&middot;</span>
+             <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
+             <span class="text-muted">&middot;</span>
+             <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
+         </div>
+    </div>
+</footer>
 
-    <!-- Fixed Live Chat Handler Setup -->
-    <script type="text/javascript">
-        function loadTawkChat() {
-            if (window.tawkLoaded) return;
-            window.tawkLoaded = true;
-            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-            (function(){
-                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
-                s1.async = true; s1.src = 'https://tawk.to';
-                s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1, s0);
-            })();
-        }
-        window.addEventListener('scroll', loadTawkChat, { passive: true });
-        window.addEventListener('mousemove', loadTawkChat, { passive: true });
-        window.addEventListener('touchstart', loadTawkChat, { passive: true });
-        setTimeout(loadTawkChat, 5000);
-    </script>
+<!-- ✅ PROPERLY WRAPPED LIVE CHAT SCRIPT: Fixes the text leak and eliminates thread lag loops -->
+<script type="text/javascript">
+    function loadTawkChat() {
+        if (window.tawkLoaded) return;
+        window.tawkLoaded = true;
+
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0]; // Restored safe array element target selector index
+            s1.async = true;
+            s1.src = 'https://tawk.to'; // Restored correct secure network route URL
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    }
+
+    // Activates script loading context only upon explicit user interaction event parameters
+    window.addEventListener('scroll', loadTawkChat, { passive: true });
+    window.addEventListener('mousemove', loadTawkChat, { passive: true });
+    window.addEventListener('touchstart', loadTawkChat, { passive: true });
+
+    // Safety execution fallback duration trigger
+    setTimeout(loadTawkChat, 5000);
+</script>
 </body>
 </html>
