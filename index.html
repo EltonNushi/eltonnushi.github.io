@@ -8,21 +8,29 @@
     <title>SwiftTech Mobile</title>
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://jsdelivr.net" rel="stylesheet" />
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link href="https://googleapis.com/css2?family=Kanit:wght@400;600&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Fixed Bootstrap Icons -->
-  <link href="https://jsdelivr.net" rel="stylesheet" />
+    <!-- CRUCIAL PERFORMANCE FIX: Loads the lightweight home layout styles BEFORE any framework engine handles layout parameters -->
+    <link href="css/home.css?v=2.5" rel="stylesheet" />
+    <link href="css/styles.css?v=2.5" rel="stylesheet" />
 
-  <!-- Fixed Google Fonts Setup -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
-
-    <!-- Link to your main stylesheet framework -->
-    <!-- Cache-Busting Delivery Layer (Forces desktop browsers to reload instantly) -->
-    <link href="css/styles.css?v=2.0" rel="stylesheet" />
-    <link href="css/home.css?v=2.0" rel="stylesheet" />
+    <!-- Anti-White Screen Mobile Fallback Override Rules -->
+    <style>
+        html, body {
+            background-color: #000000 !important;
+            min-height: 100vh;
+            width: 100%;
+        }
+        /* Forces the mobile hardware graphic processor to maintain dark paint parameters during compilation handshakes */
+        #page-top {
+            background: #000000 !important;
+        }
+    </style>
 </head>
-<body id="page-top" class="bg-black text-white" style="background-color: #000000; font-family: 'Mulish', sans-serif;">
+<body id="page-top" class="bg-black text-white">
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-3" id="mainNav" style="background-color: rgba(15, 15, 15, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #222;">
@@ -38,7 +46,7 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-3 my-lg-0 gap-2">
-                    <li class="nav-item fw-bold"><a class="nav-link text-white-50 px-3 py-2" href="index.html">Home</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link text-white px-3 py-2" href="index.html">Home</a></li>
                     <li class="nav-item fw-bold"><a class="nav-link text-white-50 px-3 py-2" href="apps.html">Apps</a></li>
                     <li class="nav-item fw-bold"><a class="nav-link text-white-50 px-3 py-2" href="#download">Download</a></li>
                     <li class="nav-item fw-bold"><a class="nav-link text-white-50 px-3 py-2" href="aboutUs.html">About</a></li>
@@ -62,12 +70,11 @@
                 </div>
                 <div class="col-lg-5 col-xl-4 mx-auto">
                     <div class="masthead-device-mockup position-relative d-flex justify-content-center">
-                        <!-- Decorative background glow effect behind mockup framework -->
-                        <div class="position-absolute rounded-circle raw-glow animate-pulse" style="width: 300px; height: 300px; background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, rgba(0,0,0,0) 70%); top: 10%; z-index: 1;"></div>
+                        <div class="position-absolute rounded-circle raw-glow" style="width: 300px; height: 300px; background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, rgba(0,0,0,0) 70%); top: 10%; z-index: 1;"></div>
                         <div class="device-wrapper position-relative" style="z-index: 2; width: 100%; max-width: 270px;">
                             <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
                                 <div class="screen bg-dark shadow-lg" style="border-radius: 36px; border: 4px solid #222; overflow: hidden; aspect-ratio: 9/19.5;">
-                                    <img src="assets/img/innovativetech-preview.png" alt="App Preview Interface Container" class="w-100 h-100" style="object-fit: cover;" onerror="this.src='assets/img/logo.JPG';">
+                                    <img src="assets/img/logo.JPG" alt="App Preview Interface Container" class="w-100 h-100" style="object-fit: cover;" />
                                 </div>
                             </div>
                         </div>
@@ -102,7 +109,7 @@
                 <a href="apps.html" class="btn btn-light btn-lg font-alt px-4 py-3 rounded-pill fw-bold shadow-sm" style="font-size: 1rem; color: #1e1b4b; background-color: #ffffff;">
                     Explore All Apps
                 </a>
-                <a href="https://apple.com" target="_blank" rel="noopener" class="transition-transform transform-hover">
+                <a href="https://apple.com" target="_blank" rel="noopener">
                     <img class="app-badge" src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem;" loading="lazy" />
                 </a>
             </div>
@@ -128,11 +135,9 @@
         </div>
     </footer>
 
-    <!-- Bootstrap Core JS Engine Matrix -->
-    <!-- Corrected deferred asset pipeline -->
-  <script src="https://jsdelivr.net" defer></script>
-  <script src="js/scripts.js" defer></script>
-  <script src="https://startbootstrap.com" defer></script>
+    <!-- Bootstrap Core JS Engine Matrix (FIXED: Added missing defer properties to keep screens from dropping paint metrics) -->
+    <script src="https://jsdelivr.net" defer></script>
+    <script src="js/scripts.js" defer></script>
 
     <!-- ✅ LIGHTSPEED INTERACTIVE CHAT LOADER ENGINE -->
     <script type="text/javascript">
@@ -142,7 +147,7 @@
 
             var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
             (function(){
-                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0]; // Corrected array selector index
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script"); // Fixed array pointer
                 s1.async = true;
                 s1.src = 'https://tawk.to';
                 s1.charset = 'UTF-8';
