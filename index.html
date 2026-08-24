@@ -7,33 +7,33 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
-    <!-- Core Icon and Typography CDNs -->
+    <!-- Essential Layout Vector Icons -->
     <link href="https://jsdelivr.net" rel="stylesheet" />
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
-    <link href="https://googleapis.com/css2?family=Kanit:wght@400;600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://googleapis.com/css2?family=Kanit:wght@600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- HARDWARE-ACCELERATED DESIGN ENGINE: Fixed calculation loops entirely -->
+    <!-- LIGHTSPEED EMBEDDED CSS FRAMEWORK: Instant rendering, zero external dependencies -->
     <style>
         :root {
             --primary: #3b82f6;
-            --secondary: #a855f7;
-            --dark-bg: #050505;
-            --card-bg: #0f0f15;
-            --border: #222230;
+            --secondary: #7c3aed;
+            --dark-bg: #000000;
+            --card-bg: #0b0b12;
+            --border: #1e1e2f;
             --text-muted: #8b949e;
         }
 
         html, body {
             margin: 0; padding: 0; width: 100%; min-height: 100vh;
-            background-color: #000000 !important; color: #ffffff;
+            background-color: var(--dark-bg) !important; color: #ffffff;
             font-family: 'Mulish', sans-serif; scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
-        /* Fixed Top Navigation */
+        /* Responsive Top Navigation */
         .navbar {
-            padding: 1.2rem 0; background-color: rgba(5, 5, 5, 0.85) !important;
+            padding: 1.2rem 0; background-color: rgba(0, 0, 0, 0.85) !important;
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border); position: fixed; top: 0; width: 100%; z-index: 1000;
         }
@@ -41,63 +41,59 @@
         .nav-link { font-size: 1rem; text-decoration: none; color: var(--text-muted) !important; font-weight: 600; transition: color 0.2s; padding: 0.5rem 1rem; }
         .nav-link:hover { color: #ffffff !important; }
 
-        /* Pure CSS Performance Grid */
-        .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1240px; box-sizing: border-box; }
+        /* Performance Grid Architecture */
+        .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
         .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
         .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
         .col-12 { width: 100%; box-sizing: border-box; }
         .mx-auto { margin-left: auto !important; margin-right: auto !important; }
-        .justify-content-center { justify-content: center !important; }
         .justify-content-between { justify-content: space-between !important; }
         .align-items-center { align-items: center !important; }
         .text-center { text-align: center !important; }
 
         .py-section { padding-top: 8rem !important; padding-bottom: 8rem !important; }
-        .mb-5 { margin-bottom: 3rem !important; }
+        .mb-3 { margin-bottom: 1rem !important; }
+        .mb-4 { margin-bottom: 1.5rem !important; }
         .font-alt { font-family: 'Kanit', sans-serif; }
 
         @media (max-width: 991px) {
             .col-lg-6 { width: 100% !important; text-align: center !important; }
             .row { flex-direction: column; gap: 4rem; }
+            .navbar .container { flex-direction: row; justify-content: space-between; }
         }
 
-        /* Masthead Core Section */
-        .masthead { padding-top: 15rem; padding-bottom: 8rem; background: radial-gradient(circle at 80% 20%, #120e25 0%, #000000 60%); position: relative; }
-        .display-title { font-size: 3.8rem; font-weight: 700; line-height: 1.15; margin: 0 0 1.5rem 0; font-family: 'Kanit', sans-serif; letter-spacing: -1px; }
+        /* Hero Layout Setup */
+        .masthead { padding-top: 14rem; padding-bottom: 8rem; background: radial-gradient(circle at 80% 20%, #100d22 0%, #000000 65%); position: relative; }
+        .display-title { font-size: 3.5rem; font-weight: 700; line-height: 1.15; margin: 0 0 1.5rem 0; font-family: 'Kanit', sans-serif; letter-spacing: -1px; }
         .gradient-text { background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .lead-text { font-size: 1.25rem; font-weight: 300; line-height: 1.6; color: var(--text-muted); margin: 0 0 2rem 0; }
+        .lead-text { font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: var(--text-muted); margin: 0 0 2rem 0; }
 
-        /* Component Buttons */
+        /* Premium Interface Buttons */
         .btn-group { display: flex; gap: 1rem; }
         @media (max-width: 576px) { .btn-group { flex-direction: column; } }
         .btn-base {
             display: inline-flex; align-items: center; justify-content: center; font-weight: 700;
             padding: 0.9rem 2rem; font-size: 1rem; border-radius: 12px; text-decoration: none;
-            transition: all 0.25s ease-in-out; cursor: pointer; border: 1px solid transparent;
+            transition: all 0.2s ease-in-out; cursor: pointer; border: 1px solid transparent;
         }
-        .btn-main { background: linear-gradient(45deg, #2563eb, #7c3aed); color: #fff; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.25); }
+        .btn-main { background: linear-gradient(45deg, #2563eb, #7c3aed); color: #fff; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2); }
         .btn-main:hover { transform: translateY(-2px); }
-        .btn-outline { color: #ffffff; border: 1px solid var(--border); background-color: rgba(255,255,255,0.03); }
+        .btn-outline { color: #ffffff; border: 1px solid var(--border); background-color: rgba(255,255,255,0.02); }
         .btn-outline:hover { background-color: #ffffff; color: #000000; transform: translateY(-2px); }
 
-        /* FIXED MOCKUP DIMENSIONS: Kills calculation reflow freezes completely */
-        .device-showcase { width: 260px; height: 535px; margin: 0 auto; position: relative; }
-        .phone-frame {
-            width: 100%; height: 100%; border-radius: 44px; border: 8px solid #1c1c24;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            background: linear-gradient(145deg, #0f0f15 0%, #050507 100%);
+        /* CSS Hardware-Accelerated App Showcase Frame (Zero Image Lag) */
+        .showcase-wrapper { width: 250px; height: 510px; margin: 0 auto; position: relative; }
+        .app-frame {
+            width: 100%; height: 100%; border-radius: 40px; border: 6px solid #1f1f2a;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+            background: linear-gradient(145deg, #0d0d15 0%, #030305 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-sizing: border-box;
+            box-sizing: border-box; position: relative;
         }
-        .ambient-glow {
-            position: absolute; width: 350px; height: 350px;
-            background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, rgba(0,0,0,0) 70%);
+        .glow-effect {
+            position: absolute; width: 320px; height: 350px;
+            background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, rgba(0,0,0,0) 70%);
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -110,7 +106,7 @@
                 <i class="bi bi-terminal-box text-primary"></i> SwiftTech Mobile
             </a>
             <div class="d-flex gap-2">
-                <a class="nav-link" href="index.html" style="color: #ffffff !important;">Home</a>
+                <a class="nav-link" href="index.html" style="color: #ffffff !important; font-weight: bold;">Home</a>
                 <a class="nav-link" href="apps.html">Apps</a>
                 <a class="nav-link" href="aboutUs.html">About</a>
             </div>
@@ -120,96 +116,83 @@
     <!-- Masthead Hero Layout -->
     <header class="masthead">
         <div class="container">
-
-            <!-- Progress Status Banner -->
-            <div class="row mb-5">
-                <div class="col-12 text-center">
-                    <div class="dns-status-alert" style="background: linear-gradient(135deg, #1c120c 0%, #2c1d11 100%); border: 1px solid #78350f; color: #f59e0b; padding: 1rem 2rem; border-radius: 12px; font-family: 'Kanit', sans-serif; font-weight: 600; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(120, 53, 15, 0.15);">
-                        <i class="bi bi-arrow-repeat" style="font-size: 1.3rem; display: inline-block; animation: spin 2s linear infinite;"></i>
-                        <span>DNS Check in Progress...</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content Area -->
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-6 text-center text-lg-start">
                     <h1 class="display-title">Engineered for<br><span class="gradient-text">Pure Performance</span></h1>
-                    <p class="lead-text">Discover our next-generation ecosystem of mobile applications. We craft lightning-fast software utilities that optimize your workflows, tracking accuracy, and lifestyle productivity across iOS and OS X frameworks.</p>
+                    <p class="lead-text">Discover our next-generation suite of mobile utilities. We craft premium, ultra-fast applications designed to optimize your workflows, administrative logging accuracy, and tracking ecosystems natively across iOS and macOS frameworks.</p>
                     <div class="btn-group justify-content-center justify-content-lg-start">
-                        <a href="apps.html" class="btn-base btn-main">Explore Core Suite</a>
+                        <a href="apps.html" class="btn-base btn-main">Explore Our Apps</a>
                         <a href="aboutUs.html" class="btn-base btn-outline">Our Philosophy</a>
                     </div>
                 </div>
                 <div class="col-lg-6 mt-5 mt-lg-0 position-relative">
-                    <div class="ambient-glow"></div>
-                    <div class="device-showcase">
-                        <div class="phone-frame">
-                            <i class="bi bi-layers-half mb-3" style="font-size: 3rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-                            <div class="font-alt fw-bold text-white mb-1" style="letter-spacing: 2px; font-size: 0.95rem;">SWIFTTECH</div>
-                            <div class="text-muted small" style="font-size: 0.75rem;">Premium Application Suite</div>
+                    <div class="glow-effect"></div>
+                    <div class="showcase-wrapper">
+                        <div class="app-frame">
+                            <i class="bi bi-cpu-fill mb-3" style="font-size: 3rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                            <div class="font-alt fw-bold text-white mb-1" style="letter-spacing: 2px; font-size: 0.9rem;">SWIFTTECH</div>
+                            <div class="text-muted small" style="font-size: 0.7rem; text-transform: uppercase;">Application Engine</div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </header>
-    <!-- Redesigned Grid Feature Blocks -->
+    <!-- Core Feature Highlights -->
     <style>
-        .feature-grid { background-color: var(--dark-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .features-wrap { background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .tech-card {
             background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
-            border-radius: 16px; transition: all 0.3s ease-in-out;
+            border-radius: 16px; transition: border-color 0.2s ease-in-out;
             text-align: left; height: 100%; box-sizing: border-box;
         }
-        .tech-card:hover { border-color: #3b82f6; box-shadow: 0 12px 30px rgba(59, 130, 246, 0.08); }
-        .icon-box {
-            width: 48px; height: 48px; border-radius: 10px; background-color: rgba(59, 130, 246, 0.1);
-            display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #3b82f6; margin-bottom: 1.5rem;
+        .tech-card:hover { border-color: var(--primary); }
+        .card-icon {
+            width: 44px; height: 44px; border-radius: 8px; background-color: rgba(59, 130, 246, 0.1);
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #3b82f6; margin-bottom: 1.5rem;
         }
-        .icon-box.purple { background-color: rgba(168, 85, 247, 0.1); color: #a855f7; }
-        .card-title { font-size: 1.4rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
+        .card-icon.purple { background-color: rgba(168, 85, 247, 0.1); color: #a855f7; }
+        .card-title { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
         .card-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin: 0; }
-        .download-box { background: linear-gradient(135deg, #11111b 0%, #07070a 100%); border-bottom: 1px solid var(--border); }
-        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.95rem; }
+        .download-cta { background: linear-gradient(135deg, #0d0d15 0%, #030305 100%); border-bottom: 1px solid var(--border); }
+        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.9rem; }
         footer a:hover { color: #ffffff; text-decoration: underline; }
     </style>
 
-    <section class="feature-grid py-section">
+    <section class="features-wrap py-section">
         <div class="container">
             <div class="row text-center mb-5 justify-content-center">
                 <div class="col-12">
-                    <h2 class="font-alt text-white display-5 mb-3 fw-bold">Built for Reliability</h2>
-                    <p class="lead-text mx-auto" style="max-width: 650px;">We leverage micro-compiled core mechanics to deliver exceptional stability across all deployment architectures.</p>
+                    <h2 class="font-alt text-white display-5 mb-3 fw-bold">Built for Absolute Speed</h2>
+                    <p class="lead-text mx-auto" style="max-width: 650px;">We eliminate execution clutter to design clean software environments that focus entirely on user experience and productivity.</p>
                 </div>
             </div>
-            <div class="row justify-content-center" style="margin-top: 2rem; gap: 2rem;">
-                <div style="flex: 1; min-width: 280px; max-width: 450px;">
+            <div class="row justify-content-center" style="gap: 2rem; margin-top: 2rem;">
+                <div style="flex: 1; min-width: 280px; max-width: 440px;">
                     <div class="tech-card">
-                        <div class="icon-box"><i class="bi bi-lightning-charge-fill"></i></div>
+                        <div class="card-icon"><i class="bi bi-lightning-charge-fill"></i></div>
                         <h3 class="font-alt card-title">High System Agility</h3>
-                        <p class="card-text">Every application is stripped of rendering overhead to ensure battery efficiency, lightweight footprints, and optimal runtime responsive performance scaling layout behaviors.</p>
+                        <p class="card-text">Every tool in our catalog is engineered with a ultra-low memory footprint to guarantee flawless, rapid responsiveness across legacy and modern mobile screens.</p>
                     </div>
                 </div>
-                <div style="flex: 1; min-width: 280px; max-width: 450px;">
+                <div style="flex: 1; min-width: 280px; max-width: 440px;">
                     <div class="tech-card">
-                        <div class="icon-box purple"><i class="bi bi-shield-lock-fill"></i></div>
-                        <h3 class="font-alt card-title">Accounting-Grade Precision</h3>
-                        <p class="card-text">Whether managing interactive restaurant guest workflows, invoice archives, or ledger counts, data metrics lock perfectly to secure local storage profiles.</p>
+                        <div class="card-icon purple"><i class="bi bi-shield-lock-fill"></i></div>
+                        <h3 class="font-alt card-title">Accounting-Grade Data</h3>
+                        <p class="card-text">From floor plan blueprints and variable scheduling logs to invoice archives, your historical information values lock down securely with micro-precision.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- App Store Action Badge Download Section -->
-    <section class="download-box py-section" id="download">
+    <!-- Global App Store Action Callout -->
+    <section class="download-cta py-section" id="download">
         <div class="container text-center">
             <h2 class="font-alt mb-3 fw-bold display-5">Get the App Now</h2>
-            <p class="lead-text mb-5 mx-auto" style="max-width: 550px;">Ready to run your personal workflows with absolute speed? Access our complete verified app production pipeline array directly.</p>
+            <p class="lead-text mb-5 mx-auto" style="max-width: 550px;">Ready to elevate your operational workflow efficiency? Explore our entire ecosystem directly on the App Store.</p>
             <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
-                <a href="apps.html" class="btn-base btn-main" style="padding: 1rem 2.5rem;">Explore Full Portfolio</a>
+                <a href="apps.html" class="btn-base btn-main" style="padding: 1rem 2.5rem;">View Full Portfolio</a>
                 <a href="https://apple.com" target="_blank" rel="noopener">
                     <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem; width: auto;" loading="lazy" />
                 </a>
@@ -217,22 +200,22 @@
         </div>
     </section>
 
-    <!-- Footer Links Map -->
+    <!-- Clean Minimal Footer Structure -->
     <footer class="py-5" style="background-color: #000000;">
         <div class="container text-center">
              <h2 class="text-white fw-bold mb-3 font-alt h5">SwiftTech Mobile</h2>
              <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
              <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
                  <a href="policy.html">Privacy Policy</a>
-                 <span style="color: #222;">&middot;</span>
+                 <span style="color: #1a1a24;">&middot;</span>
                  <a href="terms.html">Terms</a>
-                 <span style="color: #222;">&middot;</span>
+                 <span style="color: #1a1a24;">&middot;</span>
                  <a href="FAQ.html">FAQ</a>
              </div>
         </div>
     </footer>
 
-    <!-- Fixed Live Chat Handler Setup -->
+    <!-- ✅ PASSIVE CHAT WIDGET LOADER: Guaranteed 0ms initial block profile -->
     <script type="text/javascript">
         function loadTawkChat() {
             if (window.tawkLoaded) return;
