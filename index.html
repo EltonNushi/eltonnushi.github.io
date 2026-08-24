@@ -7,16 +7,18 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
-    <!-- Keeping your exact tab icon asset path -->
+    <!-- Tab Icon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <!-- Clean, verified framework vectors -->
+    <!-- Vector Icons -->
     <link href="https://jsdelivr.net" rel="stylesheet" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Kanit:wght@400;600&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- EMBEDDED LIGHTSPEED ENGINE: Rebuilds premium desktop layout alignments instantly -->
+    <!-- Standalone Ultra-Light Design Matrix -->
     <style>
         html, body {
             margin: 0; padding: 0; width: 100%; min-height: 100vh;
@@ -38,7 +40,7 @@
         .nav-link { font-size: 1.1rem; text-decoration: none; color: rgba(255,255,255,0.7) !important; transition: color 0.2s; }
         .nav-link:hover { color: #ffffff !important; }
 
-        /* Robust Flexbox Grid Alignment Engine (Fixes the ugly layout flat stacking) */
+        /* Robust Flexbox Grid Alignment Engine */
         .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
         .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
         .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
@@ -163,45 +165,45 @@
         </div>
     </section>
 
-          <!-- Footer Area Structure -->
-          <footer class="py-5" style="background-color: #050505; border-top: 1px solid #111;">
-              <div class="container text-center">
-                   <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem; font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
-                   <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-                   <div class="d-flex justify-content-center gap-3">
-                       <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-                       <span class="text-muted">&middot;</span>
-                       <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
-                       <span class="text-muted">&middot;</span>
-                       <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
-                   </div>
-              </div>
-          </footer>
+    <!-- Footer Block Links Mapping (CLEAN FIXED VERSION) -->
+  <footer class="py-5" style="background-color: #050505; border-top: 1px solid #111;">
+      <div class="container text-center">
+           <h2 class="text-white fw-bold mb-3 font-alt" style="font-size: 1.25rem; font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
+           <div class="text-white-50 small mb-3">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+           <div class="d-flex justify-content-center gap-3">
+               <a href="policy.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+               <span class="text-muted">&middot;</span>
+               <a href="terms.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">Terms</a>
+               <span class="text-muted">&middot;</span>
+               <a href="FAQ.html" class="text-muted nav-link" style="font-size: 0.9rem; text-decoration: none; margin: 0 10px;">FAQ</a>
+           </div>
+      </div>
+  </footer>
 
-          <!-- ✅ FIXED AND WRAPPED CHAT SCRIPT ENGINE (Hides the text leak entirely) -->
-          <script type="text/javascript">
-              function loadTawkChat() {
-                  if (window.tawkLoaded) return;
-                  window.tawkLoaded = true;
+  <!-- ✅ TAWK.TO LIVE INTERACTIVE CHAT ENGINE LAZY-LOADER -->
+  <script type="text/javascript">
+      function loadTawkChat() {
+          if (window.tawkLoaded) return;
+          window.tawkLoaded = true;
 
-                  var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-                  (function(){
-                      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0]; // FIXED: Added missing index pointer [0]
-                      s1.async = true;
-                      s1.src = 'https://tawk.to'; // FIXED: Restored full secure live connection path
-                      s1.charset = 'UTF-8';
-                      s1.setAttribute('crossorigin','*');
-                      s0.parentNode.insertBefore(s1, s0);
-                  })();
-              }
+          var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+          (function(){
+              var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
+              s1.async = true;
+              s1.src = 'https://tawk.to'; // Fixed path
+              s1.charset = 'UTF-8';
+              s1.setAttribute('crossorigin','*');
+              s0.parentNode.insertBefore(s1, s0);
+          })();
+      }
 
-              // Lazy loads chat components on user interaction to keep desktop performance ultra-fast
-              window.addEventListener('scroll', loadTawkChat, { passive: true });
-              window.addEventListener('mousemove', loadTawkChat, { passive: true });
-              window.addEventListener('touchstart', loadTawkChat, { passive: true });
+      // Activates thread handshakes on initial mobile/desktop user interaction vectors
+      window.addEventListener('scroll', loadTawkChat, { passive: true });
+      window.addEventListener('mousemove', loadTawkChat, { passive: true });
+      window.addEventListener('touchstart', loadTawkChat, { passive: true });
 
-              // Fallback safety trigger
-              setTimeout(loadTawkChat, 5000);
-          </script>
-      </body>
-      </html>
+      // Safety Fallback trigger configuration path
+      setTimeout(loadTawkChat, 5000);
+  </script>
+</body>
+</html>
