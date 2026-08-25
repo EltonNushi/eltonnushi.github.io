@@ -3,16 +3,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Discover our latest mobile applications at SwiftTech Mobile." />
+    <meta name="description" content="Discover premium mobile application ecosystems built for operational precision at SwiftTech Mobile." />
     <meta name="author" content="SwiftTech Mobile" />
-    <title>SwiftTech Mobile</title>
+    <title>SwiftTech Mobile - Premium Application Suite</title>
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://jsdelivr.net" rel="stylesheet" />
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
-    <link href="https://googleapis.com/css2?family=Kanit:wght@600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://googleapis.com/css2?family=Kanit:wght@500;600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- LIGHTSPEED CORE ENGINE: 0ms External CSS Asset Dependencies -->
+    <!-- PREMIUM COMMERCIAL LAYOUT MATRIX -->
     <style>
         :root {
             --primary: #3b82f6;
@@ -30,7 +31,7 @@
             overflow-x: hidden;
         }
 
-        /* Responsive Top Navigation */
+        /* Fixed Navigation */
         .navbar {
             padding: 1.2rem 0; background-color: rgba(0, 0, 0, 0.85) !important;
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -40,7 +41,7 @@
         .nav-link { font-size: 1rem; text-decoration: none; color: var(--text-muted) !important; font-weight: 600; transition: color 0.2s; padding: 0.5rem 1rem; }
         .nav-link:hover { color: #ffffff !important; }
 
-        /* Performance Grid Architecture */
+        /* Performance Grid System */
         .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
         .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
         .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
@@ -59,16 +60,15 @@
             .col-lg-6 { width: 100% !important; text-align: center !important; }
             .row { flex-direction: column; gap: 4rem; }
             .navbar .container { flex-direction: row; justify-content: space-between; }
-            .nav-menu { display: none !important; }
         }
 
-        /* Hero Layout Setup */
-        .masthead { padding-top: 14rem; padding-bottom: 8rem; background: radial-gradient(circle at 80% 20%, #100d22 0%, #000000 65%); position: relative; }
+        /* Hero Header Space */
+        .masthead { padding-top: 14rem; padding-bottom: 8rem; background: radial-gradient(circle at 80% 20%, #120e2e 0%, #000000 70%); position: relative; }
         .display-title { font-size: 3.5rem; font-weight: 700; line-height: 1.15; margin: 0 0 1.5rem 0; font-family: 'Kanit', sans-serif; letter-spacing: -1px; }
         .gradient-text { background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .lead-text { font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: var(--text-muted); margin: 0 0 2rem 0; }
 
-        /* Premium Interface Buttons */
+        /* Action Buttons */
         .btn-group { display: flex; gap: 1rem; }
         @media (max-width: 576px) { .btn-group { flex-direction: column; } }
         .btn-base {
@@ -81,35 +81,51 @@
         .btn-outline { color: #ffffff; border: 1px solid var(--border); background-color: rgba(255,255,255,0.02); }
         .btn-outline:hover { background-color: #ffffff; color: #000000; transform: translateY(-2px); }
 
-        /* CSS App Showcase Frame (Zero Image Lag) */
-        .showcase-wrapper { width: 250px; height: 510px; margin: 0 auto; position: relative; }
-        .app-frame {
-            width: 100%; height: 100%; border-radius: 40px; border: 6px solid #1f1f2a;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
-            background: linear-gradient(145deg, #0d0d15 0%, #030305 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-sizing: border-box; position: relative;
-        }
-        .glow-effect {
-            position: absolute; width: 320px; height: 350px;
-            background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, rgba(0,0,0,0) 70%);
-            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
+        /* 📱 HIGH-SPEC IPHONE 16 PRO SPECIFICATION CHASSIS */
+        .showcase-wrapper { width: 260px; height: 530px; margin: 0 auto; position: relative; }
+        .iphone-16-pro {
+            width: 100%; height: 100%; border-radius: 46px;
+            border: 4px solid #3a3940;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 0 4px #1c1b21;
+            background: #000000; display: flex; flex-direction: column;
+            box-sizing: border-box; position: relative; overflow: hidden;
         }
 
-        .features-wrap { background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .tech-card {
-            background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
-            border-radius: 16px; transition: border-color 0.2s ease-in-out;
-            text-align: left; height: 100%; box-sizing: border-box;
+        .phone-screen {
+            flex-grow: 1; width: 100%; padding: 1.5rem; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: space-between;
+            background: radial-gradient(circle at bottom, #110e20 0%, #050508 100%);
+            position: relative;
         }
-        .tech-card:hover { border-color: var(--primary); }
-        .card-icon { font-size: 1.5rem; color: #3b82f6; margin-bottom: 1.5rem; }
-        .card-icon.purple { color: #a855f7; }
-        .card-title { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
-        .card-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin: 0; }
-        .download-cta { background: linear-gradient(135deg, #0d0d15 0%, #030305 100%); border-bottom: 1px solid var(--border); }
-        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.9rem; }
-        footer a:hover { color: #ffffff; text-decoration: underline; }
+
+        .dynamic-island {
+            width: 85px; height: 22px; background-color: #000000;
+            border-radius: 20px; position: absolute; top: 10px; left: 50%;
+            transform: translateX(-50%); z-index: 10;
+        }
+
+        /* UI APP ROW CONTAINER FIX: Prevents text stacking, overlap, or flat leaking */
+        .screen-nav-stack {
+            display: flex; flex-direction: column; gap: 12px; width: 100%; margin: auto 0;
+        }
+
+        .screen-nav-pill {
+            background-color: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px;
+            text-decoration: none; text-align: left; box-sizing: border-box; width: 100%;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .screen-nav-pill:hover { background-color: rgba(255,255,255,0.09); transform: scale(1.02); }
+
+        .app-text-wrapper {
+            display: flex; flex-direction: column; justify-content: center;
+        }
+
+        .glow-effect {
+            position: absolute; width: 340px; height: 350px;
+            background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(0,0,0,0) 70%);
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
+        }
     </style>
 </head>
 <body id="page-top">
@@ -117,8 +133,10 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="container justify-content-between align-items-center d-flex">
-            <a class="navbar-brand" href="#page-top">SwiftTech Mobile</a>
-            <div class="nav-menu d-flex gap-2">
+            <a class="navbar-brand" href="#page-top">
+                <i class="bi bi-terminal-box text-primary"></i> SwiftTech Mobile
+            </a>
+            <div class="d-flex gap-2">
                 <a class="nav-link" href="index.html" style="color: #ffffff !important;">Home</a>
                 <a class="nav-link" href="apps.html">Apps</a>
                 <a class="nav-link" href="aboutUs.html">About</a>
@@ -141,116 +159,155 @@
                 <div class="col-lg-6 mt-5 mt-lg-0 position-relative">
                     <div class="glow-effect"></div>
                     <div class="showcase-wrapper">
-                        <div class="app-frame">
-                            <div class="font-alt fw-bold text-white mb-1" style="letter-spacing: 2px; font-size: 1.1rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SWIFTTECH</div>
-                            <div class="text-muted small" style="font-size: 0.7rem; text-transform: uppercase; margin-top: 4px;">Application Suite</div>
+                        <div class="iphone-16-pro">
+                            <div class="dynamic-island"></div>
+                            <div class="phone-screen">
+
+                                <!-- Top Bar -->
+                                <div class="d-flex justify-content-between text-white-50 mt-1" style="font-size: 0.65rem; font-weight: bold; width: 100%;">
+                                    <span>9:41</span>
+                                    <div class="d-flex gap-1">
+                                        <i class="bi bi-wifi"></i>
+                                        <i class="bi bi-battery-full"></i>
+                                    </div>
+                                </div>
+
+                                <!-- UI App Row Stack Wrapper -->
+                                <div class="screen-nav-stack">
+                                    <div class="text-white-50 text-uppercase fw-bold mb-1" style="font-size: 0.55rem; letter-spacing: 1px; padding-left: 2px;">Live Ecosystem</div>
+
+                                    <!-- 1. SmartStudy -->
+                                    <a href="apps.html" class="screen-nav-pill">
+                                        <div style="background: rgba(59,130,246,0.15); color: #3b82f6; width: 28px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;"><i class="bi bi-lightning-fill"></i></div>
+                                        <div class="app-text-wrapper">
+                                            <div style="font-size: 0.75rem; font-weight: bold; color: white; line-height: 1.2;">SmartStudy</div>
+                                            <span style="font-size: 0.55rem; color: #8b949e; line-height: 1.1;">Exam Prep</span>
+                                        </div>
+                                    </a>
+
+                                    <!-- 2. ServeSmart -->
+                                    <a href="apps.html" class="screen-nav-pill">
+                                        <div style="background: rgba(168,85,247,0.15); color: #a855f7; width: 28px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;"><i class="bi bi-folder-fill"></i></div>
+                                        <div class="app-text-wrapper">
+                                            <div style="font-size: 0.75rem; font-weight: bold; color: white; line-height: 1.2;">ServeSmart</div>
+                                            <span style="font-size: 0.55rem; color: #8b949e; line-height: 1.1;">Invoice Vault</span>
+                                        </div>
+                                    </a>
+
+                                    <!-- 3. StockKeeper -->
+                                    <a href="apps.html" class="screen-nav-pill">
+                                        <div style="background: rgba(16,185,129,0.15); color: #10b981; width: 28px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;"><i class="bi bi-graph-up-arrow"></i></div>
+                                        <div class="app-text-wrapper">
+                                            <div style="font-size: 0.75rem; font-weight: bold; color: white; line-height: 1.2;">StockKeeper</div>
+                                            <span style="font-size: 0.55rem; color: #8b949e; line-height: 1.1;">Inventory</span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- Screen Indicator Footer Bar -->
+                                <div class="w-100 text-center" style="margin-bottom: 5px;">
+                                    <div style="height: 3px; width: 80px; background-color: rgba(255,255,255,0.3); border-radius: 10px; margin: 0 auto; display: inline-block;"></div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    <!-- Core Feature Highlights -->
-    <section class="features-wrap py-section">
-        <div class="container">
-            <div class="row text-center mb-5 justify-content-center">
-                <div class="col-12">
-                    <h2 class="font-alt text-white display-5 mb-3 fw-bold">Built for Absolute Speed</h2>
-                    <p class="lead-text mx-auto" style="max-width: 650px;">We eliminate execution clutter to design clean software environments that focus entirely on user experience and productivity.</p>
+    <!-- Commercial Features Section -->
+       <style>
+           .features-wrap { background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+           .tech-card {
+               background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
+               border-radius: 16px; transition: border-color 0.2s ease-in-out;
+               text-align: left; height: 100%; box-sizing: border-box;
+           }
+           .tech-card:hover { border-color: var(--primary); }
+           .card-icon { font-size: 1.5rem; color: #3b82f6; margin-bottom: 1.5rem; }
+           .card-icon.purple { color: #a855f7; }
+           .card-title { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
+           .card-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin: 0; }
+           .download-cta { background: linear-gradient(135deg, #0d0d15 0%, #030305 100%); border-bottom: 1px solid var(--border); }
+           footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.9rem; }
+           footer a:hover { color: #ffffff; text-decoration: underline; }
+           .gap-4 { gap: 1.5rem !important; }
+       </style>
+
+       <section class="features-wrap py-section">
+           <div class="container">
+               <div class="row text-center mb-5 justify-content-center">
+                   <div class="col-12">
+                       <h2 class="font-alt text-white display-5 mb-3 fw-bold">Built for Absolute Speed</h2>
+                       <p class="lead-text mx-auto" style="max-width: 650px;">We eliminate execution clutter to design clean software environments that focus entirely on user experience and productivity.</p>
+                   </div>
+               </div>
+               <div class="row justify-content-center gap-4" style="margin-top: 2rem;">
+                   <div style="flex: 1; min-width: 280px; max-width: 440px;">
+                       <div class="tech-card">
+                           <div class="card-icon">⚡</div>
+                           <h3 class="font-alt card-title">High System Agility</h3>
+                           <p class="card-text">Every tool in our catalog is engineered with an ultra-low memory footprint to guarantee flawless, rapid responsiveness across legacy and modern mobile screens.</p>
+                       </div>
+                   </div>
+                   <div style="flex: 1; min-width: 280px; max-width: 440px;">
+                       <div class="tech-card">
+                           <div class="card-icon purple">🔒</div>
+                           <h3 class="font-alt card-title">Accounting-Grade Data</h3>
+                           <p class="card-text">From floor plan blueprints and variable scheduling logs to invoice archives, your historical information values lock down securely with micro-precision.</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- Global App Store Action Callout -->
+       <section class="download-cta py-section" id="download">
+           <div class="container text-center">
+               <h2 class="font-alt mb-3 fw-bold display-5">Get the App Now</h2>
+               <p class="lead-text mb-5 mx-auto" style="max-width: 550px;">Ready to elevate your operational workflow efficiency? Explore our entire ecosystem directly on the App Store.</p>
+               <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
+                   <a href="apps.html" class="btn-base btn-main" style="padding: 1rem 2.5rem;">View Full Portfolio</a>
+                   <a href="https://apple.com" target="_blank" rel="noopener">
+                       <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem; width: auto;" loading="lazy" />
+                   </a>
+               </div>
+           </div>
+       </section>
+
+       <!-- Clean Minimal Footer Structure -->
+       <footer class="py-5" style="background-color: #000000;">
+           <div class="container text-center">
+                <h2 class="text-white fw-bold mb-3 font-alt h5">SwiftTech Mobile</h2>
+                <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+                <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+                    <a href="policy.html">Privacy Policy</a>
+                    <span style="color: #1a1a24;">&middot;</span>
+                    <a href="terms.html">Terms</a>
+                    <span style="color: #1a1a24;">&middot;</span>
+                    <a href="FAQ.html">FAQ</a>
                 </div>
-            </div>
-            <div class="row justify-content-center" style="gap: 2rem; margin-top: 2rem;">
-                <div style="flex: 1; min-width: 280px; max-width: 440px;">
-                    <div class="tech-card">
-                        <div class="card-icon">⚡</div>
-                        <h3 class="font-alt card-title">High System Agility</h3>
-                        <p class="card-text">Every tool in our catalog is engineered with a ultra-low memory footprint to guarantee flawless, rapid responsiveness across legacy and modern mobile screens.</p>
-                    </div>
-                </div>
-                <div style="flex: 1; min-width: 280px; max-width: 440px;">
-                    <div class="tech-card">
-                        <div class="card-icon purple">🔒</div>
-                        <h3 class="font-alt card-title">Accounting-Grade Data</h3>
-                        <p class="card-text">From floor plan blueprints and variable scheduling logs to invoice archives, your historical information values lock down securely with micro-precision.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+           </div>
+       </footer>
 
-    <!-- Global App Store Action Callout -->
-    <section class="download-cta py-section" id="download">
-        <div class="container text-center">
-            <h2 class="font-alt mb-3 fw-bold display-5">Get the App Now</h2>
-            <p class="lead-text mb-5 mx-auto" style="max-width: 550px;">Ready to elevate your operational workflow efficiency? Explore our entire ecosystem directly on the App Store.</p>
-            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
-                <a href="apps.html" class="btn-base btn-main" style="padding: 1rem 2.5rem;">View Full Portfolio</a>
-                <a href="https://apple.com" target="_blank" rel="noopener">
-                    <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem; width: auto;" loading="lazy" />
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Clean Minimal Footer Structure -->
-    <footer class="py-5" style="background-color: #000000;">
-        <div class="container text-center">
-             <h2 class="text-white fw-bold mb-3 font-alt h5">SwiftTech Mobile</h2>
-             <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-             <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
-                 <a href="policy.html">Privacy Policy</a>
-                 <span style="color: #1a1a24;">&middot;</span>
-                 <a href="terms.html">Terms</a>
-                 <span style="color: #1a1a24;">&middot;</span>
-                 <a href="FAQ.html">FAQ</a>
-             </div>
-        </div>
-    </footer>
-
-    <!-- ✅ PASSIVE CHAT WIDGET LOADER: Guaranteed 0ms initial block profile -->
-    <script type="text/javascript">
-        function loadTawkChat() {
-            if (window.tawkLoaded) return;
-            window.tawkLoaded = true;
-            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-            (function(){
-                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
-                s1.async = true; s1.src = 'https://tawk.to';
-                s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1, s0);
-            })();
-        }
-        window.addEventListener('scroll', loadTawkChat, { passive: true });
-        window.addEventListener('mousemove', loadTawkChat, { passive: true });
-        window.addEventListener('touchstart', loadTawkChat, { passive: true });
-        setTimeout(loadTawkChat, 5000);
-    </script>
-</body>
-</html>
-
-<!-- Bootstrap Core JS Engine Matrix -->
-<script src="https://jsdelivr.net" defer></script>
-
-<!-- Relinking your freshly fixed, ultra-fast script file -->
-<script src="js/scripts.js" defer></script>
-
-<!-- Tawk.to Passive Chat Widget Loader -->
-<script type="text/javascript">
-    function loadTawkChat() {
-        if (window.tawkLoaded) return;
-        window.tawkLoaded = true;
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function(){
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
-            s1.async = true; s1.src = 'https://tawk.to';
-            s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    }
-    window.addEventListener('scroll', loadTawkChat, { passive: true });
-    window.addEventListener('mousemove', loadTawkChat, { passive: true });
-    window.addEventListener('touchstart', loadTawkChat, { passive: true });
-    setTimeout(loadTawkChat, 5000);
-</script>
-</body>
-</html>
+       <!-- Fixed Live Chat Engine Loader -->
+       <script type="text/javascript">
+           function loadTawkChat() {
+               if (window.tawkLoaded) return;
+               window.tawkLoaded = true;
+               var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+               (function(){
+                   var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
+                   s1.async = true; s1.src = 'https://tawk.to';
+                   s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
+                   s0.parentNode.insertBefore(s1, s0);
+               })();
+           }
+           window.addEventListener('scroll', loadTawkChat, { passive: true });
+           window.addEventListener('mousemove', loadTawkChat, { passive: true });
+           window.addEventListener('touchstart', loadTawkChat, { passive: true });
+           setTimeout(loadTawkChat, 5000);
+       </script>
+   </body>
+   </html>
