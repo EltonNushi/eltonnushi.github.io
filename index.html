@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Kanit:wght@500;600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- LIGHTSPEED EMBEDDED CSS FRAMEWORK -->
+    <!-- HARDWARE-ACCELERATED MULTI-DEVICE CSS ECOSYSTEM -->
     <style>
         :root {
             --primary: #3b82f6;
@@ -41,7 +41,7 @@
         .nav-link { font-size: 1rem; text-decoration: none; color: var(--text-muted) !important; font-weight: 600; transition: color 0.2s; padding: 0.5rem 1rem; }
         .nav-link:hover { color: #ffffff !important; }
 
-        /* Performance Layout Grid Engine */
+        /* Unified Layout Containers */
         .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
         .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
         .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
@@ -56,13 +56,13 @@
         .mb-4 { margin-bottom: 1.5rem !important; }
         .font-alt { font-family: 'Kanit', sans-serif; }
 
-        /* Hero Setup */
-        .masthead { padding-top: 14rem; padding-bottom: 6rem; background: radial-gradient(circle at 50% 0%, #120e2e 0%, #000000 70%); position: relative; }
+        /* Hero Layout Setup */
+        .masthead { padding-top: 14rem; padding-bottom: 8rem; background: radial-gradient(circle at 80% 20%, #120e2e 0%, #000000 70%); position: relative; }
         .display-title { font-size: 3.5rem; font-weight: 700; line-height: 1.15; margin: 0 0 1.5rem 0; font-family: 'Kanit', sans-serif; letter-spacing: -1px; }
         .gradient-text { background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .lead-text { font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: var(--text-muted); margin: 0 0 2rem 0; }
 
-        /* Interface Buttons */
+        /* Interaction Elements */
         .btn-group { display: flex; gap: 1rem; }
         @media (max-width: 576px) { .btn-group { flex-direction: column; } }
         .btn-base {
@@ -75,25 +75,46 @@
         .btn-outline { color: #ffffff; border: 1px solid var(--border); background-color: rgba(255,255,255,0.02); }
         .btn-outline:hover { background-color: #ffffff; color: #000000; transform: translateY(-2px); }
 
-        /* 💻 DESIGN RE-ENGINEERING: Responsive Multi-Device Canvas Frame Layout */
-        .device-matrix-container { width: 100%; max-width: 540px; margin: 0 auto; position: relative; }
-        .multi-device-mockup {
-            width: 100%; height: auto; display: block; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.85));
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .device-matrix-container:hover .multi-device-mockup { transform: scale(1.01) translateY(-2px); }
+        /* 💻 PURE CSS MAC, IPAD, IPHONE THREE-DEVICE SHOWCASE ENGINE */
+        .device-stage { width: 100%; max-width: 500px; height: 350px; margin: 0 auto; position: relative; }
+        .ambient-glow { position: absolute; width: 400px; height: 350px; background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, rgba(0,0,0,0) 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }
 
-        .ambient-glow {
-            position: absolute; width: 450px; height: 350px;
-            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, rgba(0,0,0,0) 70%);
-            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
+        /* 1. Mac Mockup Frame */
+        .mac-frame {
+            width: 380px; height: 220px; background: #1c1b21; border: 10px solid #2d2c34; border-radius: 16px;
+            position: absolute; top: 20px; left: 10px; z-index: 2; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
+        .mac-stand {
+            width: 90px; height: 35px; background: #232229; position: absolute; top: 240px; left: 155px; z-index: 1; border-radius: 0 0 12px 12px;
+        }
+        .mac-base {
+            width: 160px; height: 6px; background: #38373f; position: absolute; top: 275px; left: 120px; z-index: 1; border-radius: 4px;
+        }
+
+        /* 2. iPad Mockup Frame */
+        .ipad-frame {
+            width: 140px; height: 195px; background: #08080a; border: 6px solid #16151a; border-radius: 18px;
+            position: absolute; bottom: 10px; right: 20px; z-index: 4; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        /* 3. iPhone Mockup Frame */
+        .iphone-frame {
+            width: 75px; height: 150px; background: #000000; border: 4px solid #3a3940; border-radius: 16px;
+            position: absolute; bottom: 0px; right: 130px; z-index: 5; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Generic Device Internal Screen Display Settings */
+        .device-content { width: 100%; height: 100%; object-fit: cover; background-color: #0f0f15; display: flex; align-items: center; justify-content: center; }
+        .device-caption { position: absolute; bottom: 8px; width: 100%; text-align: center; font-size: 0.6rem; font-weight: bold; background: rgba(0,0,0,0.7); padding: 2px 0; color: #fff; font-family: 'Kanit', sans-serif; letter-spacing: 0.5px; }
 
         @media (max-width: 991px) {
             .col-lg-6 { width: 100% !important; text-align: center !important; }
             .row { flex-direction: column; gap: 4rem; }
             .navbar .container { flex-direction: row; justify-content: space-between; }
-            .masthead { padding-top: 12rem; padding-bottom: 4rem; }
+            .device-stage { transform: scale(0.85); margin-top: -2rem; }
+        }
+        @media (max-width: 480px) {
+            .device-stage { transform: scale(0.65); margin-left: -2.5rem; height: 260px; }
         }
     </style>
 </head>
@@ -106,7 +127,7 @@
                 <i class="bi bi-terminal-box text-primary"></i> SwiftTech Mobile
             </a>
             <div class="d-flex gap-2">
-                <a class="nav-link" href="index.html" style="color: #ffffff !important; font-weight: bold;">Home</a>
+                <a class="nav-link" href="index.html" style="color: #ffffff !important;">Home</a>
                 <a class="nav-link" href="apps.html">Apps</a>
                 <a class="nav-link" href="aboutUs.html">About</a>
             </div>
@@ -118,7 +139,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-6 text-center text-lg-start">
-                    <h1 class="text-white fw-bold mb-3 display-4 font-alt">Engineered for<br><span class="gradient-text">Pure Performance</span></h1>
+                    <h1 class="display-title">Engineered for<br><span class="gradient-text">Pure Performance</span></h1>
                     <p class="lead-text">Discover our next-generation suite of mobile utilities. We craft premium, ultra-fast applications designed to optimize your workflows, administrative logging accuracy, and tracking ecosystems natively across iOS, iPadOS, and macOS frameworks.</p>
                     <div class="btn-group justify-content-center justify-content-lg-start">
                         <a href="apps.html" class="btn-base btn-main">Explore Our Apps</a>
@@ -127,106 +148,121 @@
                 </div>
                 <div class="col-lg-6 mt-5 mt-lg-0 position-relative">
                     <div class="ambient-glow"></div>
-                    <div class="device-matrix-container">
-                        <!-- 🔄 RE-ENGINEERED MULTI-DEVICE MOCKUP: Change src target file to your updated cross-device asset graphic -->
-                        <img src="assets/img/TableMasterImage.JPEG" alt="SwiftTech Mobile Mac, iPad, and iPhone Portfolio Showcase" class="multi-device-mockup" onerror="this.style.opacity='0.5';" />
-                    </div>
+
+                    <!-- THE CSS DEVICE STAGE CONTAINER: Loads standalone frames natively -->
+                    <div class="device-stage">
+
+                      <!-- 1. Mac Device Wrapper -->
+<div class="mac-frame">
+    <img src="assets/img/logo.JPG" class="device-content" alt="Mac Workspace" onerror="this.src='assets/img/logo.JPG';" />
+    <div class="device-caption">macOS Dashboard</div>
+</div>
+<div class="mac-stand"></div>
+<div class="mac-base"></div>
+
+<!-- 2. iPad Device Wrapper (FIXED: Text leak encapsulated perfectly) -->
+<div class="ipad-frame">
+    <img src="assets/img/tempLog.png" class="device-content" alt="iPad Workspace" onerror="this.src='assets/img/logo.JPG';" />
+    <div class="device-caption">iPadOS Layout</div>
+</div>
+
+<!-- 3. iPhone Device Wrapper (FIXED: Text leak encapsulated perfectly) -->
+<div class="iphone-frame">
+    <img src="assets/img/stockKeeperlogo.png" class="device-content" alt="iPhone Workspace" onerror="this.src='assets/img/logo.JPG';" />
+    <div class="device-caption">iOS Mobile</div>
+</div>
+<!-- Commercial Features Section -->
+<style>
+    .features-wrap { background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .tech-card {
+        background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
+        border-radius: 16px; transition: border-color 0.2s ease-in-out;
+        text-align: left; height: 100%; box-sizing: border-box;
+    }
+    .tech-card:hover { border-color: var(--primary); }
+    .card-icon { font-size: 1.5rem; color: #3b82f6; margin-bottom: 1.5rem; }
+    .card-icon.purple { color: #a855f7; }
+    .card-title { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
+    .card-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin: 0; }
+    .download-cta { background: linear-gradient(135deg, #0d0d15 0%, #030305 100%); border-bottom: 1px solid var(--border); }
+    footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.9rem; }
+    footer a:hover { color: #ffffff; text-decoration: underline; }
+    .gap-4 { gap: 1.5rem !important; }
+</style>
+
+<section class="features-wrap py-section">
+    <div class="container">
+        <div class="row text-center mb-5 justify-content-center">
+            <div class="col-12">
+                <h2 class="font-alt text-white display-5 mb-3 fw-bold">Built for Cross-Platform Sync</h2>
+                <p class="lead-text mx-auto" style="max-width: 650px;">We eliminate execution clutter to design clean software environments that focus entirely on cross-device workflow availability.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center gap-4" style="margin-top: 2rem;">
+            <div style="flex: 1; min-width: 280px; max-width: 440px;">
+                <div class="tech-card">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="font-alt card-title">High System Agility</h3>
+                    <p class="card-text">Every tool in our catalog is engineered with an ultra-low memory footprint to guarantee flawless, rapid responsiveness across desktop, tablet, and phone screens.</p>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 280px; max-width: 440px;">
+                <div class="tech-card">
+                    <div class="card-icon purple">🔒</div>
+                    <h3 class="font-alt card-title">Accounting-Grade Data</h3>
+                    <p class="card-text">From floor plan blueprints and variable scheduling logs to invoice archives, your historical information values lock down securely with micro-precision.</p>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- Core Feature Highlights -->
-    <style>
-        .features-wrap { background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .tech-card {
-            background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
-            border-radius: 16px; transition: border-color 0.2s ease-in-out;
-            text-align: left; height: 100%; box-sizing: border-box;
-        }
-        .tech-card:hover { border-color: var(--primary); }
-        .card-icon { font-size: 1.5rem; color: #3b82f6; margin-bottom: 1.5rem; }
-        .card-icon.purple { color: #a855f7; }
-        .card-title { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
-        .card-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin: 0; }
-        .download-cta { background: linear-gradient(135deg, #0d0d15 0%, #030305 100%); border-bottom: 1px solid var(--border); }
-        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.9rem; }
-        footer a:hover { color: #ffffff; text-decoration: underline; }
-        .gap-4 { gap: 1.5rem !important; }
-    </style>
+    </div>
+</section>
 
-    <section class="features-wrap py-section">
-        <div class="container">
-            <div class="row text-center mb-5 justify-content-center">
-                <div class="col-12">
-                    <h2 class="font-alt text-white display-5 mb-3 fw-bold">Cross-Platform Agility</h2>
-                    <p class="lead-text mx-auto" style="max-width: 650px;">We design fluid, native interfaces that adapt instantly from desktop layouts down to tablets and handheld mobile viewports.</p>
-                </div>
-            </div>
-            <div class="row justify-content-center gap-4" style="margin-top: 2rem;">
-                <div style="flex: 1; min-width: 280px; max-width: 440px;">
-                    <div class="tech-card">
-                        <div class="card-icon">⚡</div>
-                        <h3 class="font-alt card-title">High System Agility</h3>
-                        <p class="card-text">Every tool in our catalog is engineered with an ultra-low memory footprint to guarantee flawless, rapid responsiveness across legacy and modern mobile screens.</p>
-                    </div>
-                </div>
-                <div style="flex: 1; min-width: 280px; max-width: 440px;">
-                    <div class="tech-card">
-                        <div class="card-icon purple">🔒</div>
-                        <h3 class="font-alt card-title">Accounting-Grade Data</h3>
-                        <p class="card-text">From floor plan blueprints and variable scheduling logs to invoice archives, your historical information values lock down securely with micro-precision.</p>
-                    </div>
-                </div>
-            </div>
+<!-- Global App Store Action Callout -->
+<section class="download-cta py-section" id="download">
+    <div class="container text-center">
+        <h2 class="font-alt mb-3 fw-bold display-5">Get the App Now</h2>
+        <p class="lead-text mb-5 mx-auto" style="max-width: 550px;">Ready to elevate your operational workflow efficiency? Explore our entire ecosystem directly on the App Store.</p>
+        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
+            <a href="apps.html" class="btn-base btn-main" style="padding: 1rem 2.5rem;">View Full Portfolio</a>
+            <a href="https://apple.com" target="_blank" rel="noopener">
+                <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem; width: auto;" loading="lazy" />
+            </a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Global App Store Action Callout -->
-    <section class="download-cta py-section" id="download">
-        <div class="container text-center">
-            <h2 class="font-alt mb-3 fw-bold display-5">Get the App Now</h2>
-            <p class="lead-text mb-5 mx-auto" style="max-width: 550px;">Ready to elevate your operational workflow efficiency? Explore our entire ecosystem directly on the App Store.</p>
-            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
-                <a href="apps.html" class="btn-base btn-main" style="padding: 1rem 2.5rem;">View Full Portfolio</a>
-                <a href="https://apple.com" target="_blank" rel="noopener">
-                    <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" style="height: 3.5rem; width: auto;" loading="lazy" />
-                </a>
-            </div>
-        </div>
-    </section>
+<!-- Clean Minimal Footer Structure -->
+<footer class="py-5" style="background-color: #000000;">
+    <div class="container text-center">
+         <h2 class="text-white fw-bold mb-3 font-alt h5">SwiftTech Mobile</h2>
+         <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+         <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+             <a href="policy.html">Privacy Policy</a>
+             <span style="color: #1a1a24;">&middot;</span>
+             <a href="terms.html">Terms</a>
+             <span style="color: #1a1a24;">&middot;</span>
+             <a href="FAQ.html">FAQ</a>
+         </div>
+    </div>
+</footer>
 
-    <!-- Clean Minimal Footer Structure -->
-    <footer class="py-5" style="background-color: #000000;">
-        <div class="container text-center">
-             <h2 class="text-white fw-bold mb-3 font-alt h5">SwiftTech Mobile</h2>
-             <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-             <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
-                 <a href="policy.html">Privacy Policy</a>
-                 <span style="color: #1a1a24;">&middot;</span>
-                 <a href="terms.html">Terms</a>
-                 <span style="color: #1a1a24;">&middot;</span>
-                 <a href="FAQ.html">FAQ</a>
-             </div>
-        </div>
-    </footer>
-
-    <!-- ✅ PASSIVE CHAT WIDGET LOADER -->
-    <script type="text/javascript">
-        function loadTawkChat() {
-            if (window.tawkLoaded) return;
-            window.tawkLoaded = true;
-            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-            (function(){
-                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
-                s1.async = true; s1.src = 'https://tawk.to';
-                s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1, s0);
-            })();
-        }
-        window.addEventListener('scroll', loadTawkChat, { passive: true });
-        window.addEventListener('mousemove', loadTawkChat, { passive: true });
-        window.addEventListener('touchstart', loadTawkChat, { passive: true });
-        setTimeout(loadTawkChat, 5000);
-    </script>
+<!-- Fixed Live Chat Engine Loader -->
+<script type="text/javascript">
+    function loadTawkChat() {
+        if (window.tawkLoaded) return;
+        window.tawkLoaded = true;
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
+            s1.async = true; s1.src = 'https://tawk.to';
+            s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    }
+    window.addEventListener('scroll', loadTawkChat, { passive: true });
+    window.addEventListener('mousemove', loadTawkChat, { passive: true });
+    window.addEventListener('touchstart', loadTawkChat, { passive: true });
+    setTimeout(loadTawkChat, 5000);
+</script>
 </body>
 </html>
