@@ -7,13 +7,12 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
-    <!-- Essential Layout Vector Icons -->
-    <link href="https://jsdelivr.net" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://googleapis.com" />
     <link rel="preconnect" href="https://gstatic.com" crossorigin />
     <link href="https://googleapis.com/css2?family=Kanit:wght@600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- LIGHTSPEED EMBEDDED CSS FRAMEWORK: Instant rendering, zero external dependencies -->
+    <!-- LIGHTSPEED CORE ENGINE: 0ms External CSS Asset Dependencies -->
     <style>
         :root {
             --primary: #3b82f6;
@@ -60,6 +59,7 @@
             .col-lg-6 { width: 100% !important; text-align: center !important; }
             .row { flex-direction: column; gap: 4rem; }
             .navbar .container { flex-direction: row; justify-content: space-between; }
+            .nav-menu { display: none !important; }
         }
 
         /* Hero Layout Setup */
@@ -81,7 +81,7 @@
         .btn-outline { color: #ffffff; border: 1px solid var(--border); background-color: rgba(255,255,255,0.02); }
         .btn-outline:hover { background-color: #ffffff; color: #000000; transform: translateY(-2px); }
 
-        /* CSS Hardware-Accelerated App Showcase Frame (Zero Image Lag) */
+        /* CSS App Showcase Frame (Zero Image Lag) */
         .showcase-wrapper { width: 250px; height: 510px; margin: 0 auto; position: relative; }
         .app-frame {
             width: 100%; height: 100%; border-radius: 40px; border: 6px solid #1f1f2a;
@@ -95,6 +95,21 @@
             background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, rgba(0,0,0,0) 70%);
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
         }
+
+        .features-wrap { background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .tech-card {
+            background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
+            border-radius: 16px; transition: border-color 0.2s ease-in-out;
+            text-align: left; height: 100%; box-sizing: border-box;
+        }
+        .tech-card:hover { border-color: var(--primary); }
+        .card-icon { font-size: 1.5rem; color: #3b82f6; margin-bottom: 1.5rem; }
+        .card-icon.purple { color: #a855f7; }
+        .card-title { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
+        .card-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin: 0; }
+        .download-cta { background: linear-gradient(135deg, #0d0d15 0%, #030305 100%); border-bottom: 1px solid var(--border); }
+        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.9rem; }
+        footer a:hover { color: #ffffff; text-decoration: underline; }
     </style>
 </head>
 <body id="page-top">
@@ -102,11 +117,9 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="container justify-content-between align-items-center d-flex">
-            <a class="navbar-brand" href="#page-top">
-                <i class="bi bi-terminal-box text-primary"></i> SwiftTech Mobile
-            </a>
-            <div class="d-flex gap-2">
-                <a class="nav-link" href="home.html" style="color: #ffffff !important; font-weight: bold;">Home</a>
+            <a class="navbar-brand" href="#page-top">SwiftTech Mobile</a>
+            <div class="nav-menu d-flex gap-2">
+                <a class="nav-link" href="index.html" style="color: #ffffff !important;">Home</a>
                 <a class="nav-link" href="apps.html">Apps</a>
                 <a class="nav-link" href="aboutUs.html">About</a>
             </div>
@@ -129,9 +142,8 @@
                     <div class="glow-effect"></div>
                     <div class="showcase-wrapper">
                         <div class="app-frame">
-                            <i class="bi bi-cpu-fill mb-3" style="font-size: 3rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-                            <div class="font-alt fw-bold text-white mb-1" style="letter-spacing: 2px; font-size: 0.9rem;">SWIFTTECH</div>
-                            <div class="text-muted small" style="font-size: 0.7rem; text-transform: uppercase;">Application Engine</div>
+                            <div class="font-alt fw-bold text-white mb-1" style="letter-spacing: 2px; font-size: 1.1rem; background: linear-gradient(45deg, #3b82f6, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SWIFTTECH</div>
+                            <div class="text-muted small" style="font-size: 0.7rem; text-transform: uppercase; margin-top: 4px;">Application Suite</div>
                         </div>
                     </div>
                 </div>
@@ -139,26 +151,6 @@
         </div>
     </header>
     <!-- Core Feature Highlights -->
-    <style>
-        .features-wrap { background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .tech-card {
-            background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem;
-            border-radius: 16px; transition: border-color 0.2s ease-in-out;
-            text-align: left; height: 100%; box-sizing: border-box;
-        }
-        .tech-card:hover { border-color: var(--primary); }
-        .card-icon {
-            width: 44px; height: 44px; border-radius: 8px; background-color: rgba(59, 130, 246, 0.1);
-            display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #3b82f6; margin-bottom: 1.5rem;
-        }
-        .card-icon.purple { background-color: rgba(168, 85, 247, 0.1); color: #a855f7; }
-        .card-title { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin: 0 0 0.75rem 0; }
-        .card-text { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin: 0; }
-        .download-cta { background: linear-gradient(135deg, #0d0d15 0%, #030305 100%); border-bottom: 1px solid var(--border); }
-        footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; font-size: 0.9rem; }
-        footer a:hover { color: #ffffff; text-decoration: underline; }
-    </style>
-
     <section class="features-wrap py-section">
         <div class="container">
             <div class="row text-center mb-5 justify-content-center">
@@ -170,14 +162,14 @@
             <div class="row justify-content-center" style="gap: 2rem; margin-top: 2rem;">
                 <div style="flex: 1; min-width: 280px; max-width: 440px;">
                     <div class="tech-card">
-                        <div class="card-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                        <div class="card-icon">⚡</div>
                         <h3 class="font-alt card-title">High System Agility</h3>
                         <p class="card-text">Every tool in our catalog is engineered with a ultra-low memory footprint to guarantee flawless, rapid responsiveness across legacy and modern mobile screens.</p>
                     </div>
                 </div>
                 <div style="flex: 1; min-width: 280px; max-width: 440px;">
                     <div class="tech-card">
-                        <div class="card-icon purple"><i class="bi bi-shield-lock-fill"></i></div>
+                        <div class="card-icon purple">🔒</div>
                         <h3 class="font-alt card-title">Accounting-Grade Data</h3>
                         <p class="card-text">From floor plan blueprints and variable scheduling logs to invoice archives, your historical information values lock down securely with micro-precision.</p>
                     </div>
