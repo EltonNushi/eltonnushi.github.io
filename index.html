@@ -153,12 +153,15 @@
                     <div class="device-stage">
 
                       <!-- 1. Mac Device Wrapper -->
-<div class="mac-frame">
-    <img src="assets/img/TableMasterImage.JPG" class="device-content" alt="Mac Workspace" onerror="this.src='assets/img/TableMasterImage.JPG';" />
-    <div class="device-caption">macOS Dashboard</div>
-</div>
-<div class="mac-stand"></div>
-<div class="mac-base"></div>
+                      <!-- THE NEW ASSET CONTAINER: Loads your single layout photo natively -->
+                      <div style="display: flex; justify-content: center; align-items: center; width: 100%; min-height: 300px;">
+                          <img src="assets/img/TableMasterImage.JPG"
+                               alt="SwiftTech Mobile Cross-Platform Showcase"
+                               style="max-width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 25px 50px rgba(0,0,0,0.85));"
+                               loading="eager"
+                               onerror="this.onerror=null; this.src='assets/img/logo.JPG'; this.style.borderRadius='24px';">
+                      </div>
+
 
 <!-- 2. iPad Device Wrapper (FIXED: Text leak encapsulated perfectly) -->
 <div class="ipad-frame">
