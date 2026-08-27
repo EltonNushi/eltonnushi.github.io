@@ -103,6 +103,99 @@
 
 
 
+
+  <!-- Interactive Corporate Booking System Section -->
+  <section class="booking-section py-5" style="background-color: #030305 !important; border-top: 1px solid #1e1e2f; border-bottom: 1px solid #1e1e2f;" id="book-consult">
+      <div class="container px-5 my-5">
+          <div class="row gx-5 align-items-center justify-content-center">
+
+              <!-- LEFT PANEL: Conversion Messaging Context -->
+              <div class="col-lg-5 mb-5 mb-lg-0 text-center text-lg-start">
+                  <div class="d-inline-flex align-items-center justify-content-center rounded-pill mb-3 px-3 py-1 text-uppercase fw-bold text-primary border" style="font-size: 0.75rem; letter-spacing: 1px; background-color: #0b0b12; border-color: #1e1e2f; color: #3b82f6 !important;">
+                      B2B Consultations
+                  </div>
+                  <h2 class="font-alt text-white display-5 mb-4 fw-bold" style="font-family: 'Kanit', sans-serif;">Schedule an Integration Architecture Call</h2>
+                  <p class="lead fw-normal text-muted mb-0" style="font-size: 1.05rem; line-height: 1.6; color: #8b949e !important;">
+                      Need custom business analytics, enterprise warehouse inventory deployments, or bespoke mobile synchronization frameworks built for Apple Silicon? Book a direct technical review session with our deployment leads.
+                  </p>
+              </div>
+
+              <!-- RIGHT PANEL: Live Interactive Scheduling Widget Box -->
+              <div class="col-lg-7">
+                  <div class="booking-card p-4 rounded-4" style="background-color: #0b0b12; border: 1px solid #1e1e2f; box-shadow: 0 20px 40px rgba(0,0,0,0.5); max-width: 580px; margin: 0 auto; box-sizing: border-box;">
+                      <div id="booking-wizard-step1">
+                          <h4 class="font-alt text-white mb-3" style="font-size: 1.2rem; font-weight: 600;">1. Select Available Date</h4>
+
+                          <!-- Mini Calendar Row Interface Picker -->
+                          <div class="d-flex justify-content-between gap-2 mb-4 text-center" style="overflow-x: auto; padding-bottom: 5px;">
+                              <div class="date-pill active" onclick="selectDate(this, 'Mon, Sep 1')" style="background: linear-gradient(45deg, #2563eb, #7c3aed); border: 1px solid #3b82f6; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
+                                  <div style="font-size: 0.65rem; text-uppercase: true; color: rgba(255,255,255,0.7); font-weight: bold;">MON</div>
+                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">01</div>
+                              </div>
+                              <div class="date-pill" onclick="selectDate(this, 'Tue, Sep 2')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
+                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">TUE</div>
+                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">02</div>
+                              </div>
+                              <div class="date-pill" onclick="selectDate(this, 'Wed, Sep 3')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
+                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">WED</div>
+                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">03</div>
+                              </div>
+                              <div class="date-pill" onclick="selectDate(this, 'Thu, Sep 4')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
+                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">THU</div>
+                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">04</div>
+                              </div>
+                              <div class="date-pill" onclick="selectDate(this, 'Fri, Sep 5')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
+                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">FRI</div>
+                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">05</div>
+                              </div>
+                          </div>
+
+                          <h4 class="font-alt text-white mb-3" style="font-size: 1.2rem; font-weight: 600;">2. Choose Time Slot (BST)</h4>
+                          <div class="row g-2 mb-4">
+                              <div class="col-4"><button class="time-btn active-time" onclick="selectTime(this, '10:00 AM')" style="width:100%; padding: 10px; background: rgba(59,130,246,0.1); border: 1px solid #3b82f6; color: white; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer;">10:00 AM</button></div>
+                              <div class="col-4"><button class="time-btn" onclick="selectTime(this, '1:30 PM')" style="width:100%; padding: 10px; background: #050508; border: 1px solid #1e1e2f; color: #8b949e; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer;">1:30 PM</button></div>
+                              <div class="col-4"><button class="time-btn" onclick="selectTime(this, '4:00 PM')" style="width:100%; padding: 10px; background: #050508; border: 1px solid #1e1e2f; color: #8b949e; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer;">4:00 PM</button></div>
+                          </div>
+
+                          <button onclick="goToStep2()" class="btn btn-primary w-100 font-alt py-3" style="background: linear-gradient(45deg, #2563eb, #7c3aed); border: none; border-radius: 10px; font-weight: bold; color: white; font-size: 0.95rem; cursor: pointer;">Continue to Contact Info</button>
+                      </div>
+
+                      <!-- Step 2: Contact Matrix Confirmation -->
+                      <div id="booking-wizard-step2" style="display: none;">
+                          <h4 class="font-alt text-white mb-3" style="font-size: 1.2rem; font-weight: 600;">3. Finalise Request details</h4>
+                          <div style="font-size: 0.8rem; background: rgba(255,255,255,0.02); border: 1px solid #1e1e2f; padding: 10px; border-radius: 8px; color: #8b949e; margin-bottom: 1.5rem;">
+                              Selected: <span id="summary-date-string" style="color: #3b82f6; font-weight: bold;">Mon, Sep 1</span> at <span id="summary-time-string" style="color: #a855f7; font-weight: bold;">10:00 AM</span>
+                          </div>
+                          <div class="mb-3">
+                              <input type="text" id="bk-name" placeholder="Your Name" style="width: 100%; padding: 12px; background: #050508; border: 1px solid #1e1e2f; border-radius: 8px; color: white; box-sizing: border-box; font-size: 0.9rem;" />
+                          </div>
+                          <div class="mb-4">
+                              <input type="email" id="bk-email" placeholder="Corporate Email Address" style="width: 100%; padding: 12px; background: #050508; border: 1px solid #1e1e2f; border-radius: 8px; color: white; box-sizing: border-box; font-size: 0.9rem;" />
+                          </div>
+                          <div class="d-flex gap-2">
+                              <button onclick="goToStep1()" style="width: 35%; padding: 12px; background: transparent; border: 1px solid #1e1e2f; color: white; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">Back</button>
+                              <button onclick="submitBooking()" class="btn btn-primary" style="width: 65%; padding: 12px; background: linear-gradient(45deg, #2563eb, #7c3aed); border: none; color: white; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">Confirm Appointment</button>
+                          </div>
+                      </div>
+
+                      <!-- Step 3: Success Confirmation State -->
+                      <div id="booking-wizard-step3" style="display: none; text-align: center; padding: 2rem 0;">
+                          <div style="background: rgba(16,185,129,0.15); color: #10b981; width: 55px; height: 55px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem;"><i class="bi bi-check-circle-fill"></i></div>
+                          <h3 class="font-alt text-white mb-2" style="font-size: 1.5rem; font-weight: 700;">Booking Confirmed!</h3>
+                          <p class="text-muted small mb-0" style="color: #8b949e !important; line-height: 1.5;">Your calendar space has been securely requested. Check your inbox for your automated Microsoft Teams calendar configuration invite link loop context shortly.</p>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </section>
+
+
+
+
+
+
 <!-- Tiny localized scaling helper query scripts to protect mobile responsive parameters -->
 <style>
     @media (max-width: 540px) {
@@ -312,6 +405,72 @@
         </script>
     </body>
 </html>
+
+
+
+
+
+
+<!-- ✅ LIGHTSPEED BOOKING SYSTEM WIZARD CONTROLLER -->
+<script type="text/javascript">
+    var selectedDateString = "Mon, Sep 1";
+    var selectedTimeString = "10:00 AM";
+
+    function selectDate(element, dateStr) {
+        // Reset active style status on alternative options
+        var elements = document.getElementsByClassName("date-pill");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.background = "#050508";
+            elements[i].style.borderColor = "#1e1e2f";
+            elements[i].classList.remove("active");
+        }
+        // Bind active styling properties
+        element.style.background = "linear-gradient(45deg, #2563eb, #7c3aed)";
+        element.style.borderColor = "#3b82f6";
+        selectedDateString = dateStr;
+    }
+
+    function selectTime(element, timeStr) {
+        var elements = document.getElementsByClassName("time-btn");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.background = "#050508";
+            elements[i].style.borderColor = "#1e1e2f";
+            elements[i].style.color = "#8b949e";
+        }
+        element.style.background = "rgba(59,130,246,0.1)";
+        element.style.borderColor = "#3b82f6";
+        element.style.color = "white";
+        selectedTimeString = timeStr;
+    }
+
+    function goToStep2() {
+        document.getElementById("summary-date-string").innerText = selectedDateString;
+        document.getElementById("summary-time-string").innerText = selectedTimeString;
+        document.getElementById("booking-wizard-step1").style.display = "none";
+        document.getElementById("booking-wizard-step2").style.display = "block";
+    }
+
+    function goToStep1() {
+        document.getElementById("booking-wizard-step2").style.display = "none";
+        document.getElementById("booking-wizard-step1").style.display = "block";
+    }
+
+    function submitBooking() {
+        var name = document.getElementById("bk-name").value;
+        var email = document.getElementById("bk-email").value;
+
+        if(!name || !email) {
+            alert("Please fill out both field profiles to book calendar arrays safely.");
+            return;
+        }
+
+        document.getElementById("booking-wizard-step2").style.display = "none";
+        document.getElementById("booking-wizard-step3").style.display = "block";
+    }
+</script>
+<!-- ✅ LIGHTSPEED BOOKING SYSTEM WIZARD CONTROLLER -->
+
+
 
 
     <!-- ✅ PASSIVE CHAT WIDGET LOADER: 0ms initial block profile -->
