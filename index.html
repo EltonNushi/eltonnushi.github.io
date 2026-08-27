@@ -104,93 +104,398 @@
 
 
 
-  <!-- Interactive Corporate Booking System Section -->
-  <section class="booking-section py-5" style="background-color: #030305 !important; border-top: 1px solid #1e1e2f; border-bottom: 1px solid #1e1e2f;" id="book-consult">
-      <div class="container px-5 my-5">
-          <div class="row gx-5 align-items-center justify-content-center">
+  <style>
+      .tablemaster-widget-container {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          padding: 0px;
+          background: transparent;
+          width: 100%;
+          max-width: 450px;
+          margin: 0 auto;
+          box-sizing: border-box;
+      }
+      .tablemaster-widget-container h2 {
+          margin-top: 0;
+          color: #ff2d55;
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 25px;
+      }
+      .form-group {
+          margin-bottom: 20px;
+      }
+      .form-group label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 6px;
+          font-size: 14px;
+          color: #333;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          box-sizing: border-box;
+          font-size: 14px;
+          background: white;
+          font-family: inherit;
+      }
+      .form-group textarea {
+          resize: vertical;
+      }
 
-              <!-- LEFT PANEL: Conversion Messaging Context -->
-              <div class="col-lg-5 mb-5 mb-lg-0 text-center text-lg-start">
-                  <div class="d-inline-flex align-items-center justify-content-center rounded-pill mb-3 px-3 py-1 text-uppercase fw-bold text-primary border" style="font-size: 0.75rem; letter-spacing: 1px; background-color: #0b0b12; border-color: #1e1e2f; color: #3b82f6 !important;">
-                      B2B Consultations
-                  </div>
-                  <h2 class="font-alt text-white display-5 mb-4 fw-bold" style="font-family: 'Kanit', sans-serif;">Schedule an Integration Architecture Call</h2>
-                  <p class="lead fw-normal text-muted mb-0" style="font-size: 1.05rem; line-height: 1.6; color: #8b949e !important;">
-                      Need custom business analytics, enterprise warehouse inventory deployments, or bespoke mobile synchronization frameworks built for Apple Silicon? Book a direct technical review session with our deployment leads.
-                  </p>
-              </div>
+      /* COMPACT TIME CHIP MATRIX SELECTION LAYOUT */
+      .time-slots-grid-container {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+          margin-top: 4px;
+          transform: translateZ(0);
+      }
+      .time-chip-item {
+          padding: 10px 4px;
+          font-size: 12px;
+          font-weight: 600;
+          text-align: center;
+          background: #f5f5f7;
+          color: #1d1d1f;
+          border: 1px solid transparent;
+          border-radius: 20px;
+          cursor: pointer;
+          user-select: none;
+          will-change: transform, background-color, box-shadow;
+          transition: background-color 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
+      }
+      .time-chip-item:hover {
+          background: #e8e8ed;
+          border-color: #ccc;
+      }
+      .time-chip-item:active {
+          transform: scale(0.96);
+      }
+      .time-chip-item.active-selected {
+          background: #ff2d55 !important;
+          color: white !important;
+          border-color: #ff2d55 !important;
+          box-shadow: 0 2px 8px rgba(255, 45, 85, 0.35);
+      }
+      .time-chip-item.disabled-out-of-hours {
+          opacity: 0.25 !important;
+          background: #ebebeb !important;
+          color: #a1a1a6 !important;
+          cursor: not-allowed !important;
+          border-color: transparent !important;
+          box-shadow: none !important;
+          transform: none !important;
+      }
 
-              <!-- RIGHT PANEL: Live Interactive Scheduling Widget Box -->
-              <div class="col-lg-7">
-                  <div class="booking-card p-4 rounded-4" style="background-color: #0b0b12; border: 1px solid #1e1e2f; box-shadow: 0 20px 40px rgba(0,0,0,0.5); max-width: 580px; margin: 0 auto; box-sizing: border-box;">
-                      <div id="booking-wizard-step1">
-                          <h4 class="font-alt text-white mb-3" style="font-size: 1.2rem; font-weight: 600;">1. Select Available Date</h4>
+      .conditional-wrapper {
+          display: none;
+      }
+      .alert-label {
+          color: #ff2d55 !important;
+      }
+      .form-group input[id="occasionOtherDetails"] {
+          border: 1px solid #ff2d55;
+      }
+      .form-group input[id="webAllergenNotes"] {
+          border: 1px solid #ff2d55;
+      }
+      .submit-button {
+          width: 100%;
+          padding: 12px;
+          background: #ff2d55;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-weight: bold;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background 0.2s;
+          margin-top: 10px;
+      }
+      .submit-button:hover {
+          background: #e02449;
+      }
+  </style>
+  <!-- START TABLEMASTER WEB EMBED TEMPLATE -->
+  <div class="tablemaster-widget-container">
+      <h2>Book a Table</h2>
+      <form id="bookingForm" onsubmit="executeCloudKitBookingSubmit(event)">
 
-                          <!-- Mini Calendar Row Interface Picker -->
-                          <div class="d-flex justify-content-between gap-2 mb-4 text-center" style="overflow-x: auto; padding-bottom: 5px;">
-                              <div class="date-pill active" onclick="selectDate(this, 'Mon, Sep 1')" style="background: linear-gradient(45deg, #2563eb, #7c3aed); border: 1px solid #3b82f6; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
-                                  <div style="font-size: 0.65rem; text-uppercase: true; color: rgba(255,255,255,0.7); font-weight: bold;">MON</div>
-                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">01</div>
-                              </div>
-                              <div class="date-pill" onclick="selectDate(this, 'Tue, Sep 2')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
-                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">TUE</div>
-                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">02</div>
-                              </div>
-                              <div class="date-pill" onclick="selectDate(this, 'Wed, Sep 3')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
-                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">WED</div>
-                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">03</div>
-                              </div>
-                              <div class="date-pill" onclick="selectDate(this, 'Thu, Sep 4')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
-                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">THU</div>
-                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">04</div>
-                              </div>
-                              <div class="date-pill" onclick="selectDate(this, 'Fri, Sep 5')" style="background: #050508; border: 1px solid #1e1e2f; padding: 12px; border-radius: 12px; min-width: 65px; cursor: pointer;">
-                                  <div style="font-size: 0.65rem; text-uppercase: true; color: #8b949e; font-weight: bold;">FRI</div>
-                                  <div style="font-size: 1.2rem; font-weight: 700; color: #fff; font-family: 'Kanit', sans-serif;">05</div>
-                              </div>
-                          </div>
+          <!-- GUEST PROFILE IDENTITY INPUT GROUPS -->
+          <div class="form-group"><label>First Name</label><input type="text" id="firstName" required placeholder="John"></div>
+          <div class="form-group"><label>Surname</label><input type="text" id="surname" required placeholder="Smith"></div>
+          <div class="form-group"><label>Email Address</label><input type="email" id="guestEmail" required placeholder="john.smith@example.com"></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" id="phoneDigits" required placeholder="07123 456789"></div>
+          <div class="form-group"><label>Party Size (Guests)</label><input type="number" id="partySize" min="1" max="100" value="2" required></div>
 
-                          <h4 class="font-alt text-white mb-3" style="font-size: 1.2rem; font-weight: 600;">2. Choose Time Slot (BST)</h4>
-                          <div class="row g-2 mb-4">
-                              <div class="col-4"><button class="time-btn active-time" onclick="selectTime(this, '10:00 AM')" style="width:100%; padding: 10px; background: rgba(59,130,246,0.1); border: 1px solid #3b82f6; color: white; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer;">10:00 AM</button></div>
-                              <div class="col-4"><button class="time-btn" onclick="selectTime(this, '1:30 PM')" style="width:100%; padding: 10px; background: #050508; border: 1px solid #1e1e2f; color: #8b949e; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer;">1:30 PM</button></div>
-                              <div class="col-4"><button class="time-btn" onclick="selectTime(this, '4:00 PM')" style="width:100%; padding: 10px; background: #050508; border: 1px solid #1e1e2f; color: #8b949e; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer;">4:00 PM</button></div>
-                          </div>
-
-                          <button onclick="goToStep2()" class="btn btn-primary w-100 font-alt py-3" style="background: linear-gradient(45deg, #2563eb, #7c3aed); border: none; border-radius: 10px; font-weight: bold; color: white; font-size: 0.95rem; cursor: pointer;">Continue to Contact Info</button>
-                      </div>
-
-                      <!-- Step 2: Contact Matrix Confirmation -->
-                      <div id="booking-wizard-step2" style="display: none;">
-                          <h4 class="font-alt text-white mb-3" style="font-size: 1.2rem; font-weight: 600;">3. Finalise Request details</h4>
-                          <div style="font-size: 0.8rem; background: rgba(255,255,255,0.02); border: 1px solid #1e1e2f; padding: 10px; border-radius: 8px; color: #8b949e; margin-bottom: 1.5rem;">
-                              Selected: <span id="summary-date-string" style="color: #3b82f6; font-weight: bold;">Mon, Sep 1</span> at <span id="summary-time-string" style="color: #a855f7; font-weight: bold;">10:00 AM</span>
-                          </div>
-                          <div class="mb-3">
-                              <input type="text" id="bk-name" placeholder="Your Name" style="width: 100%; padding: 12px; background: #050508; border: 1px solid #1e1e2f; border-radius: 8px; color: white; box-sizing: border-box; font-size: 0.9rem;" />
-                          </div>
-                          <div class="mb-4">
-                              <input type="email" id="bk-email" placeholder="Corporate Email Address" style="width: 100%; padding: 12px; background: #050508; border: 1px solid #1e1e2f; border-radius: 8px; color: white; box-sizing: border-box; font-size: 0.9rem;" />
-                          </div>
-                          <div class="d-flex gap-2">
-                              <button onclick="goToStep1()" style="width: 35%; padding: 12px; background: transparent; border: 1px solid #1e1e2f; color: white; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">Back</button>
-                              <button onclick="submitBooking()" class="btn btn-primary" style="width: 65%; padding: 12px; background: linear-gradient(45deg, #2563eb, #7c3aed); border: none; color: white; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">Confirm Appointment</button>
-                          </div>
-                      </div>
-
-                      <!-- Step 3: Success Confirmation State -->
-                      <div id="booking-wizard-step3" style="display: none; text-align: center; padding: 2rem 0;">
-                          <div style="background: rgba(16,185,129,0.15); color: #10b981; width: 55px; height: 55px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem;"><i class="bi bi-check-circle-fill"></i></div>
-                          <h3 class="font-alt text-white mb-2" style="font-size: 1.5rem; font-weight: 700;">Booking Confirmed!</h3>
-                          <p class="text-muted small mb-0" style="color: #8b949e !important; line-height: 1.5;">Your calendar space has been securely requested. Check your inbox for your automated Microsoft Teams calendar configuration invite link loop context shortly.</p>
-                      </div>
-                  </div>
-              </div>
-
+          <!-- DUAL-AXIS DATE SELECTION SET -->
+          <div class="form-group">
+              <label>Arrival Date</label>
+              <input type="date" id="reservationDay" required onchange="evaluateOperationalHoursGridFirewall()">
           </div>
-      </div>
-  </section>
 
+          <!-- THE ONE-TAP HIGH-DENSITY TIME SLOT CAPSULE MATRIX -->
+          <div class="form-group">
+              <label>Available Seating Slots</label>
+              <input type="hidden" id="selectedTimeSlot" required value="">
+
+              <!-- Dynamic rendering engine container target -->
+              <div id="dynamicTimeSlotsContainer" class="time-slots-grid-container"></div>
+          </div>
+
+          <!-- OCCASION MANAGER METADATA SELECTIONS -->
+          <div class="form-group">
+              <label>Special Occasion</label>
+              <select id="visitOccasion" onchange="toggleOtherOccasionInputField()">
+                  <option value="Standard Dining">Standard Dining</option>
+                  <option value="Birthday">Birthday 🎂</option>
+                  <option value="Anniversary">Anniversary 💍</option>
+                  <option value="Honeymoon">Honeymoon ✈️</option>
+                  <option value="Engagement">Engagement 🥂</option>
+                  <option value="Graduation">Graduation 🎓</option>
+                  <option value="Business Meeting">Business Meeting 💼</option>
+                  <option value="Hen do">Hen do 💃</option>
+                  <option value="Stag do">Stag do 🍻</option>
+                  <option value="Baby shower">Baby shower 🍼</option>
+                  <option value="Special event">Special event ✨</option>
+                  <option value="Corporate event">Corporate event 🏢</option>
+                  <option value="Catch up with friends">Catch up with friends Pizza 🍕</option>
+                  <option value="Job promotion">Job promotion 📈</option>
+                  <option value="Wedding">Wedding 💒</option>
+                  <option value="Other">Other (Please Specify) 📝</option>
+              </select>
+          </div>
+          <div id="otherOccasionWrapper" class="form-group conditional-wrapper"><label class="alert-label">Specify Occasion Details</label><input type="text" id="occasionOtherDetails" placeholder="e.g., Retirement Party"></div>
+
+          <!-- REPAIRED FORM GROUP LAYOUT GATES -->
+          <div class="form-group">
+              <label>Food Allergies / Intolerances?</label>
+              <select id="hasAllergySelect" onchange="toggleAllergenInputField()">
+                  <option value="0">No, none of our guests have allergies</option>
+                  <option value="1">Yes, members of our party have allergies ⚠️</option>
+              </select>
+          </div>
+          <div id="allergenNotesWrapper" class="form-group conditional-wrapper"><label class="alert-label">Specify Allergen / Dietary Details</label><input type="text" id="webAllergenNotes" placeholder="e.g. Peanut Allergy"></div>
+
+          <div class="form-group"><label>Special Requests / Notes</label><textarea id="webBookingNotes" placeholder="e.g. Prefer window seating..." rows="3"></textarea></div>
+
+          <button type="submit" class="submit-button">Request Reservation</button>
+      </form>
+  </div>
+  <script src="https://apple-cloudkit.com"></script>
+  <script>
+      if (typeof CloudKit !== 'undefined') { initializeTableMasterCloudKitWidget(); }
+      else { window.addEventListener('load', initializeTableMasterCloudKitWidget); }
+
+      function initializeTableMasterCloudKitWidget() {
+          try {
+              CloudKit.configure({
+                  containers: [{
+                      containerIdentifier: '://tablemanagement.com.TableMaster2026',
+                      environment: 'development'
+                  }]
+              });
+          } catch(e) { console.log("CloudKit initialization bypass: " + e.message); }
+      }
+
+      // =========================================================================
+      // 🌟 THE MANUAL OVERRIDE CONTROL MATRIX (EASY CODE EDITS)
+      // Advanced users can edit these flat values directly in the template text file [INDEX_1.2.4]!
+      // Set USE_MANUAL_OVERRIDE to true to ignore the app database completely.
+      // Day Index Map: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat
+      // =========================================================================
+      const USE_MANUAL_OVERRIDE = false;
+
+      const MANUAL_OVERRIDE_SCHEDULES = [
+          { dayIndex: 1, open: 12, close: 21, isClosed: false },
+          { dayIndex: 2, open: 17, close: 22, isClosed: false },
+          { dayIndex: 3, open: 17, close: 22, isClosed: false },
+          { dayIndex: 4, open: 17, close: 22, isClosed: false },
+          { dayIndex: 5, open: 17, close: 22, isClosed: false },
+          { dayIndex: 6, open: 16, close: 23, isClosed: false },
+          { dayIndex: 7, open: 12, close: 23, isClosed: false }
+      ];
+      // =========================================================================
+
+      let currentlyActiveSelectedTimeChip = null;
+
+      function handleTimeChipSelection(clickedChip) {
+          if (clickedChip.classList.contains('disabled-out-of-hours')) return;
+          if (currentlyActiveSelectedTimeChip !== null) {
+              currentlyActiveSelectedTimeChip.className = 'time-chip-item';
+          }
+          clickedChip.className = 'time-chip-item active-selected';
+          document.getElementById('selectedTimeSlot').value = clickedChip.getAttribute('data-time');
+          currentlyActiveSelectedTimeChip = clickedChip;
+      }
+
+      function evaluateOperationalHoursGridFirewall() {
+          const dateInputValue = document.getElementById('reservationDay').value;
+          const gridContainer = document.getElementById('dynamicTimeSlotsContainer');
+
+          if (!dateInputValue || !gridContainer) return;
+
+          const trackingDate = new Date(dateInputValue + "T00:00:00");
+          const jsDayOfWeek = trackingDate.getDay();
+          const swiftDayIndex = jsDayOfWeek + 1;
+
+          currentlyActiveSelectedTimeChip = null;
+          document.getElementById('selectedTimeSlot').value = "";
+          gridContainer.innerHTML = "";
+
+          let venueWeeklySchedules;
+          if (USE_MANUAL_OVERRIDE) {
+              venueWeeklySchedules = MANUAL_OVERRIDE_SCHEDULES;
+              console.log("📝 Web Widget: Running on customer Manual Override configurations.");
+          } else {
+              venueWeeklySchedules = [{ dayIndex: 1, open: 16, close: 22, isClosed: false },{ dayIndex: 2, open: 16, close: 22, isClosed: false },{ dayIndex: 3, open: 16, close: 22, isClosed: false },{ dayIndex: 4, open: 16, close: 22, isClosed: false },{ dayIndex: 5, open: 16, close: 22, isClosed: false },{ dayIndex: 6, open: 16, close: 22, isClosed: false },{ dayIndex: 7, open: 16, close: 22, isClosed: false },];
+              console.log("🏢 Web Widget: Running on live iCloud data synced from iPad disk.");
+          }
+
+          const todaySchedule = venueWeeklySchedules.find(item => item.dayIndex === swiftDayIndex) || { open: 16, close: 22, isClosed: false };
+
+          let startHourLimit = todaySchedule.open;
+          let endHourLimit = todaySchedule.close;
+          let isVenueClosedWholeDay = todaySchedule.isClosed;
+
+          if (isVenueClosedWholeDay) {
+              alert("📆 We are closed on this day of the week. Please select another date for your reservation!");
+              return;
+          }
+
+          for (let hour = startHourLimit; hour < endHourLimit; hour++) {
+              const minutesArray = ["00", "15", "30", "45"];
+
+              minutesArray.forEach(minute => {
+                  const timeValue = String(hour).padStart(2, '0') + ":" + minute;
+                  const displayHour = hour >= 12 ? (hour === 12 ? 12 : hour - 12) : hour;
+                  const amPmSuffix = hour >= 12 ? "PM" : "AM";
+                  const displayLabel = displayHour + ":" + minute + " " + amPmSuffix;
+
+                  const chipNode = document.createElement('div');
+                  chipNode.className = 'time-chip-item';
+                  chipNode.setAttribute('data-time', timeValue);
+                  chipNode.setAttribute('data-hour', hour);
+                  chipNode.textContent = displayLabel;
+
+                  chipNode.onclick = function() {
+                      handleTimeChipSelection(this);
+                  };
+
+                  gridContainer.appendChild(chipNode);
+              });
+          }
+      }
+
+      function toggleOtherOccasionInputField() {
+          const pickerValue = document.getElementById('visitOccasion').value;
+          const otherFieldWrapper = document.getElementById('otherOccasionWrapper');
+          if (pickerValue === 'Other') { otherFieldWrapper.style.display = 'block'; document.getElementById('occasionOtherDetails').required = true; }
+          else { otherFieldWrapper.style.display = 'none'; document.getElementById('occasionOtherDetails').required = false; document.getElementById('occasionOtherDetails').value = ''; }
+      }
+
+      function toggleAllergenInputField() {
+          const allergySelectValue = document.getElementById('hasAllergySelect').value;
+          const allergenNotesWrapper = document.getElementById('allergenNotesWrapper');
+          if (allergySelectValue === '1') {
+              allergenNotesWrapper.style.display = 'block';
+              document.getElementById('webAllergenNotes').required = true;
+          } else {
+              allergenNotesWrapper.style.display = 'none';
+              document.getElementById('webAllergenNotes').required = false;
+              document.getElementById('webAllergenNotes').value = '';
+          }
+      }
+
+      function executeCloudKitBookingSubmit(event) {
+          if (event) event.preventDefault();
+          console.log("🚀 Web Widget: Commencing structural CloudKit handshake...");
+
+          const dayInput = document.getElementById('reservationDay').value;
+          const timeSlotInput = document.getElementById('selectedTimeSlot').value;
+
+          if (!dayInput || !timeSlotInput) {
+              alert("⚠️ Please select an arrival date and tap an open time slot capsule to request your reservation.");
+              return;
+          }
+
+          const combinedISODateString = dayInput + "T" + timeSlotInput + ":00";
+          const userSelectedDate = new Date(combinedISODateString);
+
+          const container = CloudKit.getDefaultContainer();
+          const db = container.privateCloudDatabase;
+
+          const zoneID = {
+              zoneName: "com.apple.coredata.cloudkit.zone",
+              ownerName: "_defaultOwner"
+          };
+
+          const firstName = document.getElementById('firstName').value;
+          const surname = document.getElementById('surname').value;
+          const email = document.getElementById('guestEmail').value;
+          const phone = document.getElementById('phoneDigits').value;
+          const partySize = parseInt(document.getElementById('partySize').value);
+          const resDate = userSelectedDate.getTime();
+          const selectedOccasion = document.getElementById('visitOccasion').value;
+          const fallbackDetails = document.getElementById('occasionOtherDetails').value;
+          const hasAllergyValue = parseInt(document.getElementById('hasAllergySelect').value);
+          const derivedAllergenNotesText = document.getElementById('webAllergenNotes').value;
+          const webNotesTextValue = document.getElementById('webBookingNotes').value;
+
+          const bookingRecord = {
+              recordType: "CD_Booking",
+              recordID: { recordName: "WEB_BOOKING_" + Date.now(), zoneID: zoneID },
+              fields: {
+                  CD_id: { value: "WEB_" + Date.now(), type: "STRING" },
+                  CD_title: { value: "Mr", type: "STRING" },
+                  CD_guestName: { value: firstName, type: "STRING" },
+                  CD_surname: { value: surname, type: "STRING" },
+                  CD_email: { value: email, type: "STRING" },
+                  CD_phoneNumber: { value: phone, type: "STRING" },
+                  CD_partySize: { value: partySize, type: "INT64" },
+                  CD_date: { value: resDate, type: "TIMESTAMP" },
+                  CD_status: { value: "Unconfirmed", type: "STRING" },
+                  CD_occasion: { value: selectedOccasion, type: "STRING" },
+                  CD_occasionOtherDetails: { value: fallbackDetails, type: "STRING" },
+                  CD_isVIP: { value: 0, type: "INT64" },
+                  CD_hasAllergy: { value: hasAllergyValue, type: "INT64" },
+                  CD_allergenNotes: { value: hasAllergyValue === 1 ? derivedAllergenNotesText : "", type: "STRING" },
+                  CD_notes: { value: webNotesTextValue, type: "STRING" },
+                  CD_internalNotes: { value: "Online Web Widget Grid Capsule Pass.", type: "STRING" }
+              }
+          };
+
+          db.saveRecord(bookingRecord).then(function(savedRecord) {
+              alert("🎉 Reservation Request Sent! Your table allocation is now pending review on the host stand ledger.");
+              document.getElementById('bookingForm').reset();
+              const siblingChips = document.querySelectorAll('.time-chip-item');
+              siblingChips.forEach(chip => chip.className = 'time-chip-item');
+              document.getElementById('selectedTimeSlot').value = "";
+              toggleOtherOccasionInputField();
+              toggleAllergenInputField();
+          }).catch(function(error) {
+              alert("⚠️ Submission Failure: " + error.message);
+          });
+      }
+
+      // =========================================================================
+      // 🚀 INITIAL BOOT INLINE SEED ENFORCEMENT
+      // Automatically pre-populates today's available time chips immediately
+      // when the view mounts onto glass, completely breaking layout lockouts [INDEX_1.2.4]!
+      // =========================================================================
+      const todayRawObj = new Date();
+      const localYYYY = todayRawObj.getFullYear();
+      const localMM = String(todayRawObj.getMonth() + 1).padStart(2, '0');
+      const localDD = String(todayRawObj.getDate()).padStart(2, '0');
+      document.getElementById('reservationDay').value = localYYYY + "-" + localMM + "-" + localDD;
+      evaluateOperationalHoursGridFirewall();
+      // =========================================================================
+  </script>
 
 
 
@@ -405,72 +710,6 @@
         </script>
     </body>
 </html>
-
-
-
-
-
-
-<!-- ✅ LIGHTSPEED BOOKING SYSTEM WIZARD CONTROLLER -->
-<script type="text/javascript">
-    var selectedDateString = "Mon, Sep 1";
-    var selectedTimeString = "10:00 AM";
-
-    function selectDate(element, dateStr) {
-        // Reset active style status on alternative options
-        var elements = document.getElementsByClassName("date-pill");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].style.background = "#050508";
-            elements[i].style.borderColor = "#1e1e2f";
-            elements[i].classList.remove("active");
-        }
-        // Bind active styling properties
-        element.style.background = "linear-gradient(45deg, #2563eb, #7c3aed)";
-        element.style.borderColor = "#3b82f6";
-        selectedDateString = dateStr;
-    }
-
-    function selectTime(element, timeStr) {
-        var elements = document.getElementsByClassName("time-btn");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].style.background = "#050508";
-            elements[i].style.borderColor = "#1e1e2f";
-            elements[i].style.color = "#8b949e";
-        }
-        element.style.background = "rgba(59,130,246,0.1)";
-        element.style.borderColor = "#3b82f6";
-        element.style.color = "white";
-        selectedTimeString = timeStr;
-    }
-
-    function goToStep2() {
-        document.getElementById("summary-date-string").innerText = selectedDateString;
-        document.getElementById("summary-time-string").innerText = selectedTimeString;
-        document.getElementById("booking-wizard-step1").style.display = "none";
-        document.getElementById("booking-wizard-step2").style.display = "block";
-    }
-
-    function goToStep1() {
-        document.getElementById("booking-wizard-step2").style.display = "none";
-        document.getElementById("booking-wizard-step1").style.display = "block";
-    }
-
-    function submitBooking() {
-        var name = document.getElementById("bk-name").value;
-        var email = document.getElementById("bk-email").value;
-
-        if(!name || !email) {
-            alert("Please fill out both field profiles to book calendar arrays safely.");
-            return;
-        }
-
-        document.getElementById("booking-wizard-step2").style.display = "none";
-        document.getElementById("booking-wizard-step3").style.display = "block";
-    }
-</script>
-<!-- ✅ LIGHTSPEED BOOKING SYSTEM WIZARD CONTROLLER -->
-
-
 
 
     <!-- ✅ PASSIVE CHAT WIDGET LOADER: 0ms initial block profile -->
