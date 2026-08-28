@@ -70,7 +70,6 @@
 
 
 
-
         <!-- START TABLEMASTER WEB EMBED TEMPLATE -->
         <div class="tablemaster-widget-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 20px; background: #f5f5f7; border-radius: 14px;">
             <div style="max-width: 450px; margin: 0 auto; background: white; padding: 30px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); box-sizing: border-box;">
@@ -117,12 +116,23 @@
                 </form>
             </div>
         </div>
-        <!-- APPLE SECURITY FIREWALL HANDSHAKE ROUTER -->
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://apple-cloudkit.com; connect-src 'self' https://*.apple-cloudkit.com https://apple-cloudkit.com;">
-
-        <script src="https://apple-cloudkit.com/ck/2/cloudkit.js"></script>
+        <!-- OFFICIAL PRODUCTION CDN: Loaded Apple's true certified cloud library script -->
+        <script src="https://apple-cloudkit.com"></script>
         <script>
-            // ✅ CORRECTION: Fixed JavaScript keyword bindings from 'func' to 'function' [INDEX_1.2.4]
+            if (typeof CloudKit !== 'undefined') { initializeTableMasterCloudKitWidget(); }
+            else { window.addEventListener('load', initializeTableMasterCloudKitWidget); }
+
+            function initializeTableMasterCloudKitWidget() {
+                try {
+                    CloudKit.configure({
+                        containers: [{
+                            containerIdentifier: 'iCloud.com.tablemanagement.com.TableMaster2026',
+                            environment: 'development'
+                        }]
+                    });
+                } catch(e) { console.log("CloudKit initialization bypass: " + e.message); }
+            }
+
             function toggleOtherOccasionInputField() {
                 const pickerValue = document.getElementById('visitOccasion').value;
                 const otherFieldWrapper = document.getElementById('otherOccasionWrapper');
@@ -133,141 +143,127 @@
             function toggleAllergenInputField() {
                 const allergySelectValue = document.getElementById('hasAllergySelect').value;
                 const allergenNotesWrapper = document.getElementById('allergenNotesWrapper');
-                if (allergySelectValue === '1') { allergenNotesWrapper.style.display = 'block'; document.getElementById('webAllergenNotes').required = true; }
-                else { allergenNotesWrapper.style.display = 'none'; document.getElementById('webAllergenNotes').required = false; document.getElementById('webAllergenNotes').value = ''; }
+                if (allergySelectValue === '1') {
+                    allergenNotesWrapper.style.display = 'block';
+                    document.getElementById('webAllergenNotes').required = true;
+                } else {
+                    allergenNotesWrapper.style.display = 'none';
+                    document.getElementById('webAllergenNotes').required = false;
+                    document.getElementById('webAllergenNotes').value = '';
+                }
             }
 
-            function initializeTableMasterCloudKitWidget() {
-                try {
-                    CloudKit.configure({
-                        containers: [{
-                            containerIdentifier: '://tablemanagement.com.TableMaster2026',
-                            environment: 'production'
-                        }]
-                    });
-                    console.log("✅ CloudKit Web Services Connected Successfully.");
-                } catch(e) { console.log("⚠️ CloudKit initialization bypass: " + e.message); }
-            }
+                function executeCloudKitBookingSubmit(event) {
+                    if (event) event.preventDefault(); // Prevents the browser page from refreshing!
+                    console.log("🚀 Web Widget: Commencing structural CloudKit handshake...");
 
-            // Hook up initialization listeners robustly
-            if (typeof CloudKit !== 'undefined') { initializeTableMasterCloudKitWidget(); }
-            else { window.addEventListener('load', initializeTableMasterCloudKitWidget); }
-
-            function executeCloudKitBookingSubmit(event) {
-                if (event) event.preventDefault();
-                console.log("🚀 Web Widget Form Submit Button Explicitly Tapped!");
-
-                const submitButton = event.target.querySelector('button[type="submit"]');
-                submitButton.disabled = true;
-                submitButton.style.background = '#ccc';
-                submitButton.innerText = 'Transmitting Reservation...';
-
-                const inputDateElement = document.getElementById('reservationDate').value;
-                if (!inputDateElement) {
-                    alert("⚠️ Please select a valid date and time for your reservation.");
-                    submitButton.disabled = false;
-                    submitButton.style.background = '#ff2d55';
-                    submitButton.innerText = 'Request Reservation';
-                    return;
-                }
-
-                const userSelectedDate = new Date(inputDateElement);
-                const bookingDayOfWeek = userSelectedDate.getDay();
-                const bookingHourInt = userSelectedDate.getHours();
-
-                // --- Shift Boundary Matrix Control Rules ---
-                let startHourLimit = 16;
-                let endHourLimit = 22;
-                let isVenueClosedWholeDay = false;
-
-                if (bookingDayOfWeek === 1) { isVenueClosedWholeDay = true; }
-                else if (bookingDayOfWeek === 5 || bookingDayOfWeek === 6) { endHourLimit = 23; }
-
-                if (isVenueClosedWholeDay) {
-                    alert("📆 We are closed on this day of the week. Please select another date for your reservation!");
-                    submitButton.disabled = false;
-                    submitButton.style.background = '#ff2d55';
-                    submitButton.innerText = 'Request Reservation';
-                    return;
-                }
-
-                if (bookingHourInt < startHourLimit || bookingHourInt >= endHourLimit) {
-                    const formatTimeLabel = (h) => h >= 12 ? (h === 12 ? "12 PM" : (h - 12) + " PM") : h + " AM";
-                    alert("🛑 Out of Bounds Slot: Our kitchen is open from " + formatTimeLabel(startHourLimit) + " until " + formatTimeLabel(endHourLimit) + " for this day.");
-                    submitButton.disabled = false;
-                    submitButton.style.background = '#ff2d55';
-                    submitButton.innerText = 'Request Reservation';
-                    return;
-                }
-
-                // Establish connection handlers targeting public endpoint blocks
-                const container = CloudKit.getDefaultContainer();
-
-                // 🌟 FIXED PUBLIC PIPELINE ROUTING: Unlocks anonymous web reservations! [INDEX_1.2.4]
-                const db = container.getPublicCloudDatabase();
-
-                // 🌟 EXPLICIT CORE DATA CONFIG OWNER HANDSHAKE [INDEX_1.2.4]
-                const zoneID = {
-                    zoneName: "com.apple.coredata.cloudkit.zone",
-                    ownerName: "_defaultOwner"
-                };
-
-                const firstName = document.getElementById('firstName').value;
-                const surname = document.getElementById('surname').value;
-                const email = document.getElementById('guestEmail').value;
-                const phone = document.getElementById('phoneDigits').value;
-                const partySize = parseInt(document.getElementById('partySize').value);
-                const resDate = userSelectedDate.getTime();
-                const selectedOccasion = document.getElementById('visitOccasion').value;
-                const fallbackDetails = document.getElementById('occasionOtherDetails').value;
-                const hasAllergyValue = parseInt(document.getElementById('hasAllergySelect').value);
-                const derivedAllergenNotesText = document.getElementById('webAllergenNotes').value;
-                const webNotesTextValue = document.getElementById('webBookingNotes').value;
-
-                // =========================================================================
-                // 🌟 TYPE-SAFE ATTRIBUTE KEY MAPPING SCHEMAS [INDEX_1.2.4]
-                // CoreData requires explicit value/type dictionary definitions [INDEX_1.2.4]!
-                // =========================================================================
-                const bookingRecord = {
-                    recordType: "CD_Booking",
-                    recordID: { recordName: "WEB_BOOKING_" + Date.now(), zoneID: zoneID },
-                    fields: {
-                        CD_id: { value: "WEB_" + Date.now(), type: "STRING" },
-                        CD_title: { value: "Mr", type: "STRING" },
-                        CD_guestName: { value: firstName, type: "STRING" },
-                        CD_surname: { value: surname, type: "STRING" },
-                        CD_email: { value: email, type: "STRING" },
-                        CD_phoneNumber: { value: phone, type: "STRING" },
-                        CD_partySize: { value: partySize, type: "INT64" },
-                        CD_date: { value: resDate, type: "TIMESTAMP" },
-                        CD_status: { value: "Unconfirmed", type: "STRING" },
-                        CD_occasion: { value: selectedOccasion, type: "STRING" },
-                        CD_occasionOtherDetails: { value: fallbackDetails, type: "STRING" },
-                        CD_isVIP: { value: 0, type: "INT64" },
-                        CD_hasAllergy: { value: hasAllergyValue, type: "INT64" },
-                        CD_allergenNotes: { value: hasAllergyValue === 1 ? derivedAllergenNotesText : "", type: "STRING" },
-                        CD_notes: { value: webNotesTextValue, type: "STRING" },
-                        CD_internalNotes: { value: "Online Web Widget Entry Pass.", type: "STRING" }
+                    const inputDateElement = document.getElementById('reservationDate').value;
+                    if (!inputDateElement) {
+                        alert("⚠️ Please select a valid date and time for your reservation.");
+                        return;
                     }
-                };
 
-                db.saveRecord(bookingRecord).then(function(savedRecord) {
-                    alert("🎉 Reservation Request Sent! Your table allocation is now pending review on the host stand ledger.");
-                    document.getElementById('bookingForm').reset();
-                    submitButton.disabled = false;
-                    submitButton.style.background = '#ff2d55';
-                    submitButton.innerText = 'Request Reservation';
-                    toggleOtherOccasionInputField();
-                    toggleAllergenInputField();
-                }).catch(function(error) {
-                    alert("⚠️ Submission Failure: " + error.message);
-                    submitButton.disabled = false;
-                    submitButton.style.background = '#ff2d55';
-                    submitButton.innerText = 'Request Reservation';
-                });
-            }
+                    // Extract date and time components natively from the user input
+                    const userSelectedDate = new Date(inputDateElement);
+                    const bookingDayOfWeek = userSelectedDate.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
+                    const bookingHourInt = userSelectedDate.getHours();
+
+                    // =========================================================================
+                    // ✅ THE OPERATIONAL HOURS FIREWALL MATRIX
+                    // Validates times on the client side before allowing a CloudKit save! [INDEX_1.1.25]
+                    // Default shift boundaries: 4:00 PM (16) to 10:00 PM (22)
+                    // =========================================================================
+                    let startHourLimit = 16; // 4:00 PM
+                    let endHourLimit = 22;   // 10:00 PM
+                    let isVenueClosedWholeDay = false;
+
+                    // Enforce conditional day configurations (0 = Sunday, 1 = Monday, etc.)
+                    if (bookingDayOfWeek === 1) {
+                        isVenueClosedWholeDay = true; // Mark completely closed on Mondays as a fallback rule guard
+                    } else if (bookingDayOfWeek === 5 || bookingDayOfWeek === 6) {
+                        endHourLimit = 23; // Extend Friday & Saturday weekend dinner slots out until 11 PM safely
+                    }
+
+                    // 1. Enforce weekly closure logic check
+                    if (isVenueClosedWholeDay) {
+                        alert("📆 We are closed on this day of the week. Please select another date for your reservation!");
+                        return; // ⛔ HARD BLOCK: Halts submission entirely!
+                    }
+
+                    // 2. Enforce operational hour boundary checks
+                    if (bookingHourInt < startHourLimit || bookingHourInt >= endHourLimit) {
+                        // Dynamically formats the standard 12-hour AM/PM label strings for clean messaging [INDEX_1.1.25]
+                        const formatTimeLabel = (h) => h >= 12 ? (h === 12 ? "12 PM" : (h - 12) + " PM") : h + " AM";
+                        alert("🛑 Out of Bounds Slot: Our kitchen is open from " + formatTimeLabel(startHourLimit) + " until " + formatTimeLabel(endHourLimit) + " for this day. Please pick a slot inside our operational shift hours!");
+                        return; // ⛔ HARD BLOCK: Halts submission entirely!
+                    }
+                    // =========================================================================
+
+                    const container = CloudKit.getDefaultContainer();
+                    const db = container.privateCloudDatabase;
+
+                    // =========================================================================
+                    // 🌟 CRUCIAL FIX 1: THE CORE DATA CUSTOM ZONE OWNER HANDSHAKE!
+                    // JavaScript MUST explicitly pass '_defaultOwner' for custom SwiftData zones! [INDEX_1.2.4]
+                    // =========================================================================
+                    const zoneID = {
+                        zoneName: "com.apple.coredata.cloudkit.zone",
+                        ownerName: "_defaultOwner"
+                    };
+                    // =========================================================================
+
+                    const firstName = document.getElementById('firstName').value;
+                    const surname = document.getElementById('surname').value;
+                    const email = document.getElementById('guestEmail').value;
+                    const phone = document.getElementById('phoneDigits').value;
+                    const partySize = parseInt(document.getElementById('partySize').value);
+                    const resDate = userSelectedDate.getTime(); // CoreData tracks timestamps as integers (ms since epoch) [INDEX_1.2.4]
+                    const selectedOccasion = document.getElementById('visitOccasion').value;
+                    const fallbackDetails = document.getElementById('occasionOtherDetails').value;
+                    const hasAllergyValue = parseInt(document.getElementById('hasAllergySelect').value);
+                    const derivedAllergenNotesText = document.getElementById('webAllergenNotes').value;
+                    const webNotesTextValue = document.getElementById('webBookingNotes').value;
+
+                    // =========================================================================
+                    // 🌟 CRUCIAL FIX 2: SWIFTDATA ATTRIBUTE KEY COMPATIBILITY
+                    // CoreData/SwiftData requires values to be wrapped inside type-safe objects! [INDEX_1.2.4]
+                    // It expects 'value' for standard attributes and ignores flat strings. [INDEX_1.2.4]
+                    // =========================================================================
+                    const bookingRecord = {
+                        recordType: "CD_Booking",
+                        recordID: { recordName: "WEB_BOOKING_" + Date.now(), zoneID: zoneID },
+                        fields: {
+                            CD_id: { value: "WEB_" + Date.now(), type: "STRING" },
+                            CD_title: { value: "Mr", type: "STRING" },
+                            CD_guestName: { value: firstName, type: "STRING" },
+                            CD_surname: { value: surname, type: "STRING" },
+                            CD_email: { value: email, type: "STRING" },
+                            CD_phoneNumber: { value: phone, type: "STRING" },
+                            CD_partySize: { value: partySize, type: "INT64" },
+                            CD_date: { value: resDate, type: "TIMESTAMP" },
+                            CD_status: { value: "Unconfirmed", type: "STRING" },
+                            CD_occasion: { value: selectedOccasion, type: "STRING" },
+                            CD_occasionOtherDetails: { value: fallbackDetails, type: "STRING" },
+                            CD_isVIP: { value: 0, type: "INT64" },
+                            CD_hasAllergy: { value: hasAllergyValue, type: "INT64" },
+                            CD_allergenNotes: { value: hasAllergyValue === 1 ? derivedAllergenNotesText : "", type: "STRING" },
+                            CD_notes: { value: webNotesTextValue, type: "STRING" },
+                            CD_internalNotes: { value: "Online Web Widget Entry Pass.", type: "STRING" }
+                        }
+                    };
+                    // =========================================================================
+
+                    db.saveRecord(bookingRecord).then(function(savedRecord) {
+                        alert("🎉 Reservation Request Sent! Your table allocation is now pending review on the host stand ledger.");
+                        document.getElementById('bookingForm').reset();
+                        toggleOtherOccasionInputField();
+                        toggleAllergenInputField();
+                    }).catch(function(error) {
+                        alert("⚠️ Submission Failure: " + error.message);
+                    });
+                }
+
         </script>
-
 
 
 
