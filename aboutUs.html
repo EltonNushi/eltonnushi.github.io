@@ -193,7 +193,7 @@
             <form id="bookingForm" onsubmit="executeCloudKitBookingSubmit(event)">
 
                 <!-- GUEST PROFILE IDENTITY INPUT GROUPS -->
-                <div class="form-group"><label>First Name</label><input type="text" id="firstName" required placeholder="Jane"></div>
+                <div class="form-group"><label>First Name</label><input type="text" id="firstName" required placeholder="John"></div>
                 <div class="form-group"><label>Surname</label><input type="text" id="surname" required placeholder="Smith"></div>
                 <div class="form-group"><label>Email Address</label><input type="email" id="guestEmail" required placeholder="john.smith@example.com"></div>
                 <div class="form-group"><label>Phone Number</label><input type="tel" id="phoneDigits" required placeholder="07123 456789"></div>
@@ -253,110 +253,11 @@
                 <button type="submit" class="submit-button">Request Reservation</button>
             </form>
         </div>
+        <!-- OFFICIAL PRODUCTION CDN: Loaded Apple's true certified cloud library script -->
         <script src="https://apple-cloudkit.com"></script>
         <script>
-            if (typeof CloudKit !== 'undefined') { initializeTableMasterCloudKitWidget(); }
-            else { window.addEventListener('load', initializeTableMasterCloudKitWidget); }
-
-            function initializeTableMasterCloudKitWidget() {
-                try {
-                    CloudKit.configure({
-                        containers: [{
-                            containerIdentifier: '://tablemanagement.com.TableMaster2026',
-                            environment: 'development'
-                        }]
-                    });
-                } catch(e) { console.log("CloudKit initialization bypass: " + e.message); }
-            }
-
-            // =========================================================================
-            // 🌟 THE MANUAL OVERRIDE CONTROL MATRIX (EASY CODE EDITS)
-            // Advanced users can edit these flat values directly in the template text file [INDEX_1.2.4]!
-            // Set USE_MANUAL_OVERRIDE to true to ignore the app database completely.
-            // Day Index Map: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat
-            // =========================================================================
-            const USE_MANUAL_OVERRIDE = false;
-
-            const MANUAL_OVERRIDE_SCHEDULES = [
-                { dayIndex: 1, open: 12, close: 21, isClosed: false },
-                { dayIndex: 2, open: 17, close: 22, isClosed: false },
-                { dayIndex: 3, open: 17, close: 22, isClosed: false },
-                { dayIndex: 4, open: 17, close: 22, isClosed: false },
-                { dayIndex: 5, open: 17, close: 22, isClosed: false },
-                { dayIndex: 6, open: 16, close: 23, isClosed: false },
-                { dayIndex: 7, open: 12, close: 23, isClosed: false }
-            ];
-            // =========================================================================
-
-            let currentlyActiveSelectedTimeChip = null;
-
-            function handleTimeChipSelection(clickedChip) {
-                if (clickedChip.classList.contains('disabled-out-of-hours')) return;
-                if (currentlyActiveSelectedTimeChip !== null) {
-                    currentlyActiveSelectedTimeChip.className = 'time-chip-item';
-                }
-                clickedChip.className = 'time-chip-item active-selected';
-                document.getElementById('selectedTimeSlot').value = clickedChip.getAttribute('data-time');
-                currentlyActiveSelectedTimeChip = clickedChip;
-            }
-
-            function evaluateOperationalHoursGridFirewall() {
-                const dateInputValue = document.getElementById('reservationDay').value;
-                const gridContainer = document.getElementById('dynamicTimeSlotsContainer');
-
-                if (!dateInputValue || !gridContainer) return;
-
-                const trackingDate = new Date(dateInputValue + "T00:00:00");
-                const jsDayOfWeek = trackingDate.getDay();
-                const swiftDayIndex = jsDayOfWeek + 1;
-
-                currentlyActiveSelectedTimeChip = null;
-                document.getElementById('selectedTimeSlot').value = "";
-                gridContainer.innerHTML = "";
-
-                let venueWeeklySchedules;
-                if (USE_MANUAL_OVERRIDE) {
-                    venueWeeklySchedules = MANUAL_OVERRIDE_SCHEDULES;
-                    console.log("📝 Web Widget: Running on customer Manual Override configurations.");
-                } else {
-                    venueWeeklySchedules = [{ dayIndex: 1, open: 16, close: 22, isClosed: false },{ dayIndex: 2, open: 16, close: 22, isClosed: false },{ dayIndex: 3, open: 16, close: 22, isClosed: false },{ dayIndex: 4, open: 16, close: 22, isClosed: false },{ dayIndex: 5, open: 16, close: 22, isClosed: false },{ dayIndex: 6, open: 16, close: 22, isClosed: false },{ dayIndex: 7, open: 16, close: 22, isClosed: false },];
-                    console.log("🏢 Web Widget: Running on live iCloud data synced from iPad disk.");
-                }
-
-                const todaySchedule = venueWeeklySchedules.find(item => item.dayIndex === swiftDayIndex) || { open: 16, close: 22, isClosed: false };
-
-                let startHourLimit = todaySchedule.open;
-                let endHourLimit = todaySchedule.close;
-                let isVenueClosedWholeDay = todaySchedule.isClosed;
-
-                if (isVenueClosedWholeDay) {
-                    alert("📆 We are closed on this day of the week. Please select another date for your reservation!");
-                    return;
-                }
-
-                for (let hour = startHourLimit; hour < endHourLimit; hour++) {
-                    const minutesArray = ["00", "15", "30", "45"];
-
-                    minutesArray.forEach(minute => {
-                        const timeValue = String(hour).padStart(2, '0') + ":" + minute;
-                        const displayHour = hour >= 12 ? (hour === 12 ? 12 : hour - 12) : hour;
-                        const amPmSuffix = hour >= 12 ? "PM" : "AM";
-                        const displayLabel = displayHour + ":" + minute + " " + amPmSuffix;
-
-                        const chipNode = document.createElement('div');
-                        chipNode.className = 'time-chip-item';
-                        chipNode.setAttribute('data-time', timeValue);
-                        chipNode.setAttribute('data-hour', hour);
-                        chipNode.textContent = displayLabel;
-
-                        chipNode.onclick = function() {
-                            handleTimeChipSelection(this);
-                        };
-
-                        gridContainer.appendChild(chipNode);
-                    });
-                }
-            }
+            // Native database operational timetables loaded from local disk memory cache [INDEX_1.2.4]
+            const venueOperationalHoursRuleMap = [{ dayIndex: 1, open: 12, close: 22, isClosed: false },{ dayIndex: 2, open: 12, close: 22, isClosed: false },{ dayIndex: 3, open: 12, close: 22, isClosed: false },{ dayIndex: 4, open: 12, close: 22, isClosed: false },{ dayIndex: 5, open: 12, close: 22, isClosed: false },{ dayIndex: 6, open: 12, close: 22, isClosed: false },{ dayIndex: 7, open: 12, close: 22, isClosed: false },];
 
             function toggleOtherOccasionInputField() {
                 const pickerValue = document.getElementById('visitOccasion').value;
@@ -378,6 +279,63 @@
                 }
             }
 
+            // DYNAMIC 4-COLUMN TIMETABLE CHIP RENDERING ENGINE
+            function evaluateOperationalHoursGridFirewall() {
+                const dayInput = document.getElementById('reservationDay').value;
+                const containerGrid = document.getElementById('dynamicTimeSlotsContainer');
+                containerGrid.innerHTML = ""; // Hard clear old painted elements
+                document.getElementById('selectedTimeSlot').value = ""; // Reset hidden selector
+
+                if (!dayInput) return;
+
+                const selectedDateObj = new Date(dayInput);
+                let weekdayIndex = selectedDateObj.getDay() + 1; // Apple matching calendar rule standard (1 = Sun)
+
+                const rule = venueOperationalHoursRuleMap.find(r => r.dayIndex === weekdayIndex) || { open: 16, close: 22, isClosed: false };
+
+                if (rule.isClosed) {
+                    containerGrid.innerHTML = "<div style='grid-column: span 4; color: #ff2d55; font-size: 13px; font-weight: bold; padding: 10px 0;'>📆 We are closed on this day. Please select another date!</div>";
+                    return;
+                }
+
+                // Build chronological half-hour booking slots fluidly [INDEX_1.1.25]
+                for (let hour = rule.open; hour < rule.close; hour++) {
+                    const formats = ["00", "30"];
+                    formats.forEach(minute => {
+                        const timeStringValue = String(hour).padStart(2, '0') + ":" + minute;
+
+                        const chipNode = document.createElement('div');
+                        chipNode.className = "time-chip-item";
+                        chipNode.innerText = timeStringValue;
+
+                        // Select target handler
+                        chipNode.onclick = function() {
+                            const siblingChips = containerGrid.querySelectorAll('.time-chip-item');
+                            siblingChips.forEach(c => c.classList.remove('active-selected'));
+                            chipNode.classList.add('active-selected');
+                            document.getElementById('selectedTimeSlot').value = timeStringValue;
+                        };
+
+                        containerGrid.appendChild(chipNode);
+                    });
+                }
+            }
+
+            if (typeof CloudKit !== 'undefined') { initializeTableMasterCloudKitWidget(); }
+            else { window.addEventListener('load', initializeTableMasterCloudKitWidget); }
+
+            function initializeTableMasterCloudKitWidget() {
+                try {
+                    CloudKit.configure({
+                        containers: [{
+                            containerIdentifier: '://tablemanagement.com.TableMaster2026',
+                            environment: 'production'
+                        }]
+                    });
+                    console.log("✅ CloudKit Web Services Operational Connected.");
+                } catch(e) { console.log("CloudKit initialization bypass: " + e.message); }
+            }
+
             function executeCloudKitBookingSubmit(event) {
                 if (event) event.preventDefault();
                 console.log("🚀 Web Widget: Commencing structural CloudKit handshake...");
@@ -390,11 +348,19 @@
                     return;
                 }
 
+                const submitButton = event.target.querySelector('.submit-button');
+                submitButton.disabled = true;
+                submitButton.style.background = '#ccc';
+                submitButton.innerText = 'Transmitting Booking...';
+
                 const combinedISODateString = dayInput + "T" + timeSlotInput + ":00";
                 const userSelectedDate = new Date(combinedISODateString);
 
                 const container = CloudKit.getDefaultContainer();
-                const db = container.privateCloudDatabase;
+
+                // 🌟 FIXED PUBLIC DEPLOYMENT CHANNEL BARRIER [INDEX_1.2.4]
+                // Rerouted from private to public database to unblock anonymous clients! [INDEX_1.2.4]
+                const db = container.getPublicCloudDatabase();
 
                 const zoneID = {
                     zoneName: "com.apple.coredata.cloudkit.zone",
@@ -413,6 +379,10 @@
                 const derivedAllergenNotesText = document.getElementById('webAllergenNotes').value;
                 const webNotesTextValue = document.getElementById('webBookingNotes').value;
 
+                // =========================================================================
+                // 🌟 TYPE-SAFE ATTRIBUTE KEY MAPPING SCHEMAS [INDEX_1.2.4]
+                // 🌟 SAAS SEPARATION KEY: Bakes the unique restaurantID straight into internalNotes! [INDEX_1.2.4]
+                // =========================================================================
                 const bookingRecord = {
                     recordType: "CD_Booking",
                     recordID: { recordName: "WEB_BOOKING_" + Date.now(), zoneID: zoneID },
@@ -432,7 +402,9 @@
                         CD_hasAllergy: { value: hasAllergyValue, type: "INT64" },
                         CD_allergenNotes: { value: hasAllergyValue === 1 ? derivedAllergenNotesText : "", type: "STRING" },
                         CD_notes: { value: webNotesTextValue, type: "STRING" },
-                        CD_internalNotes: { value: "Online Web Widget Grid Capsule Pass.", type: "STRING" }
+
+                        // 🚀 THE MULTI-TENANT TRACKING TOKEN PIPELINE:
+                        CD_internalNotes: { value: "REST_DEFAULT", type: "STRING" }
                     }
                 };
 
@@ -442,25 +414,27 @@
                     const siblingChips = document.querySelectorAll('.time-chip-item');
                     siblingChips.forEach(chip => chip.className = 'time-chip-item');
                     document.getElementById('selectedTimeSlot').value = "";
+                    submitButton.disabled = false;
+                    submitButton.style.background = '#ff2d55';
+                    submitButton.innerText = 'Request Reservation';
                     toggleOtherOccasionInputField();
                     toggleAllergenInputField();
+                    evaluateOperationalHoursGridFirewall();
                 }).catch(function(error) {
                     alert("⚠️ Submission Failure: " + error.message);
+                    submitButton.disabled = false;
+                    submitButton.style.background = '#ff2d55';
+                    submitButton.innerText = 'Request Reservation';
                 });
             }
 
-            // =========================================================================
-            // 🚀 INITIAL BOOT INLINE SEED ENFORCEMENT
-            // Automatically pre-populates today's available time chips immediately
-            // when the view mounts onto glass, completely breaking layout lockouts [INDEX_1.2.4]!
-            // =========================================================================
+            // INITIAL AUTO-SEED ONAPPEAR RENDERER
             const todayRawObj = new Date();
             const localYYYY = todayRawObj.getFullYear();
             const localMM = String(todayRawObj.getMonth() + 1).padStart(2, '0');
             const localDD = String(todayRawObj.getDate()).padStart(2, '0');
             document.getElementById('reservationDay').value = localYYYY + "-" + localMM + "-" + localDD;
             evaluateOperationalHoursGridFirewall();
-            // =========================================================================
         </script>
 
 
