@@ -7,25 +7,33 @@
     <meta name="author" content="SwiftTech Mobile" />
     <title>SwiftTech Mobile</title>
 
+    <!-- Clean Tab Icon Layout Setup -->
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link href="https://jsdelivr.net" rel="stylesheet" />
-    <link rel="preconnect" href="https://googleapis.com" />
-    <link rel="preconnect" href="https://gstatic.com" crossorigin />
-    <link href="https://googleapis.com/css2?family=Kanit:wght@600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
+    <!-- ✅ FIXED: High-Speed Bootstrap 5 CSS System Layout Engine (Resolves Corner Alignment Bug) -->
+    <link href="https://jsdelivr.net" rel="stylesheet" />
+
+    <!-- ✅ FIXED: High-Speed Bootstrap Vector Icons Framework CDN -->
+    <link href="https://jsdelivr.net" rel="stylesheet" />
+
+    <!-- ✅ FIXED: High-Speed Google Fonts Asset Handshake Delivery Pipeline -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- LIGHTSPEED EMBEDDED CSS ENGINE -->
     <style>
         :root { --primary: #3b82f6; --secondary: #7c3aed; --dark-bg: #000000; --card-bg: #0b0b12; --border: #1e1e2f; --text-muted: #8b949e; }
         html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-color: var(--dark-bg) !important; color: #ffffff; font-family: 'Mulish', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .navbar { padding: 1.2rem 0; background-color: rgba(0, 0, 0, 0.9) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: fixed; top: 0; width: 100%; z-index: 1000; }
+
+        /* Fixed Navigation Alignment (Bootstrap 5 Sync) */
+        .navbar { padding: 1.2rem 0; background-color: rgba(0, 0, 0, 0.9) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
         .navbar-brand { font-size: 1.5rem; text-decoration: none; font-weight: 700; color: #ffffff !important; display: flex; align-items: center; gap: 12px; font-family: 'Kanit', sans-serif; }
         .nav-link { font-size: 1rem; text-decoration: none; color: var(--text-muted) !important; font-weight: 600; transition: color 0.2s; padding: 0.5rem 1rem; }
         .nav-link:hover { color: #ffffff !important; }
+
+        /* Layout Grid Blocks */
         .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; box-sizing: border-box; }
-        .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
-        .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
-        .col-lg-12 { width: 100%; box-sizing: border-box; }
-        .mx-auto { margin-left: auto !important; margin-right: auto !important; }
-        .text-center { text-align: center !important; }
         .py-section { padding-top: 14rem !important; padding-bottom: 8rem !important; }
         .py-features { padding-top: 6rem !important; padding-bottom: 6rem !important; background-color: #030305; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .font-alt { font-family: 'Kanit', sans-serif; }
@@ -33,6 +41,7 @@
         .btn-main { display: inline-flex; align-items: center; justify-content: center; font-weight: 700; padding: 0.9rem 2.2rem; font-size: 1rem; border-radius: 12px; text-decoration: none; background: linear-gradient(45deg, #2563eb, #7c3aed); color: #fff; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2); transition: transform 0.2s; }
         .btn-main:hover { transform: translateY(-2px); }
 
+        /* Hardware Showcase Proportions */
         .device-stage { width: 100%; max-width: 520px; height: 380px; margin: 0 auto; position: relative; }
         .macbook-frame { width: 380px; height: 230px; background: #1c1b22; border: 10px solid #2d2c34; border-radius: 16px; position: absolute; top: 10px; left: 0; z-index: 2; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
         .macbook-stand { width: 90px; height: 35px; background: #222128; position: absolute; top: 235px; left: 145px; z-index: 1; border-radius: 0 0 12px 12px; }
@@ -49,6 +58,7 @@
         @media (max-width: 991px) { .col-lg-6 { width: 100% !important; text-align: center !important; } .row { flex-direction: column; gap: 4rem; } .navbar .container { flex-direction: row; justify-content: space-between; } .device-stage { transform: scale(0.8); height: 320px; } }
     </style>
 </head>
+
 <body>
 
     <!-- Hero Framework Area -->
@@ -121,7 +131,7 @@
                               <!-- RESPONSIVE LINK ALIGNMENT SET -- RIGHT PANEL BALANCE -->
                               <div class="collapse navbar-collapse" id="navbarResponsive">
                                   <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1" style="display: flex; align-items: center;">
-                                      <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem; color: #ffffff !important;" href="apps.html">Appss</a></li>
+                                      <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem; color: #ffffff !important;" href="apps.html">Apps</a></li>
                                       <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem;" href="index.html#download">Download</a></li>
                                       <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem;" href="aboutUs.html">About</a></li>
                                       <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem;" href="mailto:info@swifttechmobile.co.uk">Contact Us</a></li>
