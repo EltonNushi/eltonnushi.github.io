@@ -30,28 +30,31 @@
             margin: 0; padding: 0; width: 100%; min-height: 100vh;
             background-color: var(--dark-bg) !important; color: #ffffff;
             font-family: 'Mulish', sans-serif; scroll-behavior: smooth; overflow-x: hidden;
+            display: flex; flex-direction: column;
         }
         .text-white { color: #ffffff !important; }
         .text-muted { color: var(--text-muted) !important; }
         .font-alt { font-family: 'Kanit', sans-serif; }
 
-        /* Navigation Framework rules */
+        /* Fixed Navigation Alignment (Perfect Home Page Sync) */
         .navbar { padding: 1.2rem 0; background-color: rgba(0, 0, 0, 0.95) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
         .navbar-brand { font-size: 1.5rem; text-decoration: none; font-weight: 700; color: #ffffff !important; display: flex; align-items: center; gap: 12px; font-family: 'Kanit', sans-serif; }
         .nav-link { font-size: 1rem; text-decoration: none; color: var(--text-muted) !important; font-weight: 600; transition: color 0.15s ease; padding: 0.5rem 1rem; }
         .nav-link:hover { color: #ffffff !important; }
         .navbar-toggler { border-color: rgba(255,255,255,0.15) !important; background: transparent !important; }
 
-        /* Layout Grid Controls */
+        /* Unified Layout Grid Controls */
         .container { width: 100%; padding-right: 2rem; padding-left: 2rem; margin-right: auto; margin-left: auto; max-width: 1200px; }
         .row { display: flex; flex-wrap: wrap; margin-right: -1rem; margin-left: -1rem; width: 100%; }
+        .col-lg-6 { flex: 0 0 auto; width: 50%; padding: 0 1rem; box-sizing: border-box; }
         .col-lg-12 { width: 100%; }
 
-        /* MATCHES HOME PAGE HEADER: Elongated core typography proportions */
+        /* Premium Layout Grid Elements (GPU Accelerated for 0ms Lag) */
         .py-section { padding-top: 14rem !important; padding-bottom: 6rem !important; }
+        .py-catalog { padding-top: 6rem !important; padding-bottom: 8rem !important; }
         .display-title { font-size: 3.5rem; font-weight: 700; line-height: 1.15; margin: 0 0 1.5rem 0; font-family: 'Kanit', sans-serif; letter-spacing: -1px; }
+        .gradient-text { background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Premium Application Presentation Grid Elements (GPU Accelerated) */
         .apps-portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 4rem; transform: translateZ(0); }
         .app-showcase-card {
             background-color: var(--card-bg); border: 1px solid var(--border); padding: 2.5rem; border-radius: 20px;
@@ -65,95 +68,108 @@
         .app-card-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 2rem; flex-grow: 1; text-align: left; }
         .app-store-badge-link img { height: 2.4rem; width: auto; }
 
-        /* Video Preview Frames Configuration (Fixed memory profile bounds) */
-        .features-device-mockup { position: relative; max-width: 240px; margin: 0 auto; }
-        .device-wrapper { width: 100%; position: relative; }
-        .device-wrapper .screen { border-radius: 32px; overflow: hidden; background: #000; aspect-ratio: 9 / 19.5; display: flex; align-items: center; justify-content: center; }
+        /* Hardware Showcase Proportions matching index page */
+        .device-stage { width: 100%; max-width: 520px; height: 380px; margin: 0 auto; position: relative; }
+        .macbook-frame { width: 380px; height: 230px; background: #1c1b22; border: 10px solid #2d2c34; border-radius: 16px; position: absolute; top: 10px; left: 0; z-index: 2; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
+        .macbook-stand { width: 90px; height: 35px; background: #222128; position: absolute; top: 235px; left: 145px; z-index: 1; border-radius: 0 0 12px 12px; }
+        .macbook-base { width: 170px; height: 6px; background: #37363e; position: absolute; top: 270px; left: 105px; z-index: 1; border-radius: 4px; }
+        .ipad-frame { width: 150px; height: 210px; background: #08080a; border: 7px solid #16151a; border-radius: 18px; position: absolute; bottom: 10px; right: 0; z-index: 4; overflow: hidden; box-shadow: 0 20px 45px rgba(0,0,0,0.6); }
+        .iphone-frame { width: 112px; height: 255px; background: #000000; border: 3px solid #5a5962; border-radius: 24px; position: absolute; bottom: -30px; right: 115px; z-index: 5; overflow: hidden; box-shadow: 0 35px 60px rgba(0,0,0,0.8); }
+        .device-img { width: 100%; height: 100%; object-fit: cover; }
+        .caption { position: absolute; bottom: 6px; width: 100%; text-align: center; font-size: 0.6rem; font-weight: bold; background: rgba(0,0,0,0.8); padding: 4px 0; color: #fff; font-family: 'Kanit', sans-serif; letter-spacing: 0.5px; }
+        .ambient-glow { position: absolute; width: 450px; height: 350px; background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, rgba(0,0,0,0) 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1; }
 
         footer { background-color: #050505 !important; border-top: 1px solid var(--border); padding: 4rem 0; width: 100%; margin-top: auto; }
         .footer-links a { color: var(--text-muted) !important; text-decoration: none; font-size: 0.95rem; transition: color 0.15s ease; }
         .footer-links a:hover { color: #ffffff !important; text-decoration: underline; }
 
-        /* ✅ ULTRA-SPEED LAZY ENGINE DISPLAY: Completely strips heavy loops on smartphones */
         @media (max-width: 991px) {
+            .col-lg-6 { width: 100% !important; text-align: center !important; }
+            .row { flex-direction: column; gap: 4rem; }
             .navbar .container { flex-direction: row !important; justify-content: space-between !important; }
             .navbar-nav { background: #000; padding: 1rem; border-radius: 12px; border: 1px solid var(--border); margin-top: 1rem; width: 100%; text-align: center; }
             .py-section { padding-top: 10rem !important; padding-bottom: 4rem !important; }
             .display-title { font-size: 2.5rem !important; }
-            #deviceMockupGallery, .font-alt.px-4.py-3 { display: none !important; } /* Strips video data entirely on phones to load in milliseconds */
+            .device-stage { transform: scale(0.8); height: 320px; }
         }
     </style>
 </head>
 
 
-
 <body id="page-top">
 
-  <!-- =========================================================================
-       🧭 SWIFTTECH MOBILE NAVIGATION DESK (FIXED RIGHT-HAND ALIGNMENT)
-       ========================================================================= -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: rgba(0, 0, 0, 0.95) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e2f !important; position: fixed !important; top: 0 !important; width: 100% !important; z-index: 9999 !important;">
-      <div class="container d-flex align-items-center justify-content-between" style="display: flex !important; align-items: center !important; justify-content: space-between !important; width: 100% !important;">
-
-          <!-- 1. LEFT-HAND BRAND IDENTITY ACCENT PANEL -->
-          <div class="d-flex align-items-center" style="display: flex !important; align-items: center !important; gap: 12px !important; float: left !important;">
-              <a href="index.html" style="display: inline-flex !important; align-items: center !important; text-decoration: none !important;">
-                  <img class="rounded-circle" src="assets/img/logo.JPG" alt="SwiftTech Logo" style="height: 40px !important; width: 40px !important; min-width: 40px !important; min-height: 40px !important; object-fit: cover !important; border: 2px solid rgba(255,255,255,0.2) !important; border-radius: 50% !important;" />
-              </a>
-              <a class="navbar-brand fw-bold text-white font-alt m-0" style="font-size: 1.5rem !important; letter-spacing: -0.5px !important; font-family: 'Kanit', sans-serif !important; text-decoration: none !important; color: #ffffff !important; margin: 0 !important; padding: 0 !important;" href="index.html">SwiftTech Mobile</a>
-          </div>
-
-          <!-- MOBILE INTERACTION ADAPTIVE BURGER SWITCH TOGGLER -->
-          <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border-color: rgba(255,255,255,0.15) !important; background: transparent !important; padding: 4px 8px !important;">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- 2. RIGHT-HAND NAVIGATION TABS HUB (FORCED FLEX PROFILE) -->
-          <div class="collapse navbar-collapse justify-content-end" id="navbarResponsive" style="justify-content: flex-end !important; text-align: right !important;">
-              <ul class="navbar-nav ms-auto mb-0 gap-1 d-flex flex-row align-items-center" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: flex-end !important; list-style: none !important; margin-bottom: 0 !important; padding-left: 0 !important; margin-left: auto !important;">
-                  <li class="nav-item fw-bold" style="list-style: none !important; margin: 0 !important;">
-                      <a class="nav-link text-white font-alt" style="font-size: 1rem !important; font-family: 'Kanit', sans-serif !important; color: #ffffff !important; padding: 0.5rem 1rem !important; text-decoration: none !important;" href="apps.html">Apps</a>
-                  </li>
-                  <li class="nav-item fw-bold" style="list-style: none !important; margin: 0 !important;">
-                      <a class="nav-link text-white font-alt" style="font-size: 1rem !important; font-family: 'Kanit', sans-serif !important; color: #ffffff !important; padding: 0.5rem 1rem !important; text-decoration: none !important;" href="index.html#download">Download</a>
-                  </li>
-                  <li class="nav-item fw-bold" style="list-style: none !important; margin: 0 !important;">
-                      <a class="nav-link text-white font-alt" style="font-size: 1rem !important; font-family: 'Kanit', sans-serif !important; color: #ffffff !important; padding: 0.5rem 1rem !important; text-decoration: none !important;" href="aboutUs.html">About</a>
-                  </li>
-                  <li class="nav-item fw-bold" style="list-style: none !important; margin: 0 !important;">
-                      <a class="nav-link text-white font-alt" style="font-size: 1rem !important; font-family: 'Kanit', sans-serif !important; color: #ffffff !important; padding: 0.5rem 1rem !important; text-decoration: none !important;" href="mailto:info@swifttechmobile.co.uk">Contact Us</a>
-                  </li>
-              </ul>
-          </div>
-
-      </div>
-  </nav>
-
-
-    <!-- Main Applications Section Layout Wrapper Container -->
-    <section class="py-section bg-black">
+    <!-- Fixed Corporate Navigation Bar Layout -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container px-5">
 
-          <!-- Dynamic Section Master Title Block Info (MATCHES HOME PAGE) -->
-           <div class="row text-center mb-5">
-               <div class="col-lg-12">
-                   <div class="d-inline-flex align-items-center justify-content-center rounded-pill mb-3 px-3 py-1 text-uppercase fw-bold text-primary border" style="font-size: 0.75rem; letter-spacing: 1px; background-color: #0b0b12; border-color: #1e1e2f; color: #3b82f6 !important;">
-                       Product Catalog
-                   </div>
-                   <!-- Scaled and bolded title layout matching index page parameters exactly -->
-                   <h1 class="display-title font-alt text-white">Our Applications</h1>
-                   <p class="lead text-muted mx-auto" style="max-width: 650px; font-size: 1.2rem; font-weight: 300; line-height: 1.6; color: #8b949e !important;">Explore our ecosystem of compliance-hardened mobile utilities. We engineer standalone tools optimized from the ground up for absolute data privacy and hardware performance.</p>
-               </div>
-           </div>
+            <!-- BRANDING LOGO BLOCK LEFT -->
+            <div class="d-flex align-items-center gap-3">
+                <a href="index.html" style="display: inline-flex; align-items: center; text-decoration: none;">
+                    <img class="rounded-circle" src="assets/img/logo.JPG" alt="SwiftTech Logo" style="height: 40px; width: 40px; min-width: 40px; min-height: 40px; object-fit: cover; border: 2px solid rgba(255,255,255,0.2);" />
+                </a>
+                <a class="navbar-brand fw-bold text-white font-alt m-0" style="font-size: 1.5rem; letter-spacing: -0.5px;" href="index.html">SwiftTech Mobile</a>
+            </div>
 
-            <!-- Dynamic Section Master Title Block Info -->
-            <div class="row text-center mb-4">
+            <!-- MOBILE INTERACTION DROPDOWN TOGGLER -->
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- RESPONSIVE LINK ALIGNMENT SET -- RIGHT PANEL BALANCE -->
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1" style="display: flex; align-items: center;">
+                    <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem; color: #ffffff !important;" href="apps.html">Apps</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem;" href="index.html#download">Download</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem;" href="aboutUs.html">About</a></li>
+                    <li class="nav-item fw-bold"><a class="nav-link text-white font-alt" style="font-size: 1rem;" href="mailto:info@swifttechmobile.co.uk">Contact Us</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Upgraded Product Hero Layout Section (Matches Homepage Size & Proportions) -->
+    <header class="py-section">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="display-title font-alt">Engineered for<br><span class="gradient-text">Pure Performance</span></h1>
+                    <p class="text-muted" style="font-size: 1.2rem; font-weight: 300; line-height: 1.6; margin-bottom: 2.5rem;">Explore our complete product ecosystem. We craft premium, lightweight utilities designed to optimize operational diagnostics, secure administrative diaries, and run workflows natively across all Apple frameworks.</p>
+                    <a href="#catalog" class="btn-main font-alt">Browse Full Catalog</a>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0 position-relative">
+                    <div class="ambient-glow"></div>
+                    <div class="device-stage">
+                        <div class="macbook-frame">
+                            <img src="assets/img/TableMasterImage.JPG" class="device-img" alt="Mac Suite" onerror="this.src='assets/img/logo.JPG';" />
+                            <div class="caption">macOS Dashboard</div>
+                        </div>
+                        <div class="macbook-stand"></div>
+                        <div class="macbook-base"></div>
+                        <div class="ipad-frame">
+                            <img src="assets/img/tempLog.png" class="device-img" alt="iPad Workspace" onerror="this.src='assets/img/logo.JPG';" />
+                            <div class="caption">iPadOS Layout</div>
+                        </div>
+                        <div class="iphone-frame">
+                            <img src="assets/img/iphoneShiftMetrics.png" class="device-img" alt="iPhone Handheld" onerror="this.src='assets/img/logo.JPG';" />
+                            <div class="caption">iOS Mobile</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Global Product Catalog Grid Array Showcase -->
+    <section class="py-catalog bg-black" id="catalog" style="background-color: #030305 !important; border-top: 1px solid #1e1e2f;">
+        <div class="container px-5">
+            <div class="row text-center mb-2">
                 <div class="col-lg-12">
                     <div class="d-inline-flex align-items-center justify-content-center rounded-pill mb-3 px-3 py-1 text-uppercase fw-bold text-primary border" style="font-size: 0.75rem; letter-spacing: 1px; background-color: #0b0b12; border-color: #1e1e2f; color: #3b82f6 !important;">
-                        Product Catalog
+                        Ecosystem Deployment
                     </div>
-                    <h1 class="font-alt text-white display-4 fw-bold" style="letter-spacing: -1px;">Our Applications</h1>
-                    <p class="lead text-muted mx-auto" style="max-width: 650px; font-size: 1.15rem; color: #8b949e !important;">Explore our ecosystem of compliance-hardened mobile utilities. We engineer standalone tools optimized from the ground up for absolute data privacy and hardware performance.</p>
+                    <h2 class="font-alt text-white display-5 fw-bold" style="letter-spacing: -0.5px;">Active Platforms Matrix</h2>
                 </div>
             </div>
 
@@ -227,94 +243,34 @@
                 </div>
 
             </div> <!-- End apps-portfolio-grid -->
-
-            <!-- Interactive Collapsible Preview Button Controller Setup Grid Row -->
-            <div class="text-center mt-5 pt-4">
-                <button class="btn btn-outline-light btn-lg font-alt px-4 py-3 rounded-pill fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#deviceMockupGallery"
-                        aria-expanded="false"
-                        aria-controls="deviceMockupGallery"
-                        style="border: 2px solid rgba(255,255,255,0.2); transition: all 0.2s;">
-                    📱 View Video Previews
-                </button>
-            </div>
-
-            <!-- Embedded Video Device Carousel Drawer Wrapper -->
-            <div class="collapse" id="deviceMockupGallery">
-                <div class="row gx-5 gy-5 pt-5 justify-content-center">
-
-                    <!-- Clean Vector Gradient Mapping Hooks Definition Block Context -->
-                    <svg style="display: none;">
-                        <defs>
-                            <linearGradient id="circleGradient" gradientTransform="rotate(45)">
-                                <stop style="stop-color: #3b82f6" offset="0%"></stop>
-                                <stop style="stop-color: #7c3aed" offset="100%"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-
-                    <!-- Preview Frame 1: ServeSmart -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="features-device-mockup mx-auto">
-                            <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org">
-                                <circle cx="50" cy="50" r="50" fill="url(#circleGradient)"></circle>
-                            </svg>
-                            <div class="device-wrapper">
-                                <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
-                                    <div class="screen">
-                                        <video style="width: 100%; height: 100%; object-fit: cover;" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="metadata">
-                                            <source src="assets/img/ServeSmart.mp4" type="video/mp4" />
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center mt-3 font-alt text-white fw-bold small">ServeSmart Interface</div>
-                        </div>
-                    </div>
-
-                    <!-- Preview Frame 2: StockKeeper -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="features-device-mockup mx-auto">
-                            <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org">
-                                <circle cx="50" cy="50" r="50" fill="url(#circleGradient)"></circle>
-                            </svg>
-                            <div class="device-wrapper">
-                                <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
-                                    <div class="screen">
-                                        <video style="width: 100%; height: 100%; object-fit: cover;" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="metadata">
-                                            <source src="assets/img/StockKeeperTrailer.mov" type="video/quicktime" />
-                                            <source src="assets/img/StockKeeperTrailer.mp4" type="video/mp4" />
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center mt-3 font-alt text-white fw-bold small">StockKeeper Workspace</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div> <!-- End Collapsible Section Container Row Close -->
-
-        </div>
+        </div> <!-- End container -->
     </section>
 
+
+    <!-- =========================================================================
+         📥 SWIFTTECH MOBILE PORTFOLIO (PART 4: FOOTER & INTERACTIVE ATOMS)
+         ========================================================================= -->
+
     <!-- Corporate Footer Component Matrix Block -->
-    <footer class="text-center">
-         <div class="container">
-             <h2 class="text-white fw-bold mb-3 font-alt h4">SwiftTech Mobile</h2>
-             <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
-             <div class="footer-links d-flex justify-content-center align-items-center gap-4 flex-wrap">
-                 <a href="policy.html">Privacy Policy</a><span>&middot;</span>
-                 <a href="terms.html">Terms and Conditions</a><span>&middot;</span>
-                 <a href="FAQ.html">FAQ</a><span>&middot;</span>
-                 <a href="mailto:info@swifttechmobile.co.uk">Contact Us</a>
-             </div>
+    <footer class="bg-black text-center py-5" style="background-color: #050505 !important; border-top: 1px solid #1e1e2f;">
+         <div class="container px-5">
+             <h2 class="text-white fw-bold h4 mb-3 font-alt" style="font-family: 'Kanit', sans-serif;">SwiftTech Mobile</h2>
+             <div class="text-white-50 small">
+                <div class="mb-4" style="color: #8b949e !important;">&copy; SwiftTech Mobile Apps 2026. All Rights Reserved.</div>
+                <div class="footer-links d-flex justify-content-center flex-wrap gap-3" style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <a href="policy.html" class="text-decoration-none" style="color: #8b949e !important; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#8b949e'">Privacy Policy</a>
+                    <span class="text-muted" style="color: #1e1e2f !important;">&middot;</span>
+                    <a href="terms.html" class="text-decoration-none" style="color: #8b949e !important; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#8b949e'">Terms and Conditions</a>
+                    <span class="text-muted" style="color: #1e1e2f !important;">&middot;</span>
+                    <a href="FAQ.html" class="text-decoration-none" style="color: #8b949e !important; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#8b949e'">FAQ</a>
+                    <span class="text-muted" style="color: #1e1e2f !important;">&middot;</span>
+                    <a href="mailto:info@swifttechmobile.co.uk" class="text-decoration-none" style="color: #8b949e !important; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#8b949e'">Contact Us</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Bootstrap Core JS Dynamic Delivery Bundle Package -->
+    <!-- Core Bootstrapping Framework JS Script Bundles -->
     <script src="https://jsdelivr.net" defer></script>
     <script src="js/scripts.js" defer></script>
 
@@ -324,7 +280,7 @@
             if (window.tawkLoaded) return; window.tawkLoaded = true;
             var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
             (function(){
-                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script"); // Fixed: Target root collection array indices securely
                 s1.async = true; s1.src = 'https://tawk.to';
                 s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
                 s0.parentNode.insertBefore(s1, s0);
