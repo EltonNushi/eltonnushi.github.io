@@ -103,90 +103,65 @@
 
 
                     <!-- Global Product Catalog Grid Array Showcase -->
-                    <section class="py-catalog bg-black" id="catalog" style="background-color: #030305 !important; border-top: 1px solid #1e1e2f;">
-                        <div class="container px-5">
-                            <div class="row text-center mb-2">
-                                <div class="col-lg-12">
-                                    <div class="d-inline-flex align-items-center justify-content-center rounded-pill mb-3 px-3 py-1 text-uppercase fw-bold text-primary border" style="font-size: 0.75rem; letter-spacing: 1px; background-color: #0b0b12; border-color: #1e1e2f; color: #3b82f6 !important;">
-                                        Ecosystem Deployment
-                                    </div>
-                                    <h2 class="font-alt text-white display-5 fw-bold" style="letter-spacing: -0.5px;">Active Platforms Matrix</h2>
-                                </div>
-                            </div>
+    <section class="py-catalog bg-black" id="catalog" style="background-color: #030305 !important; border-top: 1px solid #1e1e2f; padding-top: 6rem !important; padding-bottom: 8rem !important;">
+        <div class="container px-5">
+            <div class="row text-center mb-2">
+                <div class="col-lg-12">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-pill mb-3 px-3 py-1 text-uppercase fw-bold text-primary border" style="font-size: 0.75rem; letter-spacing: 1px; background-color: #0b0b12; border-color: #1e1e2f; color: #3b82f6 !important;">
+                        Ecosystem Deployment
+                    </div>
+                    <h2 class="font-alt text-white display-5 fw-bold" style="letter-spacing: -0.5px; font-family: 'Kanit', sans-serif;">Active Platforms Matrix</h2>
+                </div>
+            </div>
 
-                            <!-- Global Portfolio Showcase Catalog Matrix Grid -->
-                            <div class="apps-portfolio-grid">
+            <!-- Global Portfolio Showcase Catalog Matrix Grid (GPU Accelerated) -->
+            <div class="apps-portfolio-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 4rem; transform: translateZ(0);">
 
-                                <!-- Card 1: TableMaster Pro -->
-                                <div class="app-showcase-card">
-                                    <img class="app-card-icon" src="assets/img/TableMaster.png" alt="TableMaster Pro Logo" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
-                                    <h3 class="app-card-title">TableMaster Pro</h3>
-                                    <div class="app-card-subtitle">Floor Plan & Live Seating</div>
-                                    <p class="app-card-desc">An intelligent front-of-house host stand and layout manager built for fast-paced dining venues. Design spatial table maps, filter occupancy levels dynamically, track custom time-capsule seating buckets, and sync configurations over iCloud with zero per-cover transaction metrics or hidden operational infrastructure fees.</p>
-                                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
-                                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" />
-                                    </a>
-                                </div>
+                <!-- Card 1: TableMaster Pro -->
+                <div class="app-showcase-card" style="background-color: #0b0b12; border: 1px solid #1e1e2f; padding: 2.5rem; border-radius: 20px; display: flex; flex-direction: column; height: 100%; position: relative; will-change: transform, border-color; transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.15s ease-out; box-sizing: border-box;">
+                    <img class="app-card-icon" src="assets/img/TableMaster.png" alt="TableMaster Pro Logo" style="width: 60px !important; height: 60px !important; min-width: 60px !important; min-height: 60px !important; aspect-ratio: 1 / 1 !important; border-radius: 14px !important; object-fit: cover !important; margin-bottom: 1.2rem !important; border: 1px solid rgba(255,255,255,0.06) !important;" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
+                    <h3 class="app-card-title" style="font-size: 1.45rem; font-weight: 700; color: #ffffff; margin: 0 0 0.25rem 0; font-family: 'Kanit', sans-serif;">TableMaster Pro</h3>
+                    <div class="app-card-subtitle" style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; letter-spacing: 0.5px; margin-bottom: 1.2rem; text-transform: uppercase; font-family: 'Kanit', sans-serif;">Floor Plan & Live Seating</div>
+                    <p class="app-card-desc" style="font-size: 0.95rem; line-height: 1.6; color: #8b949e; margin-bottom: 2rem; flex-grow: 1; text-align: left;">An intelligent front-of-house host stand and layout manager built for fast-paced dining venues. Design spatial table maps, filter occupancy levels dynamically, track custom time-capsule seating buckets, and sync configurations over iCloud with zero per-cover transaction metrics or hidden operational infrastructure fees.</p>
+                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
+                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" style="height: 2.4rem; width: auto;" />
+                    </a>
+                </div>
 
-                                <!-- Card 2: SimplyPay -->
-                                <div class="app-showcase-card">
-                                    <img class="app-card-icon" src="assets/img/SimplyPay.png" alt="SimplyPay Logo" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
-                                    <h3 class="app-card-title">SimplyPay</h3>
-                                    <div class="app-card-subtitle">Payroll & HR Manager</div>
-                                    <p class="app-card-desc">An accounting-grade staffing ledger designed to eliminate calculation drift and tracking errors. Deploy public pin-protected kiosks, manage live headcounts, log variable overtime shifts, capture immutable wage snap-shots on creation, and output penny-perfect pro-rata tip allocations completely offline.</p>
-                                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
-                                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" />
-                                    </a>
-                                </div>
+                <!-- Card 2: SimplyPay -->
+                <div class="app-showcase-card" style="background-color: #0b0b12; border: 1px solid #1e1e2f; padding: 2.5rem; border-radius: 20px; display: flex; flex-direction: column; height: 100%; position: relative; will-change: transform, border-color; transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.15s ease-out; box-sizing: border-box;">
+                    <img class="app-card-icon" src="assets/img/SimplyPay.png" alt="SimplyPay Logo" style="width: 60px !important; height: 60px !important; min-width: 60px !important; min-height: 60px !important; aspect-ratio: 1 / 1 !important; border-radius: 14px !important; object-fit: cover !important; margin-bottom: 1.2rem !important; border: 1px solid rgba(255,255,255,0.06) !important;" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
+                    <h3 class="app-card-title" style="font-size: 1.45rem; font-weight: 700; color: #ffffff; margin: 0 0 0.25rem 0; font-family: 'Kanit', sans-serif;">SimplyPay</h3>
+                    <div class="app-card-subtitle" style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; letter-spacing: 0.5px; margin-bottom: 1.2rem; text-transform: uppercase; font-family: 'Kanit', sans-serif;">Payroll & HR Manager</div>
+                    <p class="app-card-desc" style="font-size: 0.95rem; line-height: 1.6; color: #8b949e; margin-bottom: 2rem; flex-grow: 1; text-align: left;">An accounting-grade staffing ledger designed to eliminate calculation drift and tracking errors. Deploy public pin-protected kiosks, manage live headcounts, log variable overtime shifts, capture immutable wage snap-shots on creation, and output penny-perfect pro-rata tip allocations completely offline.</p>
+                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
+                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" style="height: 2.4rem; width: auto;" />
+                    </a>
+                </div>
 
-                                <!-- Card 3: ExpenzPal -->
-                                <div class="app-showcase-card">
-                                    <img class="app-card-icon" src="assets/img/ExpenzPal.png" alt="ExpenzPal Logo" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
-                                    <h3 class="app-card-title">ExpenzPal</h3>
-                                    <div class="app-card-subtitle">Invoices & Receipts Vault</div>
-                                    <p class="app-card-desc">A digital compliance-hardened storage repository for corporate clients and accountants. Run automated image receipt scans, generate lightning-fast database keyword searches, track localized VAT allocations, and export vector PDF summaries directly to your accounting teams without recurring hidden fees.</p>
-                                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
-                                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" />
-                                    </a>
-                                </div>
+                <!-- Card 3: ExpenzPal -->
+                <div class="app-showcase-card" style="background-color: #0b0b12; border: 1px solid #1e1e2f; padding: 2.5rem; border-radius: 20px; display: flex; flex-direction: column; height: 100%; position: relative; will-change: transform, border-color; transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.15s ease-out; box-sizing: border-box;">
+                    <img class="app-card-icon" src="assets/img/ExpenzPal.png" alt="ExpenzPal Logo" style="width: 60px !important; height: 60px !important; min-width: 60px !important; min-height: 60px !important; aspect-ratio: 1 / 1 !important; border-radius: 14px !important; object-fit: cover !important; margin-bottom: 1.2rem !important; border: 1px solid rgba(255,255,255,0.06) !important;" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
+                    <h3 class="app-card-title" style="font-size: 1.45rem; font-weight: 700; color: #ffffff; margin: 0 0 0.25rem 0; font-family: 'Kanit', sans-serif;">ExpenzPal</h3>
+                    <div class="app-card-subtitle" style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; letter-spacing: 0.5px; margin-bottom: 1.2rem; text-transform: uppercase; font-family: 'Kanit', sans-serif;">Invoices & Receipts Vault</div>
+                    <p class="app-card-desc" style="font-size: 0.95rem; line-height: 1.6; color: #8b949e; margin-bottom: 2rem; flex-grow: 1; text-align: left;">A digital compliance-hardened storage repository for corporate clients and accountants. Run automated image receipt scans, generate lightning-fast database keyword searches, track localized VAT allocations, and export vector PDF summaries directly to your accounting teams without recurring hidden fees.</p>
+                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
+                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" style="height: 2.4rem; width: auto;" />
+                    </a>
+                </div>
 
-                                <!-- Card 4: StockKeeper -->
-                                <div class="app-showcase-card">
-                                    <img class="app-card-icon" src="assets/img/stockKeeperlogo.png" alt="StockKeeper Logo" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
-                                    <h3 class="app-card-title">StockKeeper</h3>
-                                    <div class="app-card-subtitle">Inventory Management App</div>
-                                    <p class="app-card-desc">An essential offline-first inventory and revenue management tool designed for small business owners and sole traders. Track stock levels, monitor procurement costs, manage asset expenditures, and evaluate precise profit margins entirely on-device, then sync everything seamlessly across iPhone, iPad, and Mac via iCloud.</p>
-                                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
-                                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" />
-                                    </a>
-                                </div>
+                <!-- Card 4: StockKeeper -->
+                <div class="app-showcase-card" style="background-color: #0b0b12; border: 1px solid #1e1e2f; padding: 2.5rem; border-radius: 20px; display: flex; flex-direction: column; height: 100%; position: relative; will-change: transform, border-color; transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.15s ease-out; box-sizing: border-box;">
+                    <img class="app-card-icon" src="assets/img/stockKeeperlogo.png" alt="StockKeeper Logo" style="width: 60px !important; height: 60px !important; min-width: 60px !important; min-height: 60px !important; aspect-ratio: 1 / 1 !important; border-radius: 14px !important; object-fit: cover !important; margin-bottom: 1.2rem !important; border: 1px solid rgba(255,255,255,0.06) !important;" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
+                    <h3 class="app-card-title" style="font-size: 1.45rem; font-weight: 700; color: #ffffff; margin: 0 0 0.25rem 0; font-family: 'Kanit', sans-serif;">StockKeeper</h3>
+                    <div class="app-card-subtitle" style="font-size: 0.85rem; font-weight: 700; color: #3b82f6; letter-spacing: 0.5px; margin-bottom: 1.2rem; text-transform: uppercase; font-family: 'Kanit', sans-serif;">Inventory Management App</div>
+                    <p class="app-card-desc" style="font-size: 0.95rem; line-height: 1.6; color: #8b949e; margin-bottom: 2rem; flex-grow: 1; text-align: left;">An essential offline-first inventory and revenue management tool designed for small business owners and sole traders. Track stock levels, monitor procurement costs, manage asset expenditures, and evaluate precise profit margins entirely on-device, then sync everything seamlessly across iPhone, iPad, and Mac via iCloud.</p>
+                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
+                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" style="height: 2.4rem; width: auto;" />
+                    </a>
+                </div>
 
-                                <!-- Card 5: SmartStudy -->
-                                <div class="app-showcase-card">
-                                    <img class="app-card-icon" src="assets/img/flashcardslogo.png" alt="SmartStudy Logo" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
-                                    <h3 class="app-card-title">SmartStudy</h3>
-                                    <div class="app-card-subtitle">Enhanced Learning Experience</div>
-                                    <p class="app-card-desc">A powerful and intuitive study tool designed to accelerate information retention and memorisation. Create custom digital card arrays or access a preloaded set of technical Network+ flashcards engineered specifically to help you master curriculum topics and prepare for your certification exams.</p>
-                                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
-                                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" />
-                                    </a>
-                                </div>
-
-                                <!-- Card 6: Hours Tracker -->
-                                <div class="app-showcase-card">
-                                    <img class="app-card-icon" src="assets/img/clockimage.png" alt="Hours Tracker Logo" onerror="this.onerror=null; this.src='assets/img/logo.JPG';" />
-                                    <h3 class="app-card-title">Hours Tracker</h3>
-                                    <div class="app-card-subtitle">Time & Pay Ledger</div>
-                                    <p class="app-card-desc">A premium time-tracking application optimized for freelancers, contract workers, and shift employees. Log hourly shifts, compute precise earnings in your local currency, manage overtime values seamlessly, and protect your workflow ledger history using secure, automated iCloud backups.</p>
-                                    <a href="https://apple.com" target="_blank" rel="noopener" class="app-store-badge-link">
-                                        <img src="assets/img/app-store-badge.svg" alt="Download on App Store" />
-                                    </a>
-                                </div>
-
-                            </div> <!-- End apps-portfolio-grid -->
-                        </div> <!-- End container -->
-                    </section>
-
+                <!-- Card 5: SmartStudy -->
 
 
     <!-- Footer-->
