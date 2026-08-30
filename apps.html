@@ -107,6 +107,48 @@
     </div>
 </header>
 
+
+
+        /* ✅ INTERACTIVE HOVER NAVIGATION LINK ENGINE */
+        <style>
+        .nav-link {
+            font-size: 1rem !important;
+            text-decoration: none !important;
+            color: var(--text-muted) !important;
+            font-weight: 600 !important;
+            padding: 0.5rem 1rem !important;
+            position: relative !important;
+            will-change: color;
+            transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* Tab Color Text Highlight Trigger */
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        /* Hidden Underline Accent Pseudo-Element Blueprint */
+        .nav-link::after {
+            content: '' !important;
+            position: absolute !important;
+            width: 0% !important;
+            height: 2px !important;
+            bottom: -2px !important;
+            left: 50% !important;
+            background: linear-gradient(90deg, #3b82f6, #7c3aed) !important;
+            will-change: width, left;
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), left 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* ✅ ACTIVE EXPANSION HOVER REVELATION GRID LOOP */
+        .nav-link:hover::after {
+            width: 80% !important;
+            left: 10% !important;
+        }
+<style>
+
+
+
 <!-- Tiny Local Layout Adaptive Breakdown Engine -->
 <style>
     @media (max-width: 540px) {
