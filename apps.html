@@ -282,102 +282,103 @@
             </section>
 
 
-  <!-- START OF COLLAPSIBLE PREVIEW VIDEOS -->
-            <!-- COLLAPSIBLE VIDEO MATRIX DRAWER Wrapper (WITH INTERACTIVE AUDIO ENGINES) -->
-            <div class="collapse" id="deviceMockupGallery">
-                <div class="row pt-5 justify-content-center" style="gap: 4rem; row-gap: 3rem;">
+            <!-- INTERACTIVE VIDEOS CONTROLLER ENGINE -->
+<div class="text-center mt-5 pt-4">
+    <button class="btn btn-outline-light btn-lg font-alt px-5 py-3 rounded-pill fw-bold"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#deviceMockupGallery"
+            aria-expanded="false"
+            aria-controls="deviceMockupGallery"
+            style="border: 2px solid rgba(255,255,255,0.15); font-size: 1rem; letter-spacing: 0.5px; transition: all 0.2s ease-out; will-change: transform, background-color;"
+            onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(-1px)';"
+            onmouseout="this.style.background='transparent'; this.style.transform='translateY(0)';">
+        📱 View Video Previews
+    </button>
+</div>
 
-                    <!-- SVG Gradient Definition Block for Mockup Shapes -->
-                    <svg style="display: none;">
-                        <defs>
-                            <linearGradient id="circleGradient" gradientTransform="rotate(45)">
-                                <stop style="stop-color: #3b82f6" offset="0%"></stop>
-                                <stop style="stop-color: #7c3aed" offset="100%"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
 
-                    <!-- Video Mockup 1: ServeSmart -->
-                    <div style="flex: 0 0 auto; width: 260px; box-sizing: border-box;">
-                        <div class="features-device-mockup mx-auto" style="position: relative; width: 100%; max-width: 240px; margin: 0 auto; transform: translateZ(0);">
-                            <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org" style="position: absolute; top: -15px; left: -15px; width: calc(100% + 30px); height: calc(100% + 30px); z-index: 1;">
-                                <circle cx="50" cy="50" r="46" fill="none" stroke="url(#circleGradient)" stroke-width="1.5" opacity="0.4" stroke-dasharray="4 2"></circle>
-                            </svg>
-                            <div class="device-wrapper" style="position: relative; z-index: 2; width: 100%; cursor: pointer;" onclick="toggleVideoAudio(this)">
-                                <div class="device" style="width: 100%; background: #000000; border: 3.5px solid #5a5962; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); box-sizing: border-box; position: relative;">
 
-                                    <!-- Sleek Interactive Sound Icon Indicator -->
-                                    <div class="audio-status-pill" style="position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); padding: 6px; border-radius: 50%; z-index: 20; color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.15);">
-                                        <i class="bi bi-volume-mute-fill"></i>
-                                    </div>
+<!-- COLLAPSIBLE VIDEO MATRIX DRAWER Wrapper -->
+<div class="collapse" id="deviceMockupGallery">
+    <div class="row pt-5 justify-content-center" style="gap: 4rem; row-gap: 3rem;">
 
-                                    <!-- Screen Viewport: Smooth internal curved masking -->
-                                    <div class="screen" style="aspect-ratio: 9 / 19.5; position: relative; overflow: hidden; border-radius: 22px; background: #000; display: flex; align-items: center; justify-content: center;">
-                                        <video class="preview-player" style="width: 100%; height: 100%; object-fit: cover; display: block;" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="metadata">
-                                            <source src="assets/img/ServeSmart.mp4" type="video/mp4" />
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- SVG Gradient Definition Block for Mockup Shapes -->
+        <svg style="display: none;">
+            <defs>
+                <linearGradient id="circleGradient" gradientTransform="rotate(45)">
+                    <stop style="stop-color: #3b82f6" offset="0%"></stop>
+                    <stop style="stop-color: #7c3aed" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <!-- Video Mockup 1: ServeSmart -->
+        <div style="flex: 0 0 auto; width: 260px; box-sizing: border-box;">
+            <div class="features-device-mockup mx-auto" style="position: relative; width: 100%; max-width: 240px; margin: 0 auto; transform: translateZ(0);">
+                <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org" style="position: absolute; top: -15px; left: -15px; width: calc(100% + 30px); height: calc(100% + 30px); z-index: 1;">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="url(#circleGradient)" stroke-width="1.5" opacity="0.4" stroke-dasharray="4 2"></circle>
+                </svg>
+                <div class="device-wrapper" style="position: relative; z-index: 2; width: 100%;">
+                    <div class="device" style="width: 100%; background: #000000; border: 3.5px solid #4e4d55; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); box-sizing: border-box;">
+                        <!-- Screen Viewport: Smooth internal curved masking -->
+                        <div class="screen" style="aspect-ratio: 9 / 19.5; position: relative; overflow: hidden; border-radius: 22px; background: #000; display: flex; align-items: center; justify-content: center;">
+                            <video style="width: 100%; height: 100%; object-fit: cover; display: block;" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="metadata">
+                                <source src="assets/img/ServeSmart.mp4" type="video/mp4" />
+                            </video>
                         </div>
-                        <div class="text-center mt-3 font-alt text-white fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px; opacity: 0.9; margin-bottom: 2px;">ServeSmart Interface</div>
-                        <div class="text-center text-muted small font-alt" style="font-size: 0.72rem; opacity: 0.6;">🎵 Tap screen to unmute</div>
                     </div>
-
-                    <!-- Video Mockup 2: StockKeeper -->
-                    <div style="flex: 0 0 auto; width: 260px; box-sizing: border-box;">
-                        <div class="features-device-mockup mx-auto" style="position: relative; width: 100%; max-width: 240px; margin: 0 auto; transform: translateZ(0);">
-                            <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org" style="position: absolute; top: -15px; left: -15px; width: calc(100% + 30px); height: calc(100% + 30px); z-index: 1;">
-                                <circle cx="50" cy="50" r="46" fill="none" stroke="url(#circleGradient)" stroke-width="1.5" opacity="0.4" stroke-dasharray="4 2"></circle>
-                            </svg>
-                            <div class="device-wrapper" style="position: relative; z-index: 2; width: 100%; cursor: pointer;" onclick="toggleVideoAudio(this)">
-                                <div class="device" style="width: 100%; background: #000000; border: 3.5px solid #5a5962; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); box-sizing: border-box; position: relative;">
-
-                                    <!-- Sleek Interactive Sound Icon Indicator -->
-                                    <div class="audio-status-pill" style="position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); padding: 6px; border-radius: 50%; z-index: 20; color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.15);">
-                                        <i class="bi bi-volume-mute-fill"></i>
-                                    </div>
-
-                                    <!-- Screen Viewport: Smooth internal curved masking -->
-                                    <div class="screen" style="aspect-ratio: 9 / 19.5; position: relative; overflow: hidden; border-radius: 22px; background: #000; display: flex; align-items: center; justify-content: center;">
-                                        <video class="preview-player" style="width: 100%; height: 100%; object-fit: cover; display: block;" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="metadata">
-                                            <source src="assets/img/StockKeeperTrailer.mov" type="video/quicktime" />
-                                            <source src="assets/img/StockKeeperTrailer.mp4" type="video/mp4" />
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center mt-3 font-alt text-white fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px; opacity: 0.9; margin-bottom: 2px;">StockKeeper Workspace</div>
-                        <div class="text-center text-muted small font-alt" style="font-size: 0.72rem; opacity: 0.6;">🎵 Tap screen to unmute</div>
-                    </div>
-
                 </div>
-            </div> <!-- End Collapse Drawer -->
+            </div>
+            <div class="text-center mt-3 font-alt text-white fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px; opacity: 0.9;">ServeSmart Interface</div>
+        </div>
 
-            <!-- ✅ LIGHTWEIGHT INTERACTIVE AUDIO TOGGLE SCRIPT -->
-            <script type="text/javascript">
-                function toggleVideoAudio(element) {
-                    var video = element.querySelector('.preview-player');
-                    var iconContainer = element.querySelector('.audio-status-pill i');
+        <!-- Video Mockup 2: StockKeeper -->
+        <div style="flex: 0 0 auto; width: 260px; box-sizing: border-box;">
+            <div class="features-device-mockup mx-auto" style="position: relative; width: 100%; max-width: 240px; margin: 0 auto; transform: translateZ(0);">
+                <svg class="circle" viewBox="0 0 100 100" xmlns="http://w3.org" style="position: absolute; top: -15px; left: -15px; width: calc(100% + 30px); height: calc(100% + 30px); z-index: 1;">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="url(#circleGradient)" stroke-width="1.5" opacity="0.4" stroke-dasharray="4 2"></circle>
+                </svg>
+                <div class="device-wrapper" style="position: relative; z-index: 2; width: 100%;">
+                    <div class="device" style="width: 100%; background: #000000; border: 3.5px solid #4e4d55; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); box-sizing: border-box;">
+                        <!-- Screen Viewport: Smooth internal curved masking -->
+                        <div class="screen" style="aspect-ratio: 9 / 19.5; position: relative; overflow: hidden; border-radius: 22px; background: #000; display: flex; align-items: center; justify-content: center;">
+                            <video style="width: 100%; height: 100%; object-fit: cover; display: block;" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="metadata">
+                                <source src="assets/img/StockKeeperTrailer.mov" type="video/quicktime" />
+                                <source src="assets/img/StockKeeperTrailer.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3 font-alt text-white fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px; opacity: 0.9;">StockKeeper Workspace</div>
+        </div>
 
-                    if (video && iconContainer) {
-                        if (video.muted) {
-                            // Unmute the active video element tracking loop safely
-                            video.muted = false;
-                            iconContainer.className = 'bi bi-volume-up-fill';
-                            element.querySelector('.audio-status-pill').style.backgroundColor = 'rgba(59, 130, 246, 0.8)';
-                        } else {
-                            // Lock back down to standard system mute parameters
-                            video.muted = true;
-                            iconContainer.className = 'bi bi-volume-mute-fill';
-                            element.querySelector('.audio-status-pill').style.backgroundColor = 'rgba(0,0,0,0.6)';
-                        }
-                    }
-                }
-            </script>
+    </div>
+</div> <!-- End Collapse Drawer -->
 
-  <!-- END OF COLLAPSIBLE PREVIEW VIDEOS -->
+
+<!-- ✅ LIGHTWEIGHT INTERACTIVE AUDIO TOGGLE SCRIPT -->
+<script type="text/javascript">
+    function toggleVideoAudio(element) {
+        var video = element.querySelector('.preview-player');
+        var iconContainer = element.querySelector('.audio-status-pill i');
+
+        if (video && iconContainer) {
+            if (video.muted) {
+                // Unmute the active video element tracking loop safely
+                video.muted = false;
+                iconContainer.className = 'bi bi-volume-up-fill';
+                element.querySelector('.audio-status-pill').style.backgroundColor = 'rgba(59, 130, 246, 0.8)';
+            } else {
+                // Lock back down to standard system mute parameters
+                video.muted = true;
+                iconContainer.className = 'bi bi-volume-mute-fill';
+                element.querySelector('.audio-status-pill').style.backgroundColor = 'rgba(0,0,0,0.6)';
+            }
+        }
+    }
+</script>
 
 
             <!-- ✅ PREMIUM SLIM GLASSMORPHISM ACTION STRIPE (ZERO RUNTIME CALCULATIONS) -->
@@ -436,36 +437,23 @@
     <!-- Core theme JS-->
     <script src="js/scripts.js" defer></script>
 
-
-
-    <!-- ✅ TAWK.TO LIVE EMERGENCY CONCIERGE CHAT INJECTION WINDOW -->
-    <!--Start of Tawk.to Script-->
+    <!-- ✅ EXTRA PERFORMANCE LIVE CHAT LAZY LOADER ENGINE -->
     <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/6a79239b0ef5611d48e8f33e/1jvkj666n';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
+        function loadTawkChat() {
+            if (window.tawkLoaded) return;
+            window.tawkLoaded = true;
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function(){
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
+                s1.async = true; s1.src = 'https://tawk.to';
+                s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        }
+        window.addEventListener('scroll', loadTawkChat, { passive: true });
+        window.addEventListener('mousemove', loadTawkChat, { passive: true });
+        window.addEventListener('touchstart', loadTawkChat, { passive: true });
+        setTimeout(loadTawkChat, 4000);
     </script>
-    <!--End of Tawk.to Script-->
-<!-- END OF LIVE CHAT INJECTION SCRIPT -->
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-
-    <!--POPUP FUNCTION-->
-
-
 </body>
 </html>
