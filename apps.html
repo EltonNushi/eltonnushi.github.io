@@ -342,25 +342,3 @@
     </script>
 </body>
 </html>
-
-
-<!-- ✅ PASSIVE CHAT WIDGET LOADER: 0ms initial block profile -->
-<script type="text/javascript">
-    function loadTawkChat() {
-        if (window.tawkLoaded) return;
-        window.tawkLoaded = true;
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function(){
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script");
-            s1.async = true; s1.src = 'https://tawk.to';
-            s1.charset = 'UTF-8'; s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    }
-    window.addEventListener('scroll', loadTawkChat, { passive: true });
-    window.addEventListener('mousemove', loadTawkChat, { passive: true });
-    window.addEventListener('touchstart', loadTawkChat, { passive: true });
-    setTimeout(loadTawkChat, 5000);
-</script>
-</body>
-</html>
