@@ -37,18 +37,18 @@ $payload = [
             ],
             "fields" => [
                 "CD_id"                   => ["value" => "WEB_" . $now_ms, "type" => "STRING"],
-                "CD_restaurantID"         => ["value" => $input['restaurantID'], "type" => "STRING"],
-                "CD_guestName"            => ["value" => $input['firstName'], "type" => "STRING"],
-                "CD_surname"              => ["value" => $input['surname'], "type" => "STRING"],
-                "CD_email"                => ["value" => $input['email'], "type" => "STRING"],
-                "CD_phoneNumber"          => ["value" => $input['phone'], "type" => "STRING"],
+                "CD_restaurantID"         => ["value" => trim($input['restaurantID']), "type" => "STRING"],
+                "CD_guestName"            => ["value" => trim($input['firstName']), "type" => "STRING"],
+                "CD_surname"              => ["value" => trim($input['surname']), "type" => "STRING"],
+                "CD_email"                => ["value" => trim($input['email']), "type" => "STRING"],
+                "CD_phoneNumber"          => ["value" => trim($input['phone']), "type" => "STRING"],
                 "CD_partySize"            => ["value" => (int)$input['partySize'], "type" => "INT64"],
                 "CD_date"                 => ["value" => (float)$res_date_ms, "type" => "TIMESTAMP"],
-                "CD_occasion"             => ["value" => $input['occasion'], "type" => "STRING"],
-                "CD_occasionOtherDetails" => ["value" => $input['occasionDetails'], "type" => "STRING"],
+                "CD_occasion"             => ["value" => trim($input['occasion']), "type" => "STRING"],
+                "CD_occasionOtherDetails" => ["value" => trim($input['occasionDetails']), "type" => "STRING"],
                 "CD_hasAllergy"           => ["value" => (int)$input['hasAllergy'], "type" => "INT64"],
-                "CD_allergenNotes"        => ["value" => $input['allergenNotes'], "type" => "STRING"],
-                "CD_notes"                => ["value" => $input['notes'], "type" => "STRING"],
+                "CD_allergenNotes"        => ["value" => trim($input['allergenNotes']), "type" => "STRING"],
+                "CD_notes"                => ["value" => trim($input['notes']), "type" => "STRING"],
                 "CD_status"               => ["value" => "Unconfirmed", "type" => "STRING"],
                 "CD_isVIP"                => ["value" => 0, "type" => "INT64"]
             ]
@@ -72,17 +72,56 @@ if (!file_exists($private_key_path)) {
 $private_key_content = file_get_contents($private_key_path);
 $pkey = openssl_pkey_get_private($private_key_content);
 
-openssl_sign($signing_string, $signature, $pkey, OPENSSL_ALGO_SHA256);
-$signature_b64 = base64_encode($signature);
+if (!$pkey) {
+    echo json_encode(["success" => false, "message" => "Security error: Unable to parse eckey.pem private key file structure."]);
+    exit;
+}
 
-// 📡 Execute the signed cURL HTTP POST payload straight to Apple's production private zone
-$ch = curl_init("https://apple-cloudkit.com" . $url_path);
+// 1. Generate the standard OpenSSL signature block
+openssl_sign($signing_string, $der_signature, $pkey, OPENSSL_ALGO_SHA256);
+
+// 2. 🧠 CRYPTOGRAPHIC CONVERTER PATTERN HACK: Converts DER formatting block directly into standard raw R+S IEEE P1363 parameters required by Apple CloudKit
+function convertDerSignatureToRawIeeeP1363($der) {
+    $offset = 0;
+    if (ord($der[$offset++]) !== 0x30) return null; // Sequence marker mismatch verification check
+    
+    // Parse total structural packet byte payload length parameters
+    $len = ord($der[$offset++]);
+    if ($len & 0x80) $offset += ($len & 0x7F);
+    
+    $integers = [];
+    while ($offset < strlen($der)) {
+        if (ord($der[$offset++]) !== 0x02) break; // Integer element marker mismatch
+        $intLen = ord($der[$offset++]);
+        $intVal = substr($der, $offset, $intLen);
+        $offset += $intLen;
+        
+        // Strip out empty leading null padding bytes securely
+        if (ord($intVal[0]) === 0x00 && strlen($intVal) > 1) {
+            $intVal = substr($intVal, 1);
+        }
+        $integers[] = str_pad($intVal, 32, chr(0x00), STR_PAD_LEFT);
+    }
+    
+    if (count($integers) !== 2) return null;
+    return base64_encode($integers[0] . $integers[1]);
+}
+
+$signature_b64 = convertDerSignatureToRawIeeeP1363($der_signature);
+
+if (!$signature_b64) {
+    echo json_encode(["success" => false, "message" => "Cryptographic error: Failed to parse elliptic signature format vectors."]);
+    exit;
+}
+
+// 📡 Execute the signed cURL HTTP POST payload straight to Apple's API production private zone
+$ch = curl_init("https://api.apple-cloudkit.com" . $url_path); // ✅ FIXED: Reverted endpoint layout back to secure api sub-domain pipeline!
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $json_payload);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Content-Type: application/json",
-    "X-Apple-CloudKit-Request-KeyID: " . $key_id,
+    "X-Apple-CloudKit-Request-KeyID: " . trim($key_id),
     "X-Apple-CloudKit-Request-ISO8601Date: " . $date_iso,
     "X-Apple-CloudKit-Request-Signature: " . $signature_b64
 ]);
@@ -94,6 +133,11 @@ curl_close($ch);
 if ($http_code === 200) {
     echo json_encode(["success" => true, "message" => "Reservation logged successfully."]);
 } else {
-    echo json_encode(["success" => false, "error" => json_decode($response, true)]);
+    echo json_encode([
+        "success" => false, 
+        "message" => "Apple Server Firewall Rejected Transmittal Entry.",
+        "error" => json_decode($response, true),
+        "http_status_code" => $http_code
+    ]);
 }
 ?>
