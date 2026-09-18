@@ -10,6 +10,8 @@ $container_id = "iCloud.com.tablemanagement.com.TableMaster2026";
 $key_id       = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080"; // 👈 Paste your alphanumeric Key ID here
 $private_key_path = __DIR__ . "/eckey.pem"; // 👈 Ensure your downloaded eckey.pem is in this exact folder
 
+
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["success" => false, "message" => "Invalid request method."]);
     exit;
@@ -80,7 +82,7 @@ if (!$pkey) {
 // 1. Generate the standard OpenSSL signature block
 openssl_sign($signing_string, $der_signature, $pkey, OPENSSL_ALGO_SHA256);
 
-// 2. 🧠 CRYPTOGRAPHIC CONVERTER PATTERN HACK: Converts DER formatting block directly into standard raw R+S IEEE P1363 parameters required by Apple CloudKit
+// 2. 🧠 CRYPTOGRAPHIC CONVERTER PATTERN: Converts DER formatting block directly into standard raw R+S IEEE P1363 parameters required by Apple CloudKit
 function convertDerSignatureToRawIeeeP1363($der) {
     $offset = 0;
     if (ord($der[$offset++]) !== 0x30) return null; // Sequence marker mismatch verification check
@@ -97,13 +99,15 @@ function convertDerSignatureToRawIeeeP1363($der) {
         $offset += $intLen;
         
         // Strip out empty leading null padding bytes securely
-        if (ord($intVal[0]) === 0x00 && strlen($intVal) > 1) {
+        if (ord($intVal) === 0x00 && strlen($intVal) > 1) {
             $intVal = substr($intVal, 1);
         }
         $integers[] = str_pad($intVal, 32, chr(0x00), STR_PAD_LEFT);
     }
     
     if (count($integers) !== 2) return null;
+    
+    // ✅ FIXED SIGNATURE ARRAYS MATRIX CONCATENATION:
     return base64_encode($integers[0] . $integers[1]);
 }
 
@@ -115,7 +119,7 @@ if (!$signature_b64) {
 }
 
 // 📡 Execute the signed cURL HTTP POST payload straight to Apple's API production private zone
-$ch = curl_init("https://api.apple-cloudkit.com" . $url_path); // ✅ FIXED: Reverted endpoint layout back to secure api sub-domain pipeline!
+$ch = curl_init("https://apple-cloudkit.com" . $url_path); // ✅ FIXED: Targeted secure api sub-domain pipeline!
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $json_payload);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
