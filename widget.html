@@ -72,6 +72,10 @@
                     <option value="4">4 People</option>
                     <option value="5">5 People</option>
                     <option value="6">6 People</option>
+                    <option value="7">7 People</option>
+                    <option value="8">8 People</option>
+                    <option value="9">9 People</option>
+                    <option value="10">10 People</option>
                 </select>
             </div>
             <div>
@@ -156,7 +160,7 @@
     }
 
     // =========================================================================
-    // 📡 DYNAMIC NODE ENGINE SUBMISSION CONDUIT (VERIFIED PACKET PATTERNS)
+    // 📡 SECURE CLOUD TRANSACTION CONDUIT (SAFARI PREFLIGHT BYPASS PROTOCOL)
     // =========================================================================
     function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
@@ -185,15 +189,15 @@
             notes: document.getElementById('specialRequests').value
         };
 
-        // =========================================================================
-  // ✅ REPLACE IT WITH THIS CLEAN PATH (Adds the trailing slash for routing):
-  // =========================================================================
-  fetch('https://onrender.com/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(localFormPayload)
-  })
-
+        // 📡 Transits records via text/plain to classify as a Simple Request (Skipping 307 preflight issues entirely!)
+        fetch('https://onrender.com', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: JSON.stringify(localFormPayload)
+        })
         .then(response => response.text())
         .then(textData => {
             let data;
@@ -211,7 +215,7 @@
                 toggleAllergenInputField();
                 evaluateOperationalHoursGridFirewall();
             } else {
-                alert("⚠️ Transmission Failure: " + textData);
+                alert("⚠️ Transmission Mismatch: " + textData);
                 submitButton.disabled = false;
                 submitButton.innerText = 'Request Reservation';
             }
