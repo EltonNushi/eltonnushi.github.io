@@ -15,7 +15,8 @@ const CONTAINER_ID     = "://tablemanagement.com.TableMaster2026";
 const KEY_ID           = "YOUR_CLOUDKIT_SERVER_TO_SERVER_KEY_ID_HERE"; // 👈 Paste your alphanumeric Key ID here
 const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');            // 👈 Your eckey.pem is already in this repo
 
-app.post('/submit', async (req, res) => {
+// ✅ TO THIS (Accepts both /submit and /submit/ to stop the 307 redirect dead!):
+app.post(['/submit', '/submit/'], async (req, res) => {
     try {
         const input = req.body;
         const now_ms = Date.now();
