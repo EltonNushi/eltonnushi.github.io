@@ -132,7 +132,7 @@
         }
     }
 
-  
+
 
     function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
@@ -141,58 +141,62 @@
         if (!dayInput || !timeSlotInput) { alert("⚠️ Please select an arrival date and open time slot capsule."); return; }
 
         const submitButton = event.target.querySelector('.submit-button');
-        submitButton.disabled = true; submitButton.innerText = 'Transmitting...';
+        submitButton.disabled = true;
+        submitButton.innerText = 'Transmitting...';
 
         const resDate = new Date(dayInput + "T" + timeSlotInput + ":00").getTime();
-        const container = CloudKit.getDefaultContainer();
-        const db = container.getPublicCloudDatabase();
 
-        const bookingRecord = {
-            recordType: "CD_Booking",
-            fields: {
-                CD_id: { value: "WEB_" + Date.now(), type: "STRING" },
-                CD_guestName: { value: document.getElementById('firstName').value, type: "STRING" },
-                CD_surname: { value: document.getElementById('surname').value, type: "STRING" },
-                CD_email: { value: document.getElementById('guestEmail').value, type: "STRING" },
-                CD_phoneNumber: { value: document.getElementById('phoneDigits').value, type: "STRING" },
-                CD_partySize: { value: parseInt(document.getElementById('partySize').value), type: "INT64" },
-                CD_date: { value: resDate, type: "TIMESTAMP" },
-                CD_status: { value: "Unconfirmed", type: "STRING" },
-                CD_occasion: { value: document.getElementById('visitOccasion').value, type: "STRING" },
-                CD_occasionOtherDetails: { value: document.getElementById('occasionOtherDetails').value, type: "STRING" },
-
-                CD_hasAllergy: { value: parseInt(document.getElementById('hasAllergySelect').value), type: "INT64" },
-                CD_allergenNotes: { value: document.getElementById('allergenNotes').value, type: "STRING" },
-                CD_notes: { value: document.getElementById('specialRequests').value, type: "STRING" },
-
-                // ✅ DYNAMIC MULTI-TENANT VENUE IDENTITY SLUG
-                CD_restaurantID: { value: activeRestaurantTenantID, type: "STRING" }
-            }
+        // 📦 Pack variables into a clean payload structure to pass to your proxy script
+        const localFormPayload = {
+            restaurantID: activeRestaurantTenantID,
+            firstName: document.getElementById('firstName').value,
+            surname: document.getElementById('surname').value,
+            email: document.getElementById('guestEmail').value,
+            phone: document.getElementById('phoneDigits').value,
+            partySize: parseInt(document.getElementById('partySize').value),
+            resDate: resDate,
+            occasion: document.getElementById('visitOccasion').value,
+            occasionDetails: document.getElementById('occasionOtherDetails').value,
+            hasAllergy: parseInt(document.getElementById('hasAllergySelect').value),
+            allergenNotes: document.getElementById('allergenNotes').value,
+            notes: document.getElementById('specialRequests').value
         };
 
-        // Fire the asynchronous browser-to-Apple network database request pass
-        db.saveRecord(bookingRecord).then(function(savedRecord) {
-            alert("🎉 Reservation Request Sent! Your table allocation is now pending review on the TableMaster Pro ledger.");
-            document.getElementById('bookingForm').reset();
+        // 📡 Fetch to your server proxy file instead of using client-side CloudKit tokens
+        fetch('./submit.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(localFormPayload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("🎉 Reservation Request Sent Successfully!");
+                document.getElementById('bookingForm').reset();
 
-            const siblingChips = document.querySelectorAll('.time-chip-item');
-            siblingChips.forEach(chip => chip.className = 'time-chip-item');
-            document.getElementById('selectedTimeSlot').value = "";
+                // Reset active styles on time selection chips
+                document.querySelectorAll('.time-chip-item').forEach(chip => chip.className = 'time-chip-item');
+                document.getElementById('selectedTimeSlot').value = "";
 
+                submitButton.disabled = false;
+                submitButton.innerText = 'Request Reservation';
+
+                toggleOtherOccasionInputField();
+                toggleAllergenInputField();
+                evaluateOperationalHoursGridFirewall();
+            } else {
+                alert("⚠️ Transmission Failure: " + JSON.stringify(data.error));
+                submitButton.disabled = false;
+                submitButton.innerText = 'Request Reservation';
+            }
+        })
+        .catch(err => {
+            alert("⚠️ Network Connection Failure: " + err.message);
             submitButton.disabled = false;
-            submitButton.style.background = '#ff2d55';
-            submitButton.innerText = 'Request Reservation';
-
-            toggleOtherOccasionInputField();
-            toggleAllergenInputField();
-            evaluateOperationalHoursGridFirewall();
-        }).catch(function(error) {
-            alert("⚠️ Submission Failure: " + error.message);
-            submitButton.disabled = false;
-            submitButton.style.background = '#ff2d55';
             submitButton.innerText = 'Request Reservation';
         });
     }
+
 
     // ✅ FIXED: Seeding initial uniform today values securely into the input block element
     const todayRawObj = new Date();
