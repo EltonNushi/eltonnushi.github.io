@@ -5,135 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TableMaster Pro Booking Conduit</title>
     <style>
-        body { margin: 0; padding: 0; background: transparent; }
-        .tablemaster-widget-container {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-            box-sizing: border-box;
-        }
-        .tablemaster-widget-container h2 { margin-top: 0; color: #ff2d55; font-size: 24px; font-weight: bold; margin-bottom: 25px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 14px; color: #333; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 14px; background: white; font-family: inherit;
-        }
-        .form-group textarea { resize: vertical; }
-        .time-slots-grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
-        .time-chip-item {
-            padding: 10px 4px; font-size: 12px; font-weight: 600; text-align: center; background: #f5f5f7; color: #1d1d1f; border: 1px solid transparent; border-radius: 20px; cursor: pointer; transition: background-color 0.12s;
-        }
-        .time-chip-item:hover { background: #e8e8ed; border-color: #ccc; }
-        .time-chip-item.active-selected {
-            background: #ff2d55 !important; color: white !important; border-color: #ff2d55 !important; box-shadow: 0 2px 8px rgba(255, 45, 85, 0.35);
-        }
-        .conditional-wrapper { display: none; }
-        .alert-label { color: #ff2d55 !important; }
-        .form-group input[id="occasionOtherDetails"], .form-group input[id="allergenNotes"] { border: 1px solid #ff2d55; }
-        .submit-button {
-            width: 100%; padding: 12px; background: #ff2d55; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px;
-        }
-        .submit-button:hover { background: #e02449; }
+        :root { --accent-color: #ff2d55; --bg-dark: #000000; --panel-dark: #1c1c1e; --text-light: #ffffff; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: transparent; color: var(--text-light); margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .tablemaster-widget-container { width: 100%; max-width: 450px; background: var(--panel-dark); padding: 25px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); box-sizing: border-box; }
+        h2 { text-align: center; color: var(--accent-color); margin-top: 0; font-size: 22px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; color: #a1a1a6; }
+        input, select, textarea { width: 100%; padding: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 8px; color: #fff; font-size: 15px; box-sizing: border-box; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent-color); outline: none; }
+        .time-chips-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 5px; }
+        .time-chip-item { padding: 10px 5px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 8px; text-align: center; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .time-chip-item:hover { border-color: var(--accent-color); }
+        .time-chip-item.active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; font-weight: bold; }
+        .submit-button { width: 100%; padding: 14px; background: var(--accent-color); border: none; border-radius: 8px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
+        .submit-button:disabled { background: #3a3a3c; color: #8e8e93; cursor: not-allowed; }
+        .conditional-block { display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="tablemaster-widget-container">
-    <h2>Book a Table</h2>
+    <h2>Request Table Reservation</h2>
     <form id="bookingForm" onsubmit="executeCloudKitBookingSubmit(event)">
-        <div class="form-group"><label>First Name</label><input type="text" id="firstName" required placeholder="John"></div>
-        <div class="form-group"><label>Surname</label><input type="text" id="surname" required placeholder="Smith"></div>
-        <div class="form-group"><label>Email Address</label><input type="email" id="guestEmail" required placeholder="john.smith@example.com"></div>
-        <div class="form-group"><label>Phone Number</label><input type="tel" id="phoneDigits" required placeholder="07123 456789"></div>
-        <div class="form-group"><label>Party Size</label><input type="number" id="partySize" min="1" max="100" value="2" required></div>
-        <div class="form-group"><label>Arrival Date</label><input type="date" id="reservationDay" required onchange="evaluateOperationalHoursGridFirewall()"></div>
-        <div class="form-group"><label>Available Seating Slots</label><input type="hidden" id="selectedTimeSlot" required><div id="dynamicTimeSlotsContainer" class="time-slots-grid-container"></div></div>
 
         <div class="form-group">
-            <label>Special Occasion</label>
-            <select id="visitOccasion" onchange="toggleOtherOccasionInputField()">
-                <option value="Standard Dining">Standard Dining</option>
-                <option value="Birthday">Birthday 🎂</option>
-                <option value="Anniversary">Anniversary 💍</option>
-                <option value="Other">Other (Please Specify) 📝</option>
-            </select>
+            <label for="reservationDay">Arrival Date</label>
+            <input type="date" id="reservationDay" required onchange="evaluateOperationalHoursGridFirewall()">
         </div>
-        <div id="otherOccasionWrapper" class="form-group conditional-wrapper"><label class="alert-label">Specify Occasion Details</label><input type="text" id="occasionOtherDetails"></div>
 
         <div class="form-group">
-            <label>Food Allergies / Intolerances?</label>
+            <label>Select Arrival Time</label>
+            <div class="time-chips-grid" id="timeGrid">
+                <!-- Time chips generated dynamically by logic engine below -->
+            </div>
+            <input type="hidden" id="selectedTimeSlot" required>
+        </div>
+
+        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" required placeholder="John">
+            </div>
+            <div>
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" required placeholder="Dough">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="guestEmail">Email Address</label>
+            <input type="email" id="guestEmail" required placeholder="john@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="phoneDigits">Mobile Number</label>
+            <input type="tel" id="phoneDigits" required placeholder="07123 456789">
+        </div>
+
+        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+                <label for="partySize">Guests / Covers</label>
+                <select id="partySize">
+                    <option value="1">1 Person</option>
+                    <option value="2" selected>2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4 People</option>
+                    <option value="5">5 People</option>
+                    <option value="6">6 People</option>
+                </select>
+            </div>
+            <div>
+                <label for="visitOccasion">Special Occasion</label>
+                <select id="visitOccasion" onchange="toggleOtherOccasionInputField()">
+                    <option value="None">Standard Dining</option>
+                    <option value="Birthday">Birthday Celebration</option>
+                    <option value="Anniversary">Anniversary</option>
+                    <option value="Other">Other Occasion</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group conditional-block" id="occasionDetailsBlock">
+            <label for="occasionOtherDetails">Occasion Description</label>
+            <input type="text" id="occasionOtherDetails" placeholder="e.g. Graduation Dinner">
+        </div>
+
+        <div class="form-group">
+            <label for="hasAllergySelect">Food Allergies / Intolerances?</label>
             <select id="hasAllergySelect" onchange="toggleAllergenInputField()">
                 <option value="0">No, none of our guests have allergies</option>
-                <option value="1">Yes, members of our party have allergies ⚠️</option>
+                <option value="1">Yes, a member of our party has allergies</option>
             </select>
         </div>
-        <div id="allergenNotesWrapper" class="form-group conditional-wrapper"><label class="alert-label">Specify Allergen Details</label><input type="text" id="allergenNotes"></div>
-        <div class="form-group"><label>Special Requests / Notes</label><textarea id="specialRequests" placeholder="e.g. Prefer window seating..." rows="3"></textarea></div>
+
+        <div class="form-group conditional-block" id="allergyNotesBlock">
+            <label for="allergenNotes">Allergen Safety Specifications</label>
+            <input type="text" id="allergenNotes" placeholder="e.g. Peanut allergy, gluten intolerant">
+        </div>
+
+        <div class="form-group">
+            <label for="specialRequests">Special Requests / Notes</label>
+            <textarea id="specialRequests" rows="2" placeholder="e.g. Prefer window seating..."></textarea>
+        </div>
 
         <button type="submit" class="submit-button">Request Reservation</button>
     </form>
 </div>
 
-
 <script>
-    // 🧠 DYNAMIC TENANT EXTRACTOR: Resolves query strings instantly
+    // 📡 DYNAMIC TENANT ID EXTRACTION ENGINE
     const urlParams = new URLSearchParams(window.location.search);
     const activeRestaurantTenantID = urlParams.get('venue') || 'unassigned_tenant_gate';
 
-    const venueOperationalHoursRuleMap = [
-        { dayIndex: 1, open: 12, close: 22, isClosed: false }, // Sun
-        { dayIndex: 2, open: 16, close: 22, isClosed: false }, // Mon
-        { dayIndex: 3, open: 16, close: 22, isClosed: false }, // Tue
-        { dayIndex: 4, open: 16, close: 22, isClosed: false }, // Wed
-        { dayIndex: 5, open: 16, close: 22, isClosed: false }, // Thu (Closes at 10 PM)
-        { dayIndex: 6, open: 12, close: 23, isClosed: false }, // Fri (Closes at 11 PM)
-        { dayIndex: 7, open: 12, close: 23, isClosed: false }  // Sat (Closes at 11 PM)
-    ];
+    // Auto-seed tomorrow's date parameter by default grid mapping rules
+    window.addEventListener('DOMContentLoaded', () => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('reservationDay').value = tomorrow.toISOString().split('T')[0];
+        evaluateOperationalHoursGridFirewall();
+    });
 
     function toggleOtherOccasionInputField() {
-        const picker = document.getElementById('visitOccasion').value;
-        document.getElementById('otherOccasionWrapper').style.display = picker === 'Other' ? 'block' : 'none';
+        const select = document.getElementById('visitOccasion').value;
+        document.getElementById('occasionDetailsBlock').style.display = (select === 'Other') ? 'block' : 'none';
     }
 
     function toggleAllergenInputField() {
-        const allergy = document.getElementById('hasAllergySelect').value;
-        document.getElementById('allergenNotesWrapper').style.display = allergy === '1' ? 'block' : 'none';
+        const select = document.getElementById('hasAllergySelect').value;
+        document.getElementById('allergyNotesBlock').style.display = (select === '1') ? 'block' : 'none';
     }
 
+    // Dynamic rendering engine mapping active table slots chips
     function evaluateOperationalHoursGridFirewall() {
-        const dayInput = document.getElementById('reservationDay').value;
-        const containerGrid = document.getElementById('dynamicTimeSlotsContainer');
-        containerGrid.innerHTML = "";
-        if (!dayInput) return;
+        const grid = document.getElementById('timeGrid');
+        grid.innerHTML = '';
 
-        const selectedDateObj = new Date(dayInput);
-        let weekdayIndex = selectedDateObj.getDay() + 1;
-        const rule = venueOperationalHoursRuleMap.find(r => r.dayIndex === weekdayIndex) || { open: 16, close: 22 };
+        const timeSlots = ["12:00", "12:30", "13:00", "13:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"];
 
-        for (let hour = rule.open; hour < rule.close; hour++) {
-            ["00", "30"].forEach(minute => {
-                if ((weekdayIndex === 6 || weekdayIndex === 7) && hour === 22 && minute === "30") return; // 22:30 firewall cut-off
-                const timeStringValue = String(hour).padStart(2, '0') + ":" + minute;
-                const chipNode = document.createElement('div');
-                chipNode.className = "time-chip-item";
-                chipNode.innerText = timeStringValue;
-                chipNode.onclick = function() {
-                    document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active-selected'));
-                    chipNode.classList.add('active-selected');
-                    document.getElementById('selectedTimeSlot').value = timeStringValue;
-                };
-                containerGrid.appendChild(chipNode);
-            });
-        }
+        timeSlots.forEach(time => {
+            const chip = document.createElement('div');
+            chip.className = 'time-chip-item';
+            chip.innerText = time;
+            chip.onclick = () => {
+                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                document.getElementById('selectedTimeSlot').value = time;
+            };
+            grid.appendChild(chip);
+        });
     }
 
-
-
+    // =========================================================================
+    // 📡 DYNAMIC NODE ENGINE SUBMISSION CONDUIT (VERIFIED PACKET PATTERNS)
+    // =========================================================================
     function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
         const dayInput = document.getElementById('reservationDay').value;
@@ -146,7 +170,6 @@
 
         const resDate = new Date(dayInput + "T" + timeSlotInput + ":00").getTime();
 
-        // 📦 Pack variables into a clean payload structure to pass to your proxy script
         const localFormPayload = {
             restaurantID: activeRestaurantTenantID,
             firstName: document.getElementById('firstName').value,
@@ -162,35 +185,25 @@
             notes: document.getElementById('specialRequests').value
         };
 
-        // =========================================================================
-        // ✅ PLATFORM CROSS-DOMAIN ROUTING GATEWAYS
-        // =========================================================================
+        // 📡 Transits data records directly to your secure Render cloud server engine
         fetch('https://onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(localFormPayload)
         })
-        // ✅ PARSE AS TEXT FIRST TO COMPENSATE FOR API VERIFICATION STRING FORMATS
         .then(response => response.text())
         .then(textData => {
             let data;
-            try {
-                data = JSON.parse(textData);
-            } catch (e) {
-                data = { success: textData.includes("successfully") || textData.includes("true") };
-            }
+            try { data = JSON.parse(textData); } catch (e) { data = { success: textData.includes("successfully") || textData.includes("true") }; }
 
             if (data.success || textData.includes("successfully")) {
                 alert("🎉 Reservation Request Sent Successfully! Your table allocation is now pending review on the TableMaster Pro ledger.");
                 document.getElementById('bookingForm').reset();
-
-                // Reset active styles on time selection chips
-                document.querySelectorAll('.time-chip-item').forEach(chip => chip.className = 'time-chip-item');
+                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
                 document.getElementById('selectedTimeSlot').value = "";
 
                 submitButton.disabled = false;
                 submitButton.innerText = 'Request Reservation';
-
                 toggleOtherOccasionInputField();
                 toggleAllergenInputField();
                 evaluateOperationalHoursGridFirewall();
@@ -205,41 +218,7 @@
             submitButton.disabled = false;
             submitButton.innerText = 'Request Reservation';
         });
-
     }
-
-
-    // ✅ FIXED: Seeding initial uniform today values securely into the input block element
-    const todayRawObj = new Date();
-    const localYYYY = todayRawObj.getFullYear();
-    const localMM = String(todayRawObj.getMonth() + 1).padStart(2, '0');
-    const localDD = String(todayRawObj.getDate()).padStart(2, '0');
-
-    document.getElementById('reservationDay').value = localYYYY + "-" + localMM + "-" + localDD;
-    evaluateOperationalHoursGridFirewall();
 </script>
-
-
-<!-- ========================================================================= -->
-<!-- ✅ SECURE LIVE COMPLIANCE FOOTER NAVIGATION                              -->
-<!-- ========================================================================= -->
-<footer style="padding: 40px 20px; text-align: center; border-top: 1px solid #2a2a35; background: #0d0d11;">
-    <p style="color: #9494a1; font-size: 14px; margin-bottom: 15px;">
-        © SwiftTech Mobile Apps 2026. All Rights Reserved.
-    </p>
-
-    <div class="footer-compliance-links" style="font-size: 14px;">
-        <!-- ✅ LIVE PRIVACY LINK TARGET -->
-        <a href="policy.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Privacy Policy</a>
-        <span style="color: #2a2a35;">·</span>
-
-        <!-- ✅ LIVE TERMS LINK TARGET -->
-        <a href="terms.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Terms and Conditions</a>
-        <span style="color: #2a2a35;">·</span>
-
-        <a href="#faq" style="color: #9494a1; text-decoration: none; margin: 0 10px;">FAQ</a>
-        <span style="color: #2a2a35;">·</span>
-
-        <a href="#contact" style="color: #9494a1; text-decoration: none; margin: 0 10px;">Contact Us</a>
-    </div>
-</footer>
+</body>
+</html>
