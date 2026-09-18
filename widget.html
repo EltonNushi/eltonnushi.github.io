@@ -185,12 +185,15 @@
             notes: document.getElementById('specialRequests').value
         };
 
-        // 📡 Transits data records directly to your secure Render cloud server engine
-        fetch('https://onrender.com', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(localFormPayload)
-        })
+        // =========================================================================
+  // ✅ REPLACE IT WITH THIS CLEAN PATH (Adds the trailing slash for routing):
+  // =========================================================================
+  fetch('https://onrender.com/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(localFormPayload)
+  })
+
         .then(response => response.text())
         .then(textData => {
             let data;
