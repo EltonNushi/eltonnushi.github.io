@@ -180,45 +180,52 @@
           ]
       };
 
+      
       // =========================================================================
-            // 🧠 DYNAMIC ASYNCHRONOUS ICLOUD TIMETABLE RENDERING ENGINE
-            // =========================================================================
-            function evaluateOperationalHoursGridFirewall() {
-                const grid = document.getElementById('timeGrid');
-                grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
+          // 🧠 DYNAMIC ASYNCHRONOUS ICLOUD TIMETABLE RENDERING ENGINE
+          // =========================================================================
+          function evaluateOperationalHoursGridFirewall() {
+              const grid = document.getElementById('timeGrid');
+              grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
 
-                // Hit your new Render API route endpoint to pull down active server profiles
-                fetch(`https://onrender.com{activeRestaurantTenantID}`)
-                .then(response => response.json())
-                .then(profile => {
-                    grid.innerHTML = '';
-                    if (!profile.success) { alert("⚠️ Timetable sync failure."); return; }
+              // ✅ FIXED: Whitelists headers to satisfy browser cross-origin requests cleanly
+              fetch(`https://onrender.com{activeRestaurantTenantID}`, {
+                  method: 'GET',
+                  mode: 'cors',
+                  headers: { 'Accept': 'application/json' }
+              })
+              .then(response => response.json())
+              .then(profile => {
+                  grid.innerHTML = '';
+                  if (!profile.success) {
+                      grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Fully Booked / Closed</div>';
+                      return;
+                  }
 
-                    // Extract open and close boundaries (e.g., "12:00" and "22:00")
-                    const [openStr, closeStr] = [profile.openTime, profile.closeTime];
-                    const timeSlots = generateTimeChipsMatrix(openStr, closeStr);
+                  const [openStr, closeStr] = [profile.openTime, profile.closeTime];
+                  const timeSlots = generateTimeChipsMatrix(openStr, closeStr);
 
-                    if (timeSlots.length === 0) {
-                        grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Fully Booked / Closed</div>';
-                        return;
-                    }
+                  if (timeSlots.length === 0) {
+                      grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Fully Booked / Closed</div>';
+                      return;
+                  }
 
-                    timeSlots.forEach(time => {
-                        const chip = document.createElement('div');
-                        chip.className = 'time-chip-item';
-                        chip.innerText = time;
-                        chip.onclick = () => {
-                            document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-                            chip.classList.add('active');
-                            document.getElementById('selectedTimeSlot').value = time;
-                        };
-                        grid.appendChild(chip);
-                    });
-                })
-                .catch(err => {
-                    grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times</div>';
-                });
-            }
+                  timeSlots.forEach(time => {
+                      const chip = document.createElement('div');
+                      chip.className = 'time-chip-item';
+                      chip.innerText = time;
+                      chip.onclick = () => {
+                          document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                          chip.classList.add('active');
+                          document.getElementById('selectedTimeSlot').value = time;
+                      };
+                      grid.appendChild(chip);
+                  });
+              })
+              .catch(err => {
+                  grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times</div>';
+              });
+          }
 
             // 🧠 HELPER MATH: Generates 30-minute time capsule slots cleanly between boundaries
             function generateTimeChipsMatrix(start, end) {
