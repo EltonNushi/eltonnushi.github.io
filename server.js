@@ -1,3 +1,6 @@
+// const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026"; // ✅ FIXED: Restored complete Apple ID prefix!
+// const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact 
+
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
@@ -7,7 +10,7 @@ const crypto = require('crypto');
 const app = express();
 
 // =========================================================================
-// 🔒 ✅ FIXED: STRIC CROSS-ORIGIN SECURITY CLEARANCE PROFILE
+// 🔒 ✅ STRIC CROSS-ORIGIN SECURITY CLEARANCE PROFILE
 // =========================================================================
 app.use(cors({
     origin: '*', 
@@ -15,7 +18,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
-// Express built-in parsing filters must cleanly parse both json and text payloads
 app.use(express.json());
 app.use(express.text({ type: '*/*' })); 
 // =========================================================================
@@ -24,34 +26,81 @@ app.use(express.text({ type: '*/*' }));
 // 🔒 CRITICAL SECURITY CONFIGURATIONS
 // =========================================================================
 const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026"; // ✅ FIXED: Restored complete Apple ID prefix!
-const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact alphanumeric Key ID here
+const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact 
 const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');
 
-// Bypasses internal 307 rewrite engines by dynamically handling both url shapes
-app.post(['/submit', '/submit/'], async (req, res) => {
+// =========================================================================
+// 📡 FETCH LIVE DYNAMIC TIMETABLE PROFILES FROM ICLOUD WITH CORS CLEARANCE
+// =========================================================================
+app.get('/timetable/:restaurantID', async (req, res) => {
+    // Explicitly inject safety headers into the dynamic GET stream path
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    
     try {
-        let input;
+        const targetTenant = req.params.restaurantID.trim();
+        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/query`;
         
-        // 🧠 THE TEXT/PLAIN BYPASS HACK: If the incoming request is parsed as standard text,
-        // convert it into an operational JSON object structure seamlessly!
-        if (typeof req.body === 'string') {
-            try {
-                input = JSON.parse(req.body);
-            } catch (e) {
-                return res.status(400).json({ success: false, message: "Invalid payload layout serialisation string text." });
+        const queryPayload = {
+            query: {
+                recordType: "CD_RestaurantProfile",
+                filterBy: [{
+                    fieldName: "CD_restaurantID",
+                    comparator: "EQUALS",
+                    fieldValue: { value: targetTenant, type: "STRING" }
+                }]
+            },
+            zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
+        };
+
+        const json_payload = JSON.stringify(queryPayload);
+        const date_iso = new Date().toISOString().replace(/\.\d{3}/, '');
+        const payload_hash = crypto.createHash('sha256').update(json_payload).digest().toString('base64');
+        const signing_string = `${date_iso}:${payload_hash}:${url_path}`;
+
+        const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf8');
+        const sign = crypto.createSign('SHA256');
+        sign.update(signing_string);
+        const signature_b64 = sign.sign({ key: private_key, dsaEncoding: 'compact' }).toString('base64');
+
+        const response = await fetch("https://apple-cloudkit.com" + url_path, {
+            method: 'POST',
+            body: json_payload,
+            headers: {
+                "Content-Type": "application/json",
+                "X-Apple-CloudKit-Request-KeyID": KEY_ID.trim(),
+                "X-Apple-CloudKit-Request-ISO8601Date": date_iso,
+                "X-Apple-CloudKit-Request-Signature": signature_b64
             }
+        });
+
+        const res_data = await response.json();
+        
+        if (response.status === 200 && res_data.records && res_data.records.length > 0) {
+            const fields = res_data.records[0].fields;
+            res.json({
+                success: true,
+                openTime: fields.CD_openTime.value,
+                closeTime: fields.CD_closeTime.value
+            });
         } else {
-            input = req.body;
+            res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Using fallback defaults" });
         }
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
 
-        if (!input || !input.restaurantID) {
-            return res.status(400).json({ success: false, message: "Empty reservation payload metadata or missing restaurant keys." });
-        }
-
+// =========================================================================
+// 📡 SECURE BOOKING REQUEST INGEST ENGINE
+// =========================================================================
+app.post(['/submit', '/submit/'], async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    try {
+        let input = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
         const now_ms = Date.now();
         const res_date_ms = input.resDate;
 
-        // 🏗️ Structure the strict JSON payload layout targeting the private SwiftData zone partition
         const payload = {
             operations: [{
                 operationType: "create",
@@ -83,84 +132,9 @@ app.post(['/submit', '/submit/'], async (req, res) => {
         };
 
         const json_payload = JSON.stringify(payload);
-        const date_iso = new Date().toISOString().replace(/\.\d{3}/, ''); // Formats precisely to Y-m-dTH:i:sZ
-
-        const hash = crypto.createHash('sha256').update(json_payload).digest();
-        const payload_hash = hash.toString('base64');
-
-        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/modify`;
-        const signing_string = `${date_iso}:${payload_hash}:${url_path}`;
-
-        if (!fs.existsSync(PRIVATE_KEY_PATH)) {
-            return res.status(500).json({ success: false, message: "Security error: eckey.pem missing on server workspace directories." });
-        }
-
-        const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf8');
-
-        // 🖋️ COMPUTE CRYPTOGRAPHIC SIGNATURE (IEEE P1363 raw format required natively by Apple CloudKit)
-        const sign = crypto.createSign('SHA256');
-        sign.update(signing_string);
-        const raw_signature = sign.sign({
-            key: private_key,
-            dsaEncoding: 'compact' // 🧠 Forces raw R+S packing to eliminate pattern mismatch errors entirely!
-        });
-        const signature_b64 = raw_signature.toString('base64');
-
-        // 📡 Forward the signed transaction straight through to Apple's API production private zone
-        const response = await fetch("https://api.apple-cloudkit.com" + url_path, { // ✅ FIXED: Restored secure api gateway host link!
-            method: 'POST',
-            body: json_payload,
-            headers: {
-                "Content-Type": "application/json",
-                "X-Apple-CloudKit-Request-KeyID": KEY_ID.trim(),
-                "X-Apple-CloudKit-Request-ISO8601Date": date_iso,
-                "X-Apple-CloudKit-Request-Signature": signature_b64
-            }
-        });
-
-        const http_code = response.status;
-        const res_data = await response.json();
-
-        if (http_code === 200) {
-            res.json({ success: true, message: "Reservation logged successfully." });
-        } else {
-            res.json({
-                success: false,
-                message: "Apple Server Firewall Rejected Transmittal Entry.",
-                error: res_data,
-                http_status_code: http_code
-            });
-        }
-    } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
-    }
-});
-
-
-// =========================================================================
-// 📡 FETCH LIVE DYNAMIC TIMETABLE PROFILES FROM ICLOUD DATA ZONES
-// =========================================================================
-app.get('/timetable/:restaurantID', async (req, res) => {
-    try {
-        const targetTenant = req.params.restaurantID.trim();
-        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/query`;
-        
-        // Structure a strict CloudKit filter query targeting the exact venue profile row
-        const queryPayload = {
-            query: {
-                recordType: "CD_RestaurantProfile",
-                filterBy: [{
-                    fieldName: "CD_restaurantID",
-                    comparator: "EQUALS",
-                    fieldValue: { value: targetTenant, type: "STRING" }
-                }]
-            },
-            zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
-        };
-
-        const json_payload = JSON.stringify(queryPayload);
         const date_iso = new Date().toISOString().replace(/\.\d{3}/, '');
         const payload_hash = crypto.createHash('sha256').update(json_payload).digest().toString('base64');
+        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/modify`;
         const signing_string = `${date_iso}:${payload_hash}:${url_path}`;
 
         const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf8');
@@ -168,7 +142,6 @@ app.get('/timetable/:restaurantID', async (req, res) => {
         sign.update(signing_string);
         const signature_b64 = sign.sign({ key: private_key, dsaEncoding: 'compact' }).toString('base64');
 
-        // Fire request straight through to Apple
         const response = await fetch("https://apple-cloudkit.com" + url_path, {
             method: 'POST',
             body: json_payload,
@@ -180,25 +153,16 @@ app.get('/timetable/:restaurantID', async (req, res) => {
             }
         });
 
-        const res_data = await response.json();
-        
-        if (response.status === 200 && res_data.records && res_data.records.length > 0) {
-            const fields = res_data.records[0].fields;
-            res.json({
-                success: true,
-                openTime: fields.CD_openTime.value,
-                closeTime: fields.CD_closeTime.value
-            });
+        if (response.status === 200) {
+            res.json({ success: true, message: "Reservation logged successfully." });
         } else {
-            // Fallback default operational windows if record isn't initialized yet
-            res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Using fallback defaults" });
+            const res_data = await response.json();
+            res.json({ success: false, error: res_data });
         }
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 });
-
-
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
