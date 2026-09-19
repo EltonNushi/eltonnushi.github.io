@@ -6,7 +6,22 @@
     <title>TableMaster Pro Booking Conduit</title>
     <style>
         :root { --accent-color: #ff2d55; --bg-dark: #000000; --panel-dark: #1c1c1e; --text-light: #ffffff; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: transparent; color: var(--text-light); margin: 0; padding: 10px; display: flex; justify-content: center; }
+
+        /* 🚨 FIXED global layout alignment properties stack everything vertically */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: transparent;
+            color: var(--text-light);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
         .tablemaster-widget-container { width: 100%; max-width: 450px; background: var(--panel-dark); padding: 25px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); box-sizing: border-box; }
         h2 { text-align: center; color: var(--accent-color); margin-top: 0; font-size: 22px; }
         .form-group { margin-bottom: 16px; }
@@ -72,21 +87,6 @@
                     <option value="4">4 People</option>
                     <option value="5">5 People</option>
                     <option value="6">6 People</option>
-                    <option value="7">7 People</option>
-                    <option value="8">8 People</option>
-                    <option value="9">9 People</option>
-                    <option value="10">10 People</option>
-
-                    <option value="11">11 People</option>
-                    <option value="12">12 People</option>
-                    <option value="13">13 People</option>
-                    <option value="14">14 People</option>
-                    <option value="15">15 People</option>
-                    <option value="16">16 People</option>
-                    <option value="17">17 People</option>
-                    <option value="18">18 People</option>
-                    <option value="19">19 People</option>
-                    <option value="20">20 People</option>
                 </select>
             </div>
             <div>
@@ -127,12 +127,11 @@
     </form>
 </div>
 
+
 <script>
-    // 📡 DYNAMIC TENANT ID EXTRACTION ENGINE
     const urlParams = new URLSearchParams(window.location.search);
     const activeRestaurantTenantID = urlParams.get('venue') || 'unassigned_tenant_gate';
 
-    // Auto-seed tomorrow's date parameter by default grid mapping rules
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -150,11 +149,9 @@
         document.getElementById('allergyNotesBlock').style.display = (select === '1') ? 'block' : 'none';
     }
 
-    // Dynamic rendering engine mapping active table slots chips
     function evaluateOperationalHoursGridFirewall() {
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '';
-
         const timeSlots = ["12:00", "12:30", "13:00", "13:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"];
 
         timeSlots.forEach(time => {
@@ -170,9 +167,6 @@
         });
     }
 
-    // =========================================================================
-    // 📡 SECURE CLOUD TRANSACTION CONDUIT (SAFARI PREFLIGHT BYPASS PROTOCOL)
-    // =========================================================================
     function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
         const dayInput = document.getElementById('reservationDay').value;
@@ -200,15 +194,13 @@
             notes: document.getElementById('specialRequests').value
         };
 
-        // ✅ RE-VERIFY THIS EXACT PATH STRING:
-  fetch('https://onrender.com', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-          'Content-Type': 'text/plain'
-      },
-      body: JSON.stringify(localFormPayload)
-  })
+        // ✅ PERFECTED DIRECT PATH ROUTE LINK: Points to /submit/ to prevent any 307 internal reverse proxy errors
+        fetch('https://onrender.com', {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(localFormPayload)
+        })
         .then(response => response.text())
         .then(textData => {
             let data;
@@ -232,37 +224,30 @@
             }
         })
         .catch(err => {
-           alert("⚠️ Network Connection Failure: " + err.message);
-           submitButton.disabled = false;
-           submitButton.innerText = 'Request Reservation';
-       });
-   }
+            alert("⚠️ Network Connection Failure: " + err.message);
+            submitButton.disabled = false;
+            submitButton.innerText = 'Request Reservation';
+        });
+    }
 </script>
 
 <!-- ========================================================================= -->
-<!-- ✅ SECURE LIVE COMPLIANCE FOOTER NAVIGATION                              -->
+<!-- ✅ SECURE COMPLIANCE FOOTER (Perfectly stacked layout alignment)            -->
 <!-- ========================================================================= -->
-<footer style="padding: 40px 20px; text-align: center; border-top: 1px solid #2a2a35; background: #0d0d11; width: 100%; display: block; box-sizing: border-box; clear: both; margin-top: 40px;">
-   <p style="color: #9494a1; font-size: 14px; margin-bottom: 15px;">
-       © SwiftTech Mobile Apps 2026. All Rights Reserved.
-   </p>
-
-   <div class="footer-compliance-links" style="font-size: 14px;">
-       <!-- ✅ LIVE PRIVACY LINK TARGET -->
-       <a href="policy.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Privacy Policy</a>
-       <span style="color: #2a2a35;">·</span>
-
-       <!-- ✅ LIVE TERMS LINK TARGET -->
-       <a href="terms.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Terms and Conditions</a>
-       <span style="color: #2a2a35;">·</span>
-
-       <a href="#faq" style="color: #9494a1; text-decoration: none; margin: 0 10px;">FAQ</a>
-       <span style="color: #2a2a35;">·</span>
-
-       <a href="#contact" style="color: #9494a1; text-decoration: none; margin: 0 10px;">Contact Us</a>
-   </div>
+<footer style="padding: 30px 20px; text-align: center; border-top: 1px solid #2a2a35; background: transparent; width: 100%; max-width: 450px; box-sizing: border-box; margin-top: 25px;">
+    <p style="color: #9494a1; font-size: 13px; margin: 0 0 12px 0;">
+        © SwiftTech Mobile Apps 2026. All Rights Reserved.
+    </p>
+    <div class="footer-compliance-links" style="font-size: 13px;">
+        <a href="policy.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 8px;">Privacy Policy</a>
+        <span style="color: #2a2a35;">·</span>
+        <a href="terms.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 8px;">Terms and Conditions</a>
+        <span style="color: #2a2a35;">·</span>
+        <a href="#faq" style="color: #9494a1; text-decoration: none; margin: 0 8px;">FAQ</a>
+        <span style="color: #2a2a35;">·</span>
+        <a href="#contact" style="color: #9494a1; text-decoration: none; margin: 0 8px;">Contact Us</a>
+    </div>
 </footer>
 
-<!-- ✅ FIXED: These structural alignment closers must live at the absolute baseline end! -->
 </body>
 </html>
