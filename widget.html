@@ -232,34 +232,37 @@
             }
         })
         .catch(err => {
-            alert("⚠️ Network Connection Failure: " + err.message);
-            submitButton.disabled = false;
-            submitButton.innerText = 'Request Reservation';
-        });
-    }
+           alert("⚠️ Network Connection Failure: " + err.message);
+           submitButton.disabled = false;
+           submitButton.innerText = 'Request Reservation';
+       });
+   }
 </script>
-
 
 <!-- ========================================================================= -->
 <!-- ✅ SECURE LIVE COMPLIANCE FOOTER NAVIGATION                              -->
 <!-- ========================================================================= -->
-<footer style="padding: 40px 20px; text-align: center; border-top: 1px solid #2a2a35; background: #0d0d11;">
-    <p style="color: #9494a1; font-size: 14px; margin-bottom: 15px;">
-        © SwiftTech Mobile Apps 2026. All Rights Reserved.
-    </p>
+<footer style="padding: 40px 20px; text-align: center; border-top: 1px solid #2a2a35; background: #0d0d11; width: 100%; display: block; box-sizing: border-box; clear: both; margin-top: 40px;">
+   <p style="color: #9494a1; font-size: 14px; margin-bottom: 15px;">
+       © SwiftTech Mobile Apps 2026. All Rights Reserved.
+   </p>
 
-    <div class="footer-compliance-links" style="font-size: 14px;">
-        <!-- ✅ LIVE PRIVACY LINK TARGET -->
-        <a href="policy.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Privacy Policy</a>
-        <span style="color: #2a2a35;">·</span>
+   <div class="footer-compliance-links" style="font-size: 14px;">
+       <!-- ✅ LIVE PRIVACY LINK TARGET -->
+       <a href="policy.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Privacy Policy</a>
+       <span style="color: #2a2a35;">·</span>
 
-        <!-- ✅ LIVE TERMS LINK TARGET -->
-        <a href="terms.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Terms and Conditions</a>
-        <span style="color: #2a2a35;">·</span>
+       <!-- ✅ LIVE TERMS LINK TARGET -->
+       <a href="terms.html" style="color: #ff2d55; text-decoration: none; font-weight: 600; margin: 0 10px; transition: opacity 0.2s;">Terms and Conditions</a>
+       <span style="color: #2a2a35;">·</span>
 
-        <a href="#faq" style="color: #9494a1; text-decoration: none; margin: 0 10px;">FAQ</a>
-        <span style="color: #2a2a35;">·</span>
+       <a href="#faq" style="color: #9494a1; text-decoration: none; margin: 0 10px;">FAQ</a>
+       <span style="color: #2a2a35;">·</span>
 
-        <a href="#contact" style="color: #9494a1; text-decoration: none; margin: 0 10px;">Contact Us</a>
-    </div>
+       <a href="#contact" style="color: #9494a1; text-decoration: none; margin: 0 10px;">Contact Us</a>
+   </div>
 </footer>
+
+<!-- ✅ FIXED: These structural alignment closers must live at the absolute baseline end! -->
+</body>
+</html>
