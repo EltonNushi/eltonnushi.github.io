@@ -163,23 +163,88 @@
         document.getElementById('allergyNotesBlock').style.display = (select === '1') ? 'block' : 'none';
     }
 
-    function evaluateOperationalHoursGridFirewall() {
-        const grid = document.getElementById('timeGrid');
-        grid.innerHTML = '';
-        const timeSlots = ["12:00", "12:30", "13:00", "13:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"];
+    // =========================================================================
+      // 🍕 MULTI-TENANT OPERATIONAL HOURS DICTIONARY MATRIX
+      // =========================================================================
+      const restaurantTimetableProfiles = {
+          "loro_di_napoli": [
+              "12:00", "12:30", "13:00", "13:30",
+              "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"
+          ],
+          "loro_di_elton": [
+              "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"
+          ],
+          "burger_joint": [
+              "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+              "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"
+          ]
+      };
 
-        timeSlots.forEach(time => {
-            const chip = document.createElement('div');
-            chip.className = 'time-chip-item';
-            chip.innerText = time;
-            chip.onclick = () => {
-                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                document.getElementById('selectedTimeSlot').value = time;
-            };
-            grid.appendChild(chip);
-        });
-    }
+      // =========================================================================
+            // 🧠 DYNAMIC ASYNCHRONOUS ICLOUD TIMETABLE RENDERING ENGINE
+            // =========================================================================
+            function evaluateOperationalHoursGridFirewall() {
+                const grid = document.getElementById('timeGrid');
+                grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
+
+                // Hit your new Render API route endpoint to pull down active server profiles
+                fetch(`https://onrender.com{activeRestaurantTenantID}`)
+                .then(response => response.json())
+                .then(profile => {
+                    grid.innerHTML = '';
+                    if (!profile.success) { alert("⚠️ Timetable sync failure."); return; }
+
+                    // Extract open and close boundaries (e.g., "12:00" and "22:00")
+                    const [openStr, closeStr] = [profile.openTime, profile.closeTime];
+                    const timeSlots = generateTimeChipsMatrix(openStr, closeStr);
+
+                    if (timeSlots.length === 0) {
+                        grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Fully Booked / Closed</div>';
+                        return;
+                    }
+
+                    timeSlots.forEach(time => {
+                        const chip = document.createElement('div');
+                        chip.className = 'time-chip-item';
+                        chip.innerText = time;
+                        chip.onclick = () => {
+                            document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                            chip.classList.add('active');
+                            document.getElementById('selectedTimeSlot').value = time;
+                        };
+                        grid.appendChild(chip);
+                    });
+                })
+                .catch(err => {
+                    grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times</div>';
+                });
+            }
+
+            // 🧠 HELPER MATH: Generates 30-minute time capsule slots cleanly between boundaries
+            function generateTimeChipsMatrix(start, end) {
+                const slots = [];
+                let current = parseTimeToMinutes(start);
+                const limit = parseTimeToMinutes(end);
+
+                while (current <= limit) {
+                    slots.push(formatMinutesToTime(current));
+                    current += 30; // Step cleanly in half-hour increments
+                }
+                return slots;
+            }
+
+            function parseTimeToMinutes(timeStr) {
+                const [hours, minutes] = timeStr.split(':').map(Number);
+                return (hours * 60) + minutes;
+            }
+
+            function formatMinutesToTime(totalMinutes) {
+                const hours = Math.floor(totalMinutes / 60).toString().padStart(2, '0');
+                const minutes = (totalMinutes % 60).toString().padStart(2, '0');
+                return `${hours}:${minutes}`;
+            }
+
+
 
     function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();

@@ -136,5 +136,69 @@ app.post(['/submit', '/submit/'], async (req, res) => {
     }
 });
 
+
+// =========================================================================
+// 📡 FETCH LIVE DYNAMIC TIMETABLE PROFILES FROM ICLOUD DATA ZONES
+// =========================================================================
+app.get('/timetable/:restaurantID', async (req, res) => {
+    try {
+        const targetTenant = req.params.restaurantID.trim();
+        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/query`;
+        
+        // Structure a strict CloudKit filter query targeting the exact venue profile row
+        const queryPayload = {
+            query: {
+                recordType: "CD_RestaurantProfile",
+                filterBy: [{
+                    fieldName: "CD_restaurantID",
+                    comparator: "EQUALS",
+                    fieldValue: { value: targetTenant, type: "STRING" }
+                }]
+            },
+            zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
+        };
+
+        const json_payload = JSON.stringify(queryPayload);
+        const date_iso = new Date().toISOString().replace(/\.\d{3}/, '');
+        const payload_hash = crypto.createHash('sha256').update(json_payload).digest().toString('base64');
+        const signing_string = `${date_iso}:${payload_hash}:${url_path}`;
+
+        const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf8');
+        const sign = crypto.createSign('SHA256');
+        sign.update(signing_string);
+        const signature_b64 = sign.sign({ key: private_key, dsaEncoding: 'compact' }).toString('base64');
+
+        // Fire request straight through to Apple
+        const response = await fetch("https://apple-cloudkit.com" + url_path, {
+            method: 'POST',
+            body: json_payload,
+            headers: {
+                "Content-Type": "application/json",
+                "X-Apple-CloudKit-Request-KeyID": KEY_ID.trim(),
+                "X-Apple-CloudKit-Request-ISO8601Date": date_iso,
+                "X-Apple-CloudKit-Request-Signature": signature_b64
+            }
+        });
+
+        const res_data = await response.json();
+        
+        if (response.status === 200 && res_data.records && res_data.records.length > 0) {
+            const fields = res_data.records[0].fields;
+            res.json({
+                success: true,
+                openTime: fields.CD_openTime.value,
+                closeTime: fields.CD_closeTime.value
+            });
+        } else {
+            // Fallback default operational windows if record isn't initialized yet
+            res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Using fallback defaults" });
+        }
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+
+
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
