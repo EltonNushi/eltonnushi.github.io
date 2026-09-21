@@ -18,7 +18,7 @@ and send it to their web development team to embed into their reservation page.\
 -------------------------------------------------------------------------\
 Send to: ZPos Development Support Desk\
 Embed Snippet:\
-<iframe src="https://swifttechmobile.co.uk" width="100%" height="750px" frameborder="0" scrolling="no" style="border: none; max-width: 450px; display: block; margin: 0 auto; overflow: hidden;" allowtransparency="true"></iframe>\
+<iframe src="https://swifttechmobile.co.uk/widget?venue=loro_di_napoli" width="100%" height="750px" frameborder="0" scrolling="no" style="border: none; max-width: 450px; display: block; margin: 0 auto; overflow: hidden;" allowtransparency="true"></iframe> \
 \
 -------------------------------------------------------------------------\
 \uc0\u55356 \u57172  CLIENT 2: Burger Joint (Example SaaS Client)\
