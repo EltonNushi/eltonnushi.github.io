@@ -85,21 +85,33 @@ app.get('/timetable/:restaurantID', async (req, res) => {
 
         const res_data = await response.json();
 
-        if (response.status === 200 && res_data.records && res_data.records.length > 0) {
-            const fields = res_data.records[0].fields;
-            res.json({
-                success: true,
-                openTime: fields.CD_openTime.value,
-                closeTime: fields.CD_closeTime.value
-            });
-        } else {
-            // Failsafe configuration profile returns standard operational parameters cleanly
-            res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Using automated system defaults" });
-        }
-        } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
-        }
-    });
+  // =========================================================================
+  // ✅ FIXED SCHEMA EXTRACTION MATRIX: INJECTED ARRAY INDEX [0]
+  // =========================================================================
+  if (response.status === 200 && res_data.records && res_data.records.length > 0) {
+
+      // 🧠 THE INDEXING FIX: Reads fields inside the first matching array row item directly!
+      const fields = res_data.records[0].fields;
+
+      res.json({
+          success: true,
+          openTime: fields.CD_openTime.value,
+          closeTime: fields.CD_closeTime.value
+      });
+  } else {
+      // 🚀 AUTOMATED SaaS PROVISIONING GATES: If a venue profile isn't saved in iCloud yet,
+      // immediately supply standard operational windows to guarantee the web form works out-of-the-box!
+      res.json({
+          success: true,
+          openTime: "12:00",
+          closeTime: "22:00",
+          note: "Using system automated fallback configurations."
+      });
+  }
+} catch (err) {
+  res.status(500).json({ success: false, message: err.message });
+}
+});
 
 
 
