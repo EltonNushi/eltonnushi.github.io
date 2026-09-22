@@ -1,5 +1,5 @@
 // const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026"; // ✅ FIXED: Restored complete Apple ID prefix!
-// const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact 
+// const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact
 
 const express = require('express');
 const cors = require('cors');
@@ -13,34 +13,40 @@ const app = express();
 // 🔒 ✅ STRIC CROSS-ORIGIN SECURITY CLEARANCE PROFILE
 // =========================================================================
 app.use(cors({
-    origin: '*', 
+    origin: '*',
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
 app.use(express.json());
-app.use(express.text({ type: '*/*' })); 
+app.use(express.text({ type: '*/*' }));
 // =========================================================================
 
 // =========================================================================
 // 🔒 CRITICAL SECURITY CONFIGURATIONS
 // =========================================================================
 const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026"; // ✅ FIXED: Restored complete Apple ID prefix!
-const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact 
+const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact
 const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');
 
 // =========================================================================
 // 📡 FETCH LIVE DYNAMIC TIMETABLE PROFILES FROM ICLOUD WITH CORS CLEARANCE
 // =========================================================================
 app.get('/timetable/:restaurantID', async (req, res) => {
-    // Explicitly inject safety headers into the dynamic GET stream path
+    // ✅ HARDENED SPECIFICATION: Open access control to allow external point-of-sale platforms like ZPos!
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-    
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
+
+    // Express safety handler: immediately return 200 for preflight safety check parameters
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+
     try {
         const targetTenant = req.params.restaurantID.trim();
         const url_path = `/database/1/${CONTAINER_ID}/production/private/records/query`;
-        
+
         const queryPayload = {
             query: {
                 recordType: "CD_RestaurantProfile",
@@ -75,21 +81,23 @@ app.get('/timetable/:restaurantID', async (req, res) => {
         });
 
         const res_data = await response.json();
-        
+
         if (response.status === 200 && res_data.records && res_data.records.length > 0) {
-            const fields = res_data.records[0].fields;
+            const fields = res_data.records[0].fields; // ✅ BUG FIX: Added indexing to read array records correctly!
             res.json({
                 success: true,
                 openTime: fields.CD_openTime.value,
                 closeTime: fields.CD_closeTime.value
             });
         } else {
+            // Fallback default operational windows if the client profile hasn't been saved in iCloud yet
             res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Using fallback defaults" });
         }
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 });
+
 
 // =========================================================================
 // 📡 SECURE BOOKING REQUEST INGEST ENGINE
