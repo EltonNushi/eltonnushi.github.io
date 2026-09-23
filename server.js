@@ -129,7 +129,7 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
 
 
 // =========================================================================
-// 📡 2. SECURE WEB RESERVATION INGEST PIPELINE (HARMONIZED JSON ROUTER)
+// 📡 2. SECURE WEB RESERVATION INGEST PIPELINE (HARMONIZED PROXY)
 // =========================================================================
 app.post(['/submit', '/submit/'], async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -143,15 +143,11 @@ app.post(['/submit', '/submit/'], async (req, res) => {
     try {
         let input = req.body;
 
-        // 🧠 SAFELY UNPACK DATA: Parse string bytes seamlessly if they arrive wrapped
+        // Unpack text stream objects safely if they arrive wrapped as string bytes
         if (typeof input === 'string') {
             try { input = JSON.parse(input); } catch(e) {
-                return res.status(400).json({ success: false, message: "Invalid text packaging syntax structure." });
+                return res.status(400).json({ success: false, message: "Invalid JSON format packaging." });
             }
-        }
-
-        if (!input || !input.restaurantID) {
-            return res.status(400).json({ success: false, message: "Missing core tenant mapping constraints." });
         }
 
         const now_ms = Date.now();
@@ -219,6 +215,7 @@ app.post(['/submit', '/submit/'], async (req, res) => {
         res.status(500).json({ success: false, message: err.message });
     }
 });
+
 
 
 const PORT = process.env.PORT || 10000;
