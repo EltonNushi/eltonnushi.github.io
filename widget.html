@@ -111,17 +111,20 @@
     </form>
 </div>
 <script>
-    const activeRestaurantTenantID = "\(restaurantID)";
+    const activeRestaurantTenantID = new URLSearchParams(window.location.search).get('venue') || 'loro_di_elton';
+
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        document.getElementById('reservationDay').value = tomorrow.toISOString().split('T');
+        document.getElementById('reservationDay').value = tomorrow.toISOString().split('T')[0];
         evaluateOperationalHoursGridFirewall();
     });
+
     function toggleOtherOccasionInputField() {
         const select = document.getElementById('visitOccasion').value;
         document.getElementById('occasionDetailsBlock').style.display = (select === 'Other') ? 'block' : 'none';
     }
+
     function toggleAllergenInputField() {
         const select = document.getElementById('hasAllergySelect').value;
         document.getElementById('allergyNotesBlock').style.display = (select === '1') ? 'block' : 'none';
@@ -131,14 +134,12 @@
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
 
-        const cleanTenantKey = typeof activeRestaurantTenantID !== 'undefined' ? activeRestaurantTenantID : "loro_di_elton";
-
-        // ✅ FIXED: Points straight to your dedicated server sub-domain and /timetable/ route!
+        // ✅ 100% FIXED RAW URL PATH CONDUIT: Safely compiles exactly as written!
         fetch('https://onrender.com', {
             method: 'POST',
             mode: 'cors',
             headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ restaurantID: cleanTenantKey })
+            body: JSON.stringify({ restaurantID: activeRestaurantTenantID })
         })
         .then(response => response.text())
         .then(textData => {
@@ -174,10 +175,9 @@
             });
         })
         .catch(() => {
-            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times slots</div>';
+            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times</div>';
         });
     }
-
 
     function generateTimeChipsMatrix(start, end) {
         const slots = [];
@@ -186,15 +186,19 @@
         while (current <= limit) { slots.push(formatMinutesToTime(current)); current += 30; }
         return slots;
     }
+
     function parseTimeToMinutes(timeStr) {
         const [hours, minutes] = timeStr.split(':').map(Number);
         return (hours * 60) + minutes;
     }
+
+    // Maps total minutes back to clean string pairs (e.g. 720 -> "12:00")
     function formatMinutesToTime(totalMinutes) {
         const hours = Math.floor(totalMinutes / 60).toString().padStart(2, '0');
         const minutes = (totalMinutes % 60).toString().padStart(2, '0');
-        return `${hours}:${minutes}`;
+        return hours + ":" + minutes;
     }
+
     function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
         const dayInput = document.getElementById('reservationDay').value;
