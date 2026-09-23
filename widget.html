@@ -126,14 +126,14 @@
         const select = document.getElementById('hasAllergySelect').value;
         document.getElementById('allergyNotesBlock').style.display = (select === '1') ? 'block' : 'none';
     }
-               function evaluateOperationalHoursGridFirewall() {
+
+    function evaluateOperationalHoursGridFirewall() {
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
 
-        // 🧠 SAFE RUNTIME CONDUIT: Safely extracts tenant key references across multi-line text blocks
         const cleanTenantKey = typeof activeRestaurantTenantID !== 'undefined' ? activeRestaurantTenantID : "loro_di_elton";
 
-        // ✅ FIXED: Routes to your unique Render sub-domain using the matching /timetable/ path!
+        // ✅ FIXED: Points straight to your dedicated server sub-domain and /timetable/ route!
         fetch('https://onrender.com', {
             method: 'POST',
             mode: 'cors',
@@ -143,13 +143,23 @@
         .then(response => response.text())
         .then(textData => {
             let profile;
-            try { profile = JSON.parse(textData); } catch (e) { profile = { success: true, openTime: "12:00", closeTime: "22:00" }; }
+            try {
+                profile = JSON.parse(textData);
+            } catch (e) {
+                profile = { success: true, openTime: "12:00", closeTime: "22:00" };
+            }
 
             grid.innerHTML = '';
-            if (!profile.success) { grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>'; return; }
+            if (!profile.success) {
+                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
+                return;
+            }
 
             const timeSlots = generateTimeChipsMatrix(profile.openTime, profile.closeTime);
-            if (timeSlots.length === 0) { grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>'; return; }
+            if (timeSlots.length === 0) {
+                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
+                return;
+            }
 
             timeSlots.forEach(time => {
                 const chip = document.createElement('div');
@@ -167,6 +177,7 @@
             grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times</div>';
         });
     }
+
 
     function generateTimeChipsMatrix(start, end) {
         const slots = [];
