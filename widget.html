@@ -131,53 +131,54 @@
     }
 
     function evaluateOperationalHoursGridFirewall() {
-        const grid = document.getElementById('timeGrid');
-        grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
+    const grid = document.getElementById('timeGrid');
+    grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
 
-        // ✅ FIXED TARGET ENDPOINT: Points straight to your dedicated timetable proxy controller!
-        fetch('https://onrender.com', {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ restaurantID: activeRestaurantTenantID })
-        })
-        .then(response => response.text())
-        .then(textData => {
-            let profile;
-            try {
-                profile = JSON.parse(textData);
-            } catch (e) {
-                profile = { success: true, openTime: "12:00", closeTime: "22:00" };
-            }
+    // ✅ FIXED CONDUIT: Points directly to your unique live backend application endpoint!
+    fetch('https://onrender.com', {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ restaurantID: activeRestaurantTenantID })
+    })
+    .then(response => response.text())
+    .then(textData => {
+        let profile;
+        try {
+            profile = JSON.parse(textData);
+        } catch (e) {
+            profile = { success: true, openTime: "12:00", closeTime: "22:00" };
+        }
 
-            grid.innerHTML = '';
-            if (!profile.success) {
-                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-                return;
-            }
+        grid.innerHTML = '';
+        if (!profile.success) {
+            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
+            return;
+        }
 
-            const timeSlots = generateTimeChipsMatrix(profile.openTime, profile.closeTime);
-            if (timeSlots.length === 0) {
-                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-                return;
-            }
+        const timeSlots = generateTimeChipsMatrix(profile.openTime, profile.closeTime);
+        if (timeSlots.length === 0) {
+            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
+            return;
+        }
 
-            timeSlots.forEach(time => {
-                const chip = document.createElement('div');
-                chip.className = 'time-chip-item';
-                chip.innerText = time;
-                chip.onclick = () => {
-                    document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    document.getElementById('selectedTimeSlot').value = time;
-                };
-                grid.appendChild(chip);
-            });
-        })
-        .catch(() => {
-            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times</div>';
+        timeSlots.forEach(time => {
+            const chip = document.createElement('div');
+            chip.className = 'time-chip-item';
+            chip.innerText = time;
+            chip.onclick = () => {
+                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                document.getElementById('selectedTimeSlot').value = time;
+            };
+            grid.appendChild(chip);
         });
-    }
+    })
+    .catch(() => {
+        grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading time slots</div>';
+    });
+}
+
 
     function generateTimeChipsMatrix(start, end) {
         const slots = [];
