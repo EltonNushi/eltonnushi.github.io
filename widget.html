@@ -36,6 +36,7 @@
     </style>
 </head>
 <body>
+
 <div class="tablemaster-widget-container">
     <h2>Request Table Reservation</h2>
     <form id="bookingForm" onsubmit="executeCloudKitBookingSubmit(event)">
@@ -111,6 +112,7 @@
     </form>
 </div>
 <script>
+
     const activeRestaurantTenantID = new URLSearchParams(window.location.search).get('venue') || 'loro_di_elton';
 
     window.addEventListener('DOMContentLoaded', () => {
