@@ -18,7 +18,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
-// 🧠 FIXED ORDER: Intercept plain text payloads first so the JSON engine never crashes!
+// 🧠 THE PREFLIGHT BYPASS HACK: Intercept raw plain text strings first so the JSON engine never crashes!
 app.use(express.text({ type: '*/*' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +32,7 @@ const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb4
 const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');
 
 // =========================================================================
-// 📡 1. WHITELIFTED TIMETABLE RECOVERY CONDUIT (POST BYPASS ROUTE)
+// 📡 1. WHITELISTED TIMETABLE RECOVERY CONDUIT (POST BYPASS ROUTE)
 // =========================================================================
 app.post(['/timetable', '/timetable/'], async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -44,10 +44,9 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
     }
 
     try {
-        let targetTenant = "loro_di_elton"; // System dynamic anchor default
+        let targetTenant = "loro_di_elton";
         let bodyPayload = req.body;
 
-        // If the payload arrives wrapped as text metadata bytes, unpack it safely
         if (typeof bodyPayload === 'string') {
             try {
                 bodyPayload = JSON.parse(bodyPayload);
@@ -90,7 +89,6 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
         sign.update(signing_string);
         const signature_b64 = sign.sign({ key: private_key, dsaEncoding: 'compact' }).toString('base64');
 
-        // 📡 ✅ FIXED: Restored live api subdomain host link cleanly!
         const response = await fetch("https://apple-cloudkit.com" + url_path, {
             method: 'POST',
             body: json_payload,
@@ -104,32 +102,23 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
 
         const res_data = await response.json();
 
-        // =========================================================================
-        // ✅ FIXED TIMETABLE STRUCT MATRIX: INJECTED ACCURATE ARRAY INDEX MATCHING
-        // =========================================================================
         if (response.status === 200 && res_data.records && res_data.records.length > 0) {
-
-            // 🧠 THE INDICES RESTORE: Extract fields safely from the first matching array row item directly!
             const fields = res_data.records[0].fields;
-
             res.json({
                 success: true,
                 openTime: fields.CD_openTime.value,
                 closeTime: fields.CD_closeTime.value
             });
         } else {
-            // Failsafe configuration returns system fallback properties cleanly as a text layout packet
-            res.send("success:true,openTime:12:00,closeTime:22:00");
+            res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Fallback default bounds" });
         }
-      } catch (err) {
-        // Safe structural fallback values prevent the widget frontend loop from crashing out
-        res.send("success:true,openTime:12:00,closeTime:22:00");
-      }
+    } catch (err) {
+        res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "System global fallback override engaged" });
+    }
 });
 
-
 // =========================================================================
-// 📡 2. SECURE WEB RESERVATION INGEST PIPELINE (HARMONIZED PROXY)
+// 📡 2. SECURE WEB RESERVATION INGEST PIPELINE
 // =========================================================================
 app.post(['/submit', '/submit/'], async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -143,10 +132,12 @@ app.post(['/submit', '/submit/'], async (req, res) => {
     try {
         let input = req.body;
 
-        // Unpack text stream objects safely if they arrive wrapped as string bytes
+        // ✅ CRITICAL REPAIR: Unpack text stream raw strings natively before running database transformations!
         if (typeof input === 'string') {
-            try { input = JSON.parse(input); } catch(e) {
-                return res.status(400).json({ success: false, message: "Invalid JSON format packaging." });
+            try {
+                input = JSON.parse(input);
+            } catch(e) {
+                return res.status(400).json({ success: false, message: "Invalid plain text body parsing mapping formats." });
             }
         }
 
@@ -215,8 +206,6 @@ app.post(['/submit', '/submit/'], async (req, res) => {
         res.status(500).json({ success: false, message: err.message });
     }
 });
-
-
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
