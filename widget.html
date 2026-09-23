@@ -246,33 +246,33 @@
             notes: document.getElementById('specialRequests').value
         };
 
-        fetch('https://onrender.com', {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(localFormPayload)
-        })
-        .then(response => response.text())
-        .then(textData => {
-            let data;
-            try { data = JSON.parse(textData); } catch (e) { data = { success: textData.includes("successfully") || textData.includes("true") }; }
-            if (data.success || textData.includes("successfully")) {
-                alert("🎉 Reservation Request Sent Successfully!");
-                document.getElementById('bookingForm').reset();
-                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-                document.getElementById('selectedTimeSlot').value = "";
-                submitButton.disabled = false;
-                submitButton.innerText = 'Request Reservation';
-                toggleOtherOccasionInputField(); toggleAllergenInputField(); evaluateOperationalHoursGridFirewall();
-            } else {
-                alert("⚠️ Transmission Mismatch: " + textData);
-                submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
-            }
-        })
-        .catch(err => {
-            alert("⚠️ Network Connection Failure: " + err.message);
-            submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
-        });
+        // ✅ FIXED SUBMISSION PIPELINE: Uses standard application/json headers to satisfy WebKit preflight firewalls completely!
+      fetch('https://onrender.com', {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(localFormPayload)
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert("🎉 Reservation Request Sent Successfully! Your table allocation is now pending review on the host stand ledger.");
+              document.getElementById('bookingForm').reset();
+              document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+              document.getElementById('selectedTimeSlot').value = "";
+              submitButton.disabled = false;
+              submitButton.innerText = 'Request Reservation';
+              toggleOtherOccasionInputField(); toggleAllergenInputField(); evaluateOperationalHoursGridFirewall();
+          } else {
+              alert("⚠️ Transmission Mismatch: " + JSON.stringify(data.error));
+              submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
+          }
+      })
+      .catch(err => {
+          alert("⚠️ Network Connection Failure: " + err.message);
+          submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
+      });
+
     }
 </script>
 <footer style="padding: 30px 20px; text-align: center; border-top: 1px solid #2a2a35; background: transparent; width: 100%; max-width: 450px; box-sizing: border-box; margin-top: 25px;">
