@@ -116,49 +116,42 @@ app.get('/timetable/:restaurantID', async (req, res) => {
 
 
 // =========================================================================
-// 📡 SECURE BOOKING REQUEST INGEST ENGINE
+// 📡 FETCH LIVE DYNAMIC TIMETABLE PROFILES FROM ICLOUD WITH CORS CLEARANCE
 // =========================================================================
-app.post(['/submit', '/submit/'], async (req, res) => {
+app.post(['/timetable', '/timetable/'], async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
+
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+
     try {
         let input = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-        const now_ms = Date.now();
-        const res_date_ms = input.resDate;
+        const targetTenant = (input.restaurantID || "").trim();
 
-        const payload = {
-            operations: [{
-                operationType: "create",
-                record: {
-                    recordType: "CD_Booking",
-                    recordID: {
-                        recordName: "WEB_BOOKING_" + now_ms,
-                        zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
-                    },
-                    fields: {
-                        CD_id: { value: "WEB_" + now_ms, type: "STRING" },
-                        CD_restaurantID: { value: input.restaurantID.trim(), type: "STRING" },
-                        CD_guestName: { value: input.firstName.trim(), type: "STRING" },
-                        CD_surname: { value: input.surname.trim(), type: "STRING" },
-                        CD_email: { value: input.email.trim(), type: "STRING" },
-                        CD_phoneNumber: { value: input.phone.trim(), type: "STRING" },
-                        CD_partySize: { value: parseInt(input.partySize), type: "INT64" },
-                        CD_date: { value: parseFloat(res_date_ms), type: "TIMESTAMP" },
-                        CD_occasion: { value: input.occasion.trim(), type: "STRING" },
-                        CD_occasionOtherDetails: { value: input.occasionDetails.trim(), type: "STRING" },
-                        CD_hasAllergy: { value: parseInt(input.hasAllergy), type: "INT64" },
-                        CD_allergenNotes: { value: input.allergenNotes.trim(), type: "STRING" },
-                        CD_notes: { value: input.notes.trim(), type: "STRING" },
-                        CD_status: { value: "Unconfirmed", type: "STRING" },
-                        CD_isVIP: { value: 0, type: "INT64" }
-                    }
-                }
-            }]
+        if (!targetTenant) {
+            return res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Fallback default bounds" });
+        }
+
+        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/query`;
+
+        const queryPayload = {
+            query: {
+                recordType: "CD_RestaurantProfile",
+                filterBy: [{
+                    fieldName: "CD_restaurantID",
+                    comparator: "EQUALS",
+                    fieldValue: { value: targetTenant, type: "STRING" }
+                }]
+            },
+            zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
         };
 
-        const json_payload = JSON.stringify(payload);
+        const json_payload = JSON.stringify(queryPayload);
         const date_iso = new Date().toISOString().replace(/\.\d{3}/, '');
         const payload_hash = crypto.createHash('sha256').update(json_payload).digest().toString('base64');
-        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/modify`;
         const signing_string = `${date_iso}:${payload_hash}:${url_path}`;
 
         const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf8');
@@ -177,16 +170,23 @@ app.post(['/submit', '/submit/'], async (req, res) => {
             }
         });
 
-        if (response.status === 200) {
-            res.json({ success: true, message: "Reservation logged successfully." });
+        const res_data = await response.json();
+
+        if (response.status === 200 && res_data.records && res_data.records.length > 0) {
+            const fields = res_data.records[0].fields;
+            res.json({
+                success: true,
+                openTime: fields.CD_openTime.value,
+                closeTime: fields.CD_closeTime.value
+            });
         } else {
-            const res_data = await response.json();
-            res.json({ success: false, error: res_data });
+            res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Fallback default bounds" });
         }
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 });
+
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
