@@ -246,13 +246,15 @@
             notes: document.getElementById('specialRequests').value
         };
 
-        // ✅ FIXED SUBMISSION PIPELINE: Uses standard application/json headers to satisfy WebKit preflight firewalls completely!
-      fetch('https://onrender.com', {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(localFormPayload)
-      })
+        // =========================================================================
+  // ✅ REPLACE IT WITH THIS CLEAN, NAKED ENDPOINT ROUTE STRING PATH:
+  // =========================================================================
+  fetch('https://onrender.com', {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(localFormPayload)
+  })
       .then(response => response.json())
       .then(data => {
           if (data.success) {
