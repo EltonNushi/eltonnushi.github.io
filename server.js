@@ -119,16 +119,20 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
 // 📡 2. SECURE WEB RESERVATION INGEST PIPELINE
 // =========================================================================
 app.post(['/submit', '/submit/'], async (req, res) => {
+    // ✅ FORCE CORE CORS HEADERS UNCONDITIONALLY ON EVERY INBOUND TRANSACTION
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
 
-    if (req.method === 'OPTIONS') {
+    // 🚀 THE BROWSER FIREWALL UNBLOCK: If the browser is performing a security check (OPTIONS),
+    // immediately answer with a clean 200 OK status to clear the pathway!
+    if (req.method === 'OPTIONS' || req.method === 'options') {
         return res.sendStatus(200);
     }
 
     try {
         let input = req.body;
+
 
         if (typeof input === 'string') {
             try {
