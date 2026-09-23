@@ -86,27 +86,27 @@ openssl_sign($signing_string, $der_signature, $pkey, OPENSSL_ALGO_SHA256);
 function convertDerSignatureToRawIeeeP1363($der) {
     $offset = 0;
     if (ord($der[$offset++]) !== 0x30) return null; // Sequence marker mismatch verification check
-    
+
     // Parse total structural packet byte payload length parameters
     $len = ord($der[$offset++]);
     if ($len & 0x80) $offset += ($len & 0x7F);
-    
+
     $integers = [];
     while ($offset < strlen($der)) {
         if (ord($der[$offset++]) !== 0x02) break; // Integer element marker mismatch
         $intLen = ord($der[$offset++]);
         $intVal = substr($der, $offset, $intLen);
         $offset += $intLen;
-        
+
         // Strip out empty leading null padding bytes securely
         if (ord($intVal) === 0x00 && strlen($intVal) > 1) {
             $intVal = substr($intVal, 1);
         }
         $integers[] = str_pad($intVal, 32, chr(0x00), STR_PAD_LEFT);
     }
-    
+
     if (count($integers) !== 2) return null;
-    
+
     // ✅ FIXED SIGNATURE ARRAYS MATRIX CONCATENATION:
     return base64_encode($integers[0] . $integers[1]);
 }
@@ -138,7 +138,7 @@ if ($http_code === 200) {
     echo json_encode(["success" => true, "message" => "Reservation logged successfully."]);
 } else {
     echo json_encode([
-        "success" => false, 
+        "success" => false,
         "message" => "Apple Server Firewall Rejected Transmittal Entry.",
         "error" => json_decode($response, true),
         "http_status_code" => $http_code
