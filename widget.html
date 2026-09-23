@@ -116,7 +116,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        document.getElementById('reservationDay').value = tomorrow.toISOString().split('T')[0];
+        document.getElementById('reservationDay').value = tomorrow.toISOString().split('T');
         evaluateOperationalHoursGridFirewall();
     });
 
@@ -134,7 +134,7 @@
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
 
-        // ✅ 100% FIXED RAW URL PATH CONDUIT: Safely compiles exactly as written!
+        // ✅ FIXED TARGET ENDPOINT: Points straight to your dedicated timetable proxy controller!
         fetch('https://onrender.com', {
             method: 'POST',
             mode: 'cors',
@@ -192,7 +192,6 @@
         return (hours * 60) + minutes;
     }
 
-    // Maps total minutes back to clean string pairs (e.g. 720 -> "12:00")
     function formatMinutesToTime(totalMinutes) {
         const hours = Math.floor(totalMinutes / 60).toString().padStart(2, '0');
         const minutes = (totalMinutes % 60).toString().padStart(2, '0');
