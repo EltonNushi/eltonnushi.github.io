@@ -30,7 +30,6 @@ app.use(express.urlencoded({ extended: true }));
 const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026";
 const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";
 const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');
-
 // =========================================================================
 // 📡 1. WHITELISTED TIMETABLE RECOVERY CONDUIT (POST BYPASS ROUTE)
 // =========================================================================
@@ -116,7 +115,6 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
         res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "System global fallback override engaged" });
     }
 });
-
 // =========================================================================
 // 📡 2. SECURE WEB RESERVATION INGEST PIPELINE
 // =========================================================================
@@ -132,17 +130,42 @@ app.post(['/submit', '/submit/'], async (req, res) => {
     try {
         let input = req.body;
 
-        // ✅ CRITICAL REPAIR: Unpack text stream raw strings natively before running database transformations!
         if (typeof input === 'string') {
             try {
                 input = JSON.parse(input);
             } catch(e) {
-                return res.status(400).json({ success: false, message: "Invalid plain text body parsing mapping formats." });
+                const extractVal = (key) => {
+                    const match = req.body.match(new RegExp('"' + key + '"\\s*:\\s*"([^"]+)"'));
+                    return match ? match[1] : "";
+                };
+                const extractNum = (key) => {
+                    const match = req.body.match(new RegExp('"' + key + '"\\s*:\\s*(\\d+)'));
+                    return match ? parseInt(match[1]) : 2;
+                };
+
+                const dateMatch = req.body.match(/"resDate"\s*:\s*(\d+)/);
+                const derivedDate = dateMatch ? parseFloat(dateMatch[1]) : Date.now();
+
+                input = {
+                    restaurantID: extractVal("restaurantID"),
+                    firstName: extractVal("firstName"),
+                    surname: extractVal("surname"),
+                    email: extractVal("email"),
+                    phone: extractVal("phone"),
+                    partySize: extractNum("partySize"),
+                    resDate: derivedDate,
+                    occasion: extractVal("occasion"),
+                    occasionDetails: extractVal("occasionDetails"),
+                    hasAllergy: extractNum("hasAllergy"),
+                    allergenNotes: extractVal("allergenNotes"),
+                    notes: extractVal("notes")
+                };
             }
         }
 
+        const targetTenant = (input.restaurantID || "loro_di_elton").trim();
         const now_ms = Date.now();
-        const res_date_ms = input.resDate;
+        const res_date_ms = input.resDate || now_ms;
 
         const payload = {
             operations: [{
@@ -155,18 +178,18 @@ app.post(['/submit', '/submit/'], async (req, res) => {
                     },
                     fields: {
                         CD_id: { value: "WEB_" + now_ms, type: "STRING" },
-                        CD_restaurantID: { value: input.restaurantID.trim(), type: "STRING" },
-                        CD_guestName: { value: input.firstName.trim(), type: "STRING" },
-                        CD_surname: { value: input.surname.trim(), type: "STRING" },
-                        CD_email: { value: input.email.trim(), type: "STRING" },
-                        CD_phoneNumber: { value: input.phone.trim(), type: "STRING" },
-                        CD_partySize: { value: parseInt(input.partySize), type: "INT64" },
+                        CD_restaurantID: { value: targetTenant, type: "STRING" },
+                        CD_guestName: { value: (input.firstName || "Guest").trim(), type: "STRING" },
+                        CD_surname: { value: (input.surname || "User").trim(), type: "STRING" },
+                        CD_email: { value: (input.email || "").trim(), type: "STRING" },
+                        CD_phoneNumber: { value: (input.phone || "").trim(), type: "STRING" },
+                        CD_partySize: { value: parseInt(input.partySize || 2), type: "INT64" },
                         CD_date: { value: parseFloat(res_date_ms), type: "TIMESTAMP" },
-                        CD_occasion: { value: input.occasion.trim(), type: "STRING" },
-                        CD_occasionOtherDetails: { value: input.occasionDetails.trim(), type: "STRING" },
-                        CD_hasAllergy: { value: parseInt(input.hasAllergy), type: "INT64" },
-                        CD_allergenNotes: { value: input.allergenNotes.trim(), type: "STRING" },
-                        CD_notes: { value: input.notes.trim(), type: "STRING" },
+                        CD_occasion: { value: (input.occasion || "Standard Dining").trim(), type: "STRING" },
+                        CD_occasionOtherDetails: { value: (input.occasionDetails || "").trim(), type: "STRING" },
+                        CD_hasAllergy: { value: parseInt(input.hasAllergy || 0), type: "INT64" },
+                        CD_allergenNotes: { value: (input.allergenNotes || "").trim(), type: "STRING" },
+                        CD_notes: { value: (input.notes || "").trim(), type: "STRING" },
                         CD_status: { value: "Unconfirmed", type: "STRING" },
                         CD_isVIP: { value: 0, type: "INT64" }
                     }
