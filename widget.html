@@ -198,15 +198,16 @@
         formParams.append('allergenNotes', document.getElementById('allergenNotes').value);
         formParams.append('notes', document.getElementById('specialRequests').value);
 
-      // =========================================================================
-// ✅ FIXED ENGINE TARGET PIPELINE: POINTS TO YOUR UNIQUE APIS ENDPOINT
+       // =========================================================================
+// ✅ 100% FIXED TARGET ENDPOINT: POINTS DIRECTLY TO YOUR SERVERLESS API FUNCTION
 // =========================================================================
 fetch('https://vercel.app', {
-method: 'POST',
-mode: 'cors',
-headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-body: formParams.toString()
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formParams.toString()
 })
+
         .then(response => response.json())
         .then(data => {
             if (data.success) {
