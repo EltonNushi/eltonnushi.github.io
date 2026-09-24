@@ -1,118 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TableMaster Pro Booking Conduit</title>
-    <style>
-        :root { --accent-color: #ff2d55; --bg-dark: #000000; --panel-dark: #1c1c1e; --text-light: #ffffff; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: transparent;
-            color: var(--text-light);
-            margin: 0;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-        .tablemaster-widget-container { width: 100%; max-width: 450px; background: var(--panel-dark); padding: 25px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); box-sizing: border-box; }
-        h2 { text-align: center; color: var(--accent-color); margin-top: 0; font-size: 22px; }
-        .form-group { margin-bottom: 16px; }
-        label { display: block; margin-bottom: 6px; font-size: 13px; color: #a1a1a6; }
-        input, select, textarea { width: 100%; padding: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 8px; color: #fff; font-size: 15px; box-sizing: border-box; }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent-color); outline: none; }
-        .time-chips-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 5px; }
-        .time-chip-item { padding: 10px 5px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 8px; text-align: center; cursor: pointer; font-size: 14px; transition: all 0.2s; }
-        .time-chip-item:hover { border-color: var(--accent-color); }
-        .time-chip-item.active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; font-weight: bold; }
-        .submit-button { width: 100%; padding: 14px; background: var(--accent-color); border: none; border-radius: 8px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
-        .submit-button:disabled { background: #3a3a3c; color: #8e8e93; cursor: not-allowed; }
-        .conditional-block { display: none; margin-top: 10px; }
-        .alert-label { color: #ff2d55 !important; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TableMaster Pro Booking Conduit</title>
+<style>
+:root { --accent-color: #ff2d55; --bg-dark: #000000; --panel-dark: #1c1c1e; --text-light: #ffffff; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: transparent;
+    color: var(--text-light);
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+.tablemaster-widget-container { width: 100%; max-width: 450px; background: var(--panel-dark); padding: 25px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); box-sizing: border-box; }
+h2 { text-align: center; color: var(--accent-color); margin-top: 0; font-size: 22px; }
+.form-group { margin-bottom: 16px; }
+label { display: block; margin-bottom: 6px; font-size: 13px; color: #a1a1a6; }
+input, select, textarea { width: 100%; padding: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 8px; color: #fff; font-size: 15px; box-sizing: border-box; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent-color); outline: none; }
+.time-chips-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 5px; }
+.time-chip-item { padding: 10px 5px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 8px; text-align: center; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+.time-chip-item:hover { border-color: var(--accent-color); }
+.time-chip-item.active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; font-weight: bold; }
+.submit-button { width: 100%; padding: 14px; background: var(--accent-color); border: none; border-radius: 8px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
+.submit-button:disabled { background: #3a3a3c; color: #8e8e93; cursor: not-allowed; }
+.conditional-block { display: none; margin-top: 10px; }
+.alert-label { color: #ff2d55 !important; }
+</style>
 </head>
 <body>
-
 <div class="tablemaster-widget-container">
-    <h2>Request Table Reservation</h2>
-    <form id="bookingForm" onsubmit="executeCloudKitBookingSubmit(event)">
-        <div class="form-group">
-            <label for="reservationDay">Arrival Date</label>
-            <input type="date" id="reservationDay" required onchange="evaluateOperationalHoursGridFirewall()">
-        </div>
-        <div class="form-group">
-            <label>Select Arrival Time</label>
-            <div class="time-chips-grid" id="timeGrid"></div>
-            <input type="hidden" id="selectedTimeSlot" required>
-        </div>
-        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div>
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" required placeholder="John">
-            </div>
-            <div>
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" required placeholder="Dough">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="guestEmail">Email Address</label>
-            <input type="email" id="guestEmail" required placeholder="john@example.com">
-        </div>
-        <div class="form-group">
-            <label for="phoneDigits">Mobile Number</label>
-            <input type="tel" id="phoneDigits" required placeholder="07123 456789">
-        </div>
-        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div>
-                <label for="partySize">Guests / Covers</label>
-                <select id="partySize">
-                    <option value="1">1 Person</option>
-                    <option value="2" selected>2 People</option>
-                    <option value="3">3 People</option>
-                    <option value="4">4 People</option>
-                    <option value="5">5 People</option>
-                    <option value="6">6 People</option>
-                </select>
-            </div>
-            <div>
-                <label for="visitOccasion">Special Occasion</label>
-                <select id="visitOccasion" onchange="toggleOtherOccasionInputField()">
-                    <option value="Standard Dining">Standard Dining</option>
-                    <option value="Birthday">Birthday 🎂</option>
-                    <option value="Anniversary">Anniversary 💍</option>
-                    <option value="Other">Other Occasion 📝</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group conditional-block" id="occasionDetailsBlock">
-            <label class="alert-label" for="occasionOtherDetails">Specify Occasion Details</label>
-            <input type="text" id="occasionOtherDetails" placeholder="e.g. Graduation Dinner">
-        </div>
-        <div class="form-group">
-            <label for="hasAllergySelect">Food Allergies / Intolerances?</label>
-            <select id="hasAllergySelect" onchange="toggleAllergenInputField()">
-                <option value="0">No, none of our guests have allergies</option>
-                <option value="1">Yes, members of our party have allergies ⚠️</option>
-            </select>
-        </div>
-        <div class="form-group conditional-block" id="allergyNotesBlock">
-            <label class="alert-label" for="allergenNotes">Specify Allergen / Dietary Details</label>
-            <input type="text" id="allergenNotes" placeholder="e.g. Peanut allergy">
-        </div>
-        <div class="form-group">
-            <label for="specialRequests">Special Requests / Notes</label>
-            <textarea id="specialRequests" rows="3" placeholder="e.g. Prefer window seating..."></textarea>
-        </div>
-        <button type="submit" class="submit-button">Request Reservation</button>
-    </form>
+<h2>Request Table Reservation</h2>
+<form id="bookingForm" onsubmit="executeCloudKitBookingSubmit(event)">
+<div class="form-group">
+    <label for="reservationDay">Arrival Date</label>
+    <input type="date" id="reservationDay" required onchange="evaluateOperationalHoursGridFirewall()">
+</div>
+<div class="form-group">
+    <label>Select Arrival Time</label>
+    <div class="time-chips-grid" id="timeGrid"></div>
+    <input type="hidden" id="selectedTimeSlot" required>
+</div>
+<div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <div>
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" required placeholder="John">
+    </div>
+    <div>
+        <label for="surname">Surname</label>
+        <input type="text" id="surname" required placeholder="Dough">
+    </div>
+</div>
+<div class="form-group">
+    <label for="guestEmail">Email Address</label>
+    <input type="email" id="guestEmail" required placeholder="john@example.com">
+</div>
+<div class="form-group">
+    <label for="phoneDigits">Mobile Number</label>
+    <input type="tel" id="phoneDigits" required placeholder="07123 456789">
+</div>
+<div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <div>
+        <label for="partySize">Guests / Covers</label>
+        <select id="partySize">
+            <option value="1">1 Person</option>
+            <option value="2" selected>2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5">5 People</option>
+            <option value="6">6 People</option>
+        </select>
+    </div>
+    <div>
+        <label for="visitOccasion">Special Occasion</label>
+        <select id="visitOccasion" onchange="toggleOtherOccasionInputField()">
+            <option value="Standard Dining">Standard Dining</option>
+            <option value="Birthday">Birthday 🎂</option>
+            <option value="Anniversary">Anniversary 💍</option>
+            <option value="Other">Other Occasion 📝</option>
+        </select>
+    </div>
+</div>
+<div class="form-group conditional-block" id="occasionDetailsBlock">
+    <label class="alert-label" for="occasionOtherDetails">Specify Occasion Details</label>
+    <input type="text" id="occasionOtherDetails" placeholder="e.g. Graduation Dinner">
+</div>
+<div class="form-group">
+    <label for="hasAllergySelect">Food Allergies / Intolerances?</label>
+    <select id="hasAllergySelect" onchange="toggleAllergenInputField()">
+        <option value="0">No, none of our guests have allergies</option>
+        <option value="1">Yes, members of our party have allergies ⚠️</option>
+    </select>
+</div>
+<div class="form-group conditional-block" id="allergyNotesBlock">
+    <label class="alert-label" for="allergenNotes">Specify Allergen / Dietary Details</label>
+    <input type="text" id="allergenNotes" placeholder="e.g. Peanut allergy">
+</div>
+<div class="form-group">
+    <label for="specialRequests">Special Requests / Notes</label>
+    <textarea id="specialRequests" rows="3" placeholder="e.g. Prefer window seating..."></textarea>
+</div>
+<button type="submit" class="submit-button">Request Reservation</button>
+</form>
 </div>
 <script>
-
     const activeRestaurantTenantID = new URLSearchParams(window.location.search).get('venue') || 'loro_di_elton';
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -136,70 +134,50 @@
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
 
-        const cleanTenantKey = typeof activeRestaurantTenantID !== 'undefined' ? activeRestaurantTenantID : "loro_di_elton";
-
-        // 🧠 FAILSAFE SAFETY SWITCH: If Render's free tier takes more than 3 seconds to spin up,
-        // instantly switch to fallback mode so the client never sees a network error text!
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
-
-        // ✅ FIXED CONDUIT: Points directly to your unique live backend application endpoint path!
+        // ✅ FIXED TARGET ENDPOINT: Points straight to your dedicated timetable proxy controller!
         fetch('https://onrender.com', {
             method: 'POST',
             mode: 'cors',
             headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ restaurantID: cleanTenantKey }),
-            signal: controller.signal
+            body: JSON.stringify({ restaurantID: activeRestaurantTenantID })
         })
         .then(response => response.text())
         .then(textData => {
-            clearTimeout(timeoutId);
             let profile;
             try {
                 profile = JSON.parse(textData);
             } catch (e) {
-                profile = { success: true, openTime: "16:00", closeTime: "22:00" };
+                profile = { success: true, openTime: "12:00", closeTime: "22:00" };
             }
-            renderTimeChipsToCanvasGrid(profile);
+
+            grid.innerHTML = '';
+            if (!profile.success) {
+                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
+                return;
+            }
+
+            const timeSlots = generateTimeChipsMatrix(profile.openTime, profile.closeTime);
+            if (timeSlots.length === 0) {
+                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
+                return;
+            }
+
+            timeSlots.forEach(time => {
+                const chip = document.createElement('div');
+                chip.className = 'time-chip-item';
+                chip.innerText = time;
+                chip.onclick = () => {
+                    document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    document.getElementById('selectedTimeSlot').value = time;
+                };
+                grid.appendChild(chip);
+            });
         })
         .catch(() => {
-            clearTimeout(timeoutId);
-            // 🚀 AUTOMATED RECOVERY: Instantly load default operational matrices if the server is sleeping!
-            console.log("📌 Sync Engine: Server spinning up. Activating local fallback timetables.");
-            renderTimeChipsToCanvasGrid({ success: true, openTime: "12:00", closeTime: "22:00" });
+            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading times</div>';
         });
     }
-
-    // 🧠 HELPER GRID PAINTER: Maps slots array metrics cleanly into selectable chips
-    function renderTimeChipsToCanvasGrid(profile) {
-        const grid = document.getElementById('timeGrid');
-        grid.innerHTML = '';
-
-        if (!profile.success) {
-            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-            return;
-        }
-
-        const timeSlots = generateTimeChipsMatrix(profile.openTime, profile.closeTime);
-        if (timeSlots.length === 0) {
-            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-            return;
-        }
-
-        timeSlots.forEach(time => {
-            const chip = document.createElement('div');
-            chip.className = 'time-chip-item';
-            chip.innerText = time;
-            chip.onclick = () => {
-                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                document.getElementById('selectedTimeSlot').value = time;
-            };
-            grid.appendChild(chip);
-        });
-    }
-
-
 
     function generateTimeChipsMatrix(start, end) {
         const slots = [];
@@ -220,7 +198,7 @@
         return hours + ":" + minutes;
     }
 
-    function executeCloudKitBookingSubmit(event) {
+                function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
         const dayInput = document.getElementById('reservationDay').value;
         const timeSlotInput = document.getElementById('selectedTimeSlot').value;
@@ -231,53 +209,54 @@
         submitButton.innerText = 'Transmitting...';
 
         const resDate = new Date(dayInput + "T" + timeSlotInput + ":00").getTime();
-        const localFormPayload = {
-            restaurantID: activeRestaurantTenantID,
-            firstName: document.getElementById('firstName').value,
-            surname: document.getElementById('surname').value,
-            email: document.getElementById('guestEmail').value,
-            phone: document.getElementById('phoneDigits').value,
-            partySize: parseInt(document.getElementById('partySize').value),
-            resDate: resDate,
-            occasion: document.getElementById('visitOccasion').value,
-            occasionDetails: document.getElementById('occasionOtherDetails').value,
-            hasAllergy: parseInt(document.getElementById('hasAllergySelect').value),
-            allergenNotes: document.getElementById('allergenNotes').value,
-            notes: document.getElementById('specialRequests').value
-        };
 
         // =========================================================================
-  // ✅ REPLACE IT WITH THIS CLEAN, NAKED ENDPOINT ROUTE STRING PATH:
-  // =========================================================================
-  // ✅ HARDENED SAFARI/WEBKIT INGESTION CONDUIT
-  fetch('https://onrender.com', {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(localFormPayload)
-  })
+        // ✅ SAFARI/WEBKIT FIREWALL BYPASS CONDUIT (FORM ENCODING PATTERN)
+        // Translates data into a standard URL parameters layout string block.
+        // This forces the browser to treat the transaction as a native, secure transfer!
+        // =========================================================================
+        const formParams = new URLSearchParams();
+        formParams.append('restaurantID', activeRestaurantTenantID);
+        formParams.append('firstName', document.getElementById('firstName').value);
+        formParams.append('surname', document.getElementById('surname').value);
+        formParams.append('email', document.getElementById('guestEmail').value);
+        formParams.append('phone', document.getElementById('phoneDigits').value);
+        formParams.append('partySize', document.getElementById('partySize').value);
+        formParams.append('resDate', resDate);
+        formParams.append('occasion', document.getElementById('visitOccasion').value);
+        formParams.append('occasionDetails', document.getElementById('occasionOtherDetails').value);
+        formParams.append('hasAllergy', document.getElementById('hasAllergySelect').value);
+        formParams.append('allergenNotes', document.getElementById('allergenNotes').value);
+        formParams.append('notes', document.getElementById('specialRequests').value);
 
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              alert("🎉 Reservation Request Sent Successfully! Your table allocation is now pending review on the host stand ledger.");
-              document.getElementById('bookingForm').reset();
-              document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-              document.getElementById('selectedTimeSlot').value = "";
-              submitButton.disabled = false;
-              submitButton.innerText = 'Request Reservation';
-              toggleOtherOccasionInputField(); toggleAllergenInputField(); evaluateOperationalHoursGridFirewall();
-          } else {
-              alert("⚠️ Transmission Mismatch: " + JSON.stringify(data.error));
-              submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
-          }
-      })
-      .catch(err => {
-          alert("⚠️ Network Connection Failure: " + err.message);
-          submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
-      });
-
+        // ✅ FIXED TARGET ENDPOINT: Transits parameter sets seamlessly without trailing slash blocks
+        fetch('https://onrender.com', {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, // Unlocks native browser clearance!
+            body: formParams.toString()
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("🎉 Reservation Request Sent Successfully! Your table allocation is now pending review on the host stand ledger.");
+                document.getElementById('bookingForm').reset();
+                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                document.getElementById('selectedTimeSlot').value = "";
+                submitButton.disabled = false;
+                submitButton.innerText = 'Request Reservation';
+                toggleOtherOccasionInputField(); toggleAllergenInputField(); evaluateOperationalHoursGridFirewall();
+            } else {
+                alert("⚠️ Transmission Mismatch: " + JSON.stringify(data.error));
+                submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
+            }
+        })
+        .catch(err => {
+            alert("⚠️ Network Connection Failure: " + err.message);
+            submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
+        });
     }
+
 </script>
 <footer style="padding: 30px 20px; text-align: center; border-top: 1px solid #2a2a35; background: transparent; width: 100%; max-width: 450px; box-sizing: border-box; margin-top: 25px;">
     <p style="color: #9494a1; font-size: 13px; margin: 0 0 12px 0;">© SwiftTech Mobile Apps 2026. All Rights Reserved.</p>
