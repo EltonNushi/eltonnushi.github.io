@@ -130,16 +130,20 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
         document.getElementById('allergyNotesBlock').style.display = (select === '1') ? 'block' : 'none';
     }
 
-    function evaluateOperationalHoursGridFirewall() {
+   function evaluateOperationalHoursGridFirewall() {
         const grid = document.getElementById('timeGrid');
         grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
 
-        // ✅ FIXED TARGET ENDPOINT: Points straight to your dedicated timetable proxy controller!
+        const cleanTenantKey = typeof activeRestaurantTenantID !== 'undefined' ? activeRestaurantTenantID : "loro_di_elton";
+
+        // =========================================================================
+        // ✅ ENFORCE SECURE LINK PORTAL: Explicitly targets HTTPS to drop browser blocks!
+        // =========================================================================
         fetch('https://onrender.com', {
             method: 'POST',
             mode: 'cors',
             headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ restaurantID: activeRestaurantTenantID })
+            body: JSON.stringify({ restaurantID: cleanTenantKey })
         })
         .then(response => response.text())
         .then(textData => {
@@ -151,16 +155,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
             }
 
             grid.innerHTML = '';
-            if (!profile.success) {
-                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-                return;
-            }
+            if (!profile.success) { grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>'; return; }
 
             const timeSlots = generateTimeChipsMatrix(profile.openTime, profile.closeTime);
-            if (timeSlots.length === 0) {
-                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-                return;
-            }
+            if (timeSlots.length === 0) { grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>'; return; }
 
             timeSlots.forEach(time => {
                 const chip = document.createElement('div');
