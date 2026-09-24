@@ -116,58 +116,35 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
 });
 
 // =========================================================================
-// 📡 2. SECURE WEB RESERVATION INGEST PIPELINE
+// 📡 2. UNBLOCKED SECURE WEB RESERVATION INGEST PIPELINE (FORM DECODER)
 // =========================================================================
 app.post(['/submit', '/submit/'], async (req, res) => {
     try {
+        // ✅ DEEP UNPACK GATES: Seamlessly reads fields whether they arrive as
+        // a native form object string array context block, url-encoded data rows, or JSON objects!
         let input = req.body;
 
         if (typeof input === 'string') {
             try {
                 input = JSON.parse(input);
             } catch(e) {
-                const extractVal = (key) => {
-                    const match = req.body.match(new RegExp('"' + key + '"\\s*:\\s*"([^"]+)"'));
-                    return match ? match[1] : "";
-                };
-                const extractNum = (key) => {
-                    const match = req.body.match(new RegExp('"' + key + '"\\s*:\\s*(\\d+)'));
-                    return match ? parseInt(match[1]) : 2;
-                };
-
-                const dateMatch = req.body.match(/"resDate"\s*:\s*(\d+)/);
-                const derivedDate = dateMatch ? parseFloat(dateMatch[1]) : Date.now();
-
-                input = {
-                    restaurantID: extractVal("restaurantID"),
-                    firstName: extractVal("firstName"),
-                    surname: extractVal("surname"),
-                    email: extractVal("email"),
-                    phone: extractVal("phone"),
-                    partySize: extractNum("partySize"),
-                    resDate: derivedDate,
-                    occasion: extractVal("occasion"),
-                    occasionDetails: extractVal("occasionDetails"),
-                    hasAllergy: extractNum("hasAllergy"),
-                    allergenNotes: extractVal("allergenNotes"),
-                    notes: extractVal("notes")
-                };
+                // If it arrives via standard URLSearchParams layout stream arrays, deserialize it natively
+                const urlParams = new URLSearchParams(req.body);
+                input = Object.fromEntries(urlParams.entries());
             }
         }
 
-        const targetTenant = (input.restaurantID || "loro_di_elton").trim();
+        // Failsafe parameter isolation check checks out core values cleanly
+        const targetTenant = String(input.restaurantID || "loro_di_elton").trim();
         const now_ms = Date.now();
-        const res_date_ms = input.resDate || now_ms;
+        const res_date_ms = Number(input.resDate) || now_ms;
 
         const payload = {
             operations: [{
                 operationType: "create",
                 record: {
                     recordType: "CD_Booking",
-                    recordID: {
-                        recordName: "WEB_BOOKING_" + now_ms,
-                        zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
-                    },
+                    recordID: { recordName: "WEB_BOOKING_" + now_ms, zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" } },
                     fields: {
                         CD_id: { value: "WEB_" + now_ms, type: "STRING" },
                         CD_restaurantID: { value: targetTenant, type: "STRING" },
@@ -175,11 +152,11 @@ app.post(['/submit', '/submit/'], async (req, res) => {
                         CD_surname: { value: String(input.surname || "User").trim(), type: "STRING" },
                         CD_email: { value: String(input.email || "").trim(), type: "STRING" },
                         CD_phoneNumber: { value: String(input.phone || "").trim(), type: "STRING" },
-                        CD_partySize: { value: parseInt(input.partySize || 2), type: "INT64" },
-                        CD_date: { value: parseFloat(res_date_ms), type: "TIMESTAMP" },
+                        CD_partySize: { value: parseInt(input.partySize) || 2, type: "INT64" },
+                        CD_date: { value: res_date_ms, type: "TIMESTAMP" },
                         CD_occasion: { value: String(input.occasion || "Standard Dining").trim(), type: "STRING" },
                         CD_occasionOtherDetails: { value: String(input.occasionDetails || "").trim(), type: "STRING" },
-                        CD_hasAllergy: { value: parseInt(input.hasAllergy || 0), type: "INT64" },
+                        CD_hasAllergy: { value: parseInt(input.hasAllergy) || 0, type: "INT64" },
                         CD_allergenNotes: { value: String(input.allergenNotes || "").trim(), type: "STRING" },
                         CD_notes: { value: String(input.notes || "").trim(), type: "STRING" },
                         CD_status: { value: "Unconfirmed", type: "STRING" },
@@ -212,14 +189,15 @@ app.post(['/submit', '/submit/'], async (req, res) => {
         });
 
         if (response.status === 200) {
-            res.json({ success: true, message: "Reservation logged successfully." });
+            res.json({ success: true, message: "Logged successfully." });
         } else {
             const errData = await response.json();
             res.json({ success: false, error: errData });
         }
-} catch (err) {
-  res.status(500).json( {success: false, message: err.message });
-  }
-  });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
   const PORT = process.env.PORT || 10000;
   app.listen(PORT, () => console.log(Server running on port ${PORT}));
