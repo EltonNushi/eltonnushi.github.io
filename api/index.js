@@ -10,7 +10,7 @@ const crypto = require('crypto');
 const app = express();
 
 // =========================================================================
-// 🔒 DYNAMIC CORS REFLECTOR FIREWALL (UNBLOCKS WEBKIT / SAFARI / FIREFOX)
+// 🔒 DYNAMIC CORS REFLECTOR FIREWALL (UNBLOCKS WEBKIT / SAFARI LOOPS)
 // =========================================================================
 app.use((req, res, next) => {
     const inboundOrigin = req.headers.origin || "*";
@@ -30,6 +30,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // =========================================================================
 
+// =========================================================================
+// 🔒 CRITICAL SYSTEM ENVIRONMENT KEYS (VERCEL AUTOMATED MAPPING)
+// =========================================================================
 const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026";
 const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";
 const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');
@@ -37,7 +40,7 @@ const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');
 // =========================================================================
 // 📡 1. WHITELISTED TIMETABLE RECOVERY CONDUIT (POST BYPASS ROUTE)
 // =========================================================================
-app.post(['/timetable', '/timetable/'], async (req, res) => {
+app.post(['/timetable', '/api/timetable'], async (req, res) => {
     try {
         let targetTenant = "loro_di_elton";
         let bodyPayload = req.body;
@@ -47,7 +50,7 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
                 bodyPayload = JSON.parse(bodyPayload);
             } catch (e) {
                 const match = req.body.match(/"restaurantID"\s*:\s*"([^"]+)"/);
-                if (match && match) targetTenant = match;
+                if (match && match) targetTenant = match[1];
             }
         }
 
@@ -93,7 +96,6 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
 
         const res_data = await response.json();
 
-        // ✅ REPAIRED DATA MATRICES SELECTION BY EXPLICITLY TRACKING REQS ARRAY LOOPS INDEX [0]
         if (response.status === 200 && res_data.records && res_data.records.length > 0) {
             const fields = res_data.records[0].fields;
             res.json({
@@ -110,9 +112,9 @@ app.post(['/timetable', '/timetable/'], async (req, res) => {
 });
 
 // =========================================================================
-// 📡 2. SECURE WEB RESERVATION INGEST PIPELINE
+// 📡 2. UNBLOCKED SECURE WEB RESERVATION INGEST PIPELINE
 // =========================================================================
-app.post(['/submit', '/submit/'], async (req, res) => {
+app.post(['/submit', '/api/submit'], async (req, res) => {
     try {
         let input = req.body;
         if (typeof input === 'string') {
@@ -188,5 +190,7 @@ app.post(['/submit', '/submit/'], async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// =========================================================================
+// ✅ VERCEL EXPORT INTERFACE: Native module bridge replaces port loops!
+// =========================================================================
+module.exports = app;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TableMaster Pro Booking Conduit</title>
+    <title>TableMaster Pro Booking Widget</title>
     <style>
         :root { --accent-color: #ff2d55; --bg-dark: #000000; --panel-dark: #1c1c1e; --text-light: #ffffff; }
         body {
@@ -198,7 +198,8 @@
         formParams.append('allergenNotes', document.getElementById('allergenNotes').value);
         formParams.append('notes', document.getElementById('specialRequests').value);
 
-        fetch('https://onrender.com', {
+        // ✅ REALIGNED TO YOUR NEW SECURE VERCEL ENDPOINT PATH ROUTE
+        fetch('https://vercel.app', {
             method: 'POST',
             mode: 'cors',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
