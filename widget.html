@@ -249,12 +249,14 @@
         // =========================================================================
   // ✅ REPLACE IT WITH THIS CLEAN, NAKED ENDPOINT ROUTE STRING PATH:
   // =========================================================================
+  // ✅ HARDENED SAFARI/WEBKIT INGESTION CONDUIT
   fetch('https://onrender.com', {
       method: 'POST',
       mode: 'cors',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(localFormPayload)
   })
+
       .then(response => response.json())
       .then(data => {
           if (data.success) {
