@@ -181,22 +181,29 @@ app.post(['/submit', '/submit/'], async (req, res) => {
                         zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
                     },
                     fields: {
-                        CD_id: { value: "WEB_" + now_ms, type: "STRING" },
-                        CD_restaurantID: { value: targetTenant, type: "STRING" },
-                        CD_guestName: { value: (input.firstName || "Guest").trim(), type: "STRING" },
-                        CD_surname: { value: (input.surname || "User").trim(), type: "STRING" },
-                        CD_email: { value: (input.email || "").trim(), type: "STRING" },
-                        CD_phoneNumber: { value: (input.phone || "").trim(), type: "STRING" },
-                        CD_partySize: { value: parseInt(input.partySize || 2), type: "INT64" },
-                        CD_date: { value: parseFloat(res_date_ms), type: "TIMESTAMP" },
-                        CD_occasion: { value: (input.occasion || "Standard Dining").trim(), type: "STRING" },
-                        CD_occasionOtherDetails: { value: (input.occasionDetails || "").trim(), type: "STRING" },
-                        CD_hasAllergy: { value: parseInt(input.hasAllergy || 0), type: "INT64" },
-                        CD_allergenNotes: { value: (input.allergenNotes || "").trim(), type: "STRING" },
-                        CD_notes: { value: (input.notes || "").trim(), type: "STRING" },
-                        CD_status: { value: "Unconfirmed", type: "STRING" },
-                        CD_isVIP: { value: 0, type: "INT64" }
-                    }
+                      // ✅ HARDENED SANITISATION PIPELINE: Guarantees text fields unwrap cleanly without throwing type warnings!
+                      CD_id: { value: "WEB_" + now_ms, type: "STRING" },
+                      CD_restaurantID: { value: String(targetTenant || "loro_di_elton").trim(), type: "STRING" },
+                      CD_guestName: { value: String(input.firstName || "Guest").trim(), type: "STRING" },
+                      CD_surname: { value: String(input.surname || "User").trim(), type: "STRING" },
+                      CD_email: { value: String(input.email || "").trim(), type: "STRING" },
+                      CD_phoneNumber: { value: String(input.phone || "").trim(), type: "STRING" },
+
+                      // ✅ NATIVE MATHEMATICAL TRANSFORMS: Enforces accurate numerical types for core schemas
+                      CD_partySize: { value: parseInt(input.partySize) || 2, type: "INT64" },
+                      CD_date: { value: Number(res_date_ms) || now_ms, type: "TIMESTAMP" },
+
+                      CD_occasion: { value: String(input.occasion || "Standard Dining").trim(), type: "STRING" },
+                      CD_occasionOtherDetails: { value: String(input.occasionDetails || "").trim(), type: "STRING" },
+                      CD_hasAllergy: { value: parseInt(input.hasAllergy) || 0, type: "INT64" },
+                      CD_allergenNotes: { value: String(input.allergenNotes || "").trim(), type: "STRING" },
+                      CD_notes: { value: String(input.notes || "").trim(), type: "STRING" },
+                      CD_status: { value: "Unconfirmed", type: "STRING" },
+
+                      // ✅ CORE DATA MIRROR VALUE ALIGNMENT:
+                      CD_isVIP: { value: 0, type: "INT64" }
+                  }
+
                 }
             }]
         };
