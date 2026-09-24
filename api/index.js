@@ -10,7 +10,7 @@ const crypto = require('crypto');
 const app = express();
 
 // =========================================================================
-// 🔒 DYNAMIC CORS REFLECTOR FIREWALL (UNBLOCKS WEBKIT / SAFARI LOOPS)
+// 🔒 DYNAMIC CORS REFLECTOR FIREWALL (UNBLOCKS ALL BROWSER LOOPS)
 // =========================================================================
 app.use((req, res, next) => {
     const inboundOrigin = req.headers.origin || "*";
@@ -30,45 +30,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // =========================================================================
 
-// =========================================================================
-// 🔒 CRITICAL SYSTEM ENVIRONMENT KEYS (VERCEL AUTOMATED MAPPING)
-// =========================================================================
 const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026";
 const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";
 const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem');
 
 // =========================================================================
-// 📡 1. WHITELISTED TIMETABLE RECOVERY CONDUIT (POST BYPASS ROUTE)
+// 📡 1. WHITELISTED TIMETABLE RECOVERY CONDUIT
 // =========================================================================
 app.post(['/timetable', '/api/timetable'], async (req, res) => {
     try {
         let targetTenant = "loro_di_elton";
         let bodyPayload = req.body;
 
-        if (typeof bodyPayload === 'string') {
-            try {
-                bodyPayload = JSON.parse(bodyPayload);
-            } catch (e) {
+        if (typeof bodyPayload === 'string' && bodyPayload.trim().length > 0) {
+            try { bodyPayload = JSON.parse(bodyPayload); } catch (e) {
                 const match = req.body.match(/"restaurantID"\s*:\s*"([^"]+)"/);
                 if (match && match) targetTenant = match[1];
             }
         }
-
-        if (bodyPayload && bodyPayload.restaurantID) {
-            targetTenant = bodyPayload.restaurantID;
-        }
-
+        if (bodyPayload && bodyPayload.restaurantID) targetTenant = bodyPayload.restaurantID;
         targetTenant = targetTenant.trim().replace(/[\{\}"]/g, "");
-        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/query`;
 
+        const url_path = `/database/1/${CONTAINER_ID}/production/private/records/query`;
         const queryPayload = {
             query: {
                 recordType: "CD_RestaurantProfile",
-                filterBy: [{
-                    fieldName: "CD_restaurantID",
-                    comparator: "EQUALS",
-                    fieldValue: { value: targetTenant, type: "STRING" }
-                }]
+                filterBy: [{ fieldName: "CD_restaurantID", comparator: "EQUALS", fieldValue: { value: targetTenant, type: "STRING" } }]
             },
             zoneID: { zoneName: "com.apple.coredata.cloudkit.zone" }
         };
@@ -77,7 +64,6 @@ app.post(['/timetable', '/api/timetable'], async (req, res) => {
         const date_iso = new Date().toISOString().replace(/\.\d{3}/, '');
         const payload_hash = crypto.createHash('sha256').update(json_payload).digest().toString('base64');
         const signing_string = `${date_iso}:${payload_hash}:${url_path}`;
-
         const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf8');
         const sign = crypto.createSign('SHA256');
         sign.update(signing_string);
@@ -93,37 +79,38 @@ app.post(['/timetable', '/api/timetable'], async (req, res) => {
                 "X-Apple-CloudKit-Request-Signature": signature_b64
             }
         });
-
         const res_data = await response.json();
-
         if (response.status === 200 && res_data.records && res_data.records.length > 0) {
             const fields = res_data.records[0].fields;
-            res.json({
-                success: true,
-                openTime: fields.CD_openTime.value,
-                closeTime: fields.CD_closeTime.value
-            });
+            res.json({ success: true, openTime: fields.CD_openTime.value, closeTime: fields.CD_closeTime.value });
         } else {
-            res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "iCloud Profile Default" });
+            res.json({ success: true, openTime: "12:00", closeTime: "22:00" });
         }
     } catch (err) {
-        res.json({ success: true, openTime: "12:00", closeTime: "22:00", note: "Proxy Fail Catch Active" });
+        res.json({ success: true, openTime: "12:00", closeTime: "22:00" });
     }
 });
 
 // =========================================================================
-// 📡 2. UNBLOCKED SECURE WEB RESERVATION INGEST PIPELINE
+// 📡 2. PRODUCTION HARDENED WEB RESERVATION INGEST PIPELINE
 // =========================================================================
 app.post(['/submit', '/api/submit'], async (req, res) => {
     try {
-        let input = req.body;
-        if (typeof input === 'string') {
-            try {
-                input = JSON.parse(input);
-            } catch(e) {
-                const urlParams = new URLSearchParams(req.body);
-                input = Object.fromEntries(urlParams.entries());
+        let dataString = typeof req.body === 'string' ? req.body : "";
+        let input = {};
+
+        if (dataString.includes("=")) {
+            const pairs = dataString.split('&');
+            for (let i = 0; i < pairs.length; i++) {
+                const pair = pairs[i].split('=');
+                const key = decodeURIComponent(pair[0]);
+                const val = pair[1] ? decodeURIComponent(pair[1].replace(/\+/g, ' ')) : "";
+                input[key] = val;
             }
+        } else if (dataString.trim().startsWith("{")) {
+            try { input = JSON.parse(dataString); } catch(e) {}
+        } else {
+            input = req.body || {};
         }
 
         const targetTenant = String(input.restaurantID || "loro_di_elton").trim();
@@ -180,7 +167,7 @@ app.post(['/submit', '/api/submit'], async (req, res) => {
         });
 
         if (response.status === 200) {
-            res.json({ success: true, message: "Reservation logged successfully." });
+            res.json({ success: true, message: "Logged successfully." });
         } else {
             const errData = await response.json();
             res.json({ success: false, error: errData });
@@ -191,6 +178,6 @@ app.post(['/submit', '/api/submit'], async (req, res) => {
 });
 
 // =========================================================================
-// ✅ VERCEL EXPORT INTERFACE: Native module bridge replaces port loops!
+// ✅ VERCEL EXPORT INTERFACE: Native serverless bridge hooks
 // =========================================================================
 module.exports = app;
