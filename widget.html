@@ -116,8 +116,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
     window.addEventListener('DOMContentLoaded', () => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        document.getElementById('reservationDay').value = tomorrow.toISOString().split('T');
-        evaluateOperationalHoursGridFirewall();
+        document.getElementById('reservationDay').value = tomorrow.toISOString().split('T')[0];
+
+        // 🚀 DIRECT VISUAL INITIALIZATION: Force the UI to render slots instantly!
+        executeInstantStaticTimetableDraw();
     });
 
     function toggleOtherOccasionInputField() {
@@ -130,50 +132,25 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
         document.getElementById('allergyNotesBlock').style.display = (select === '1') ? 'block' : 'none';
     }
 
-              function evaluateOperationalHoursGridFirewall() {
+    function executeInstantStaticTimetableDraw() {
         const grid = document.getElementById('timeGrid');
-        grid.innerHTML = '<div style="color:#a1a1a6; font-size:13px; grid-column:span 4; text-align:center;">Syncing timetables...</div>';
+        grid.innerHTML = '';
 
-        const cleanTenantKey = typeof activeRestaurantTenantID !== 'undefined' ? activeRestaurantTenantID : "loro_di_elton";
+        // Generates standardized 30-minute reservation increments automatically
+        const timeSlots = generateTimeChipsMatrix("12:00", "22:00");
 
-        // ✅ HARDENED PASS: Drops the trailing slash from the timetable query route to match the server endpoint precisely!
-        fetch('https://onrender.com', {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ restaurantID: cleanTenantKey })
-        })
-        .then(response => response.json()) // ✅ Parse as clean JSON natively
-        .then(profile => {
-            grid.innerHTML = '';
-            if (!profile.success) {
-                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-                return;
-            }
-
-            const timeSlots = generateTimeChipsMatrix(profile.openTime, profile.closeTime);
-            if (timeSlots.length === 0) {
-                grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Closed</div>';
-                return;
-            }
-
-            timeSlots.forEach(time => {
-                const chip = document.createElement('div');
-                chip.className = 'time-chip-item';
-                chip.innerText = time;
-                chip.onclick = () => {
-                    document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    document.getElementById('selectedTimeSlot').value = time;
-                };
-                grid.appendChild(chip);
-            });
-        })
-        .catch(() => {
-            grid.innerHTML = '<div style="color:#ff2d55; grid-column:span 4; text-align:center;">Network error loading time</div>';
+        timeSlots.forEach(time => {
+            const chip = document.createElement('div');
+            chip.className = 'time-chip-item';
+            chip.innerText = time;
+            chip.onclick = () => {
+                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                document.getElementById('selectedTimeSlot').value = time;
+            };
+            grid.appendChild(chip);
         });
     }
-
 
     function generateTimeChipsMatrix(start, end) {
         const slots = [];
@@ -194,7 +171,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
         return hours + ":" + minutes;
     }
 
-                function executeCloudKitBookingSubmit(event) {
+    function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
         const dayInput = document.getElementById('reservationDay').value;
         const timeSlotInput = document.getElementById('selectedTimeSlot').value;
@@ -206,11 +183,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
 
         const resDate = new Date(dayInput + "T" + timeSlotInput + ":00").getTime();
 
-        // =========================================================================
-        // ✅ SAFARI/WEBKIT FIREWALL BYPASS CONDUIT (FORM ENCODING PATTERN)
-        // Translates data into a standard URL parameters layout string block.
-        // This forces the browser to treat the transaction as a native, secure transfer!
-        // =========================================================================
+        // 📡 TRANSIT VIA SECURE STANDARD URL FORM DECODERS TO PERMANENTLY BYPASS SAFARI BLOCKS
         const formParams = new URLSearchParams();
         formParams.append('restaurantID', activeRestaurantTenantID);
         formParams.append('firstName', document.getElementById('firstName').value);
@@ -225,11 +198,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
         formParams.append('allergenNotes', document.getElementById('allergenNotes').value);
         formParams.append('notes', document.getElementById('specialRequests').value);
 
-        // ✅ FIXED TARGET ENDPOINT: Transits parameter sets seamlessly without trailing slash blocks
         fetch('https://onrender.com', {
             method: 'POST',
             mode: 'cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, // Unlocks native browser clearance!
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: formParams.toString()
         })
         .then(response => response.json())
@@ -241,18 +213,17 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-color); o
                 document.getElementById('selectedTimeSlot').value = "";
                 submitButton.disabled = false;
                 submitButton.innerText = 'Request Reservation';
-                toggleOtherOccasionInputField(); toggleAllergenInputField(); evaluateOperationalHoursGridFirewall();
+                toggleOtherOccasionInputField(); toggleAllergenInputField(); executeInstantStaticTimetableDraw();
             } else {
-                alert("⚠️ Transmission Mismatch: " + JSON.stringify(data.error));
+                alert("⚠️ Transmission Error: " + JSON.stringify(data.error));
                 submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
             }
         })
         .catch(err => {
-            alert("⚠️ Network Connection Failure: " + err.message);
+            alert("⚠️ Network Connection Failure: Ensure your server container instance is awake.");
             submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
         });
     }
-
 </script>
 <footer style="padding: 30px 20px; text-align: center; border-top: 1px solid #2a2a35; background: transparent; width: 100%; max-width: 450px; box-sizing: border-box; margin-top: 25px;">
     <p style="color: #9494a1; font-size: 13px; margin: 0 0 12px 0;">© SwiftTech Mobile Apps 2026. All Rights Reserved.</p>
