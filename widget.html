@@ -178,7 +178,7 @@
         return hours + ":" + minutes;
     }
 
-               function executeCloudKitBookingSubmit(event) {
+                 function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
         const dayInput = document.getElementById('reservationDay').value;
         const timeSlotInput = document.getElementById('selectedTimeSlot').value;
@@ -186,52 +186,53 @@
 
         const submitButton = event.target.querySelector('.submit-button');
         submitButton.disabled = true;
-        submitButton.innerText = 'Processing...';
+        submitButton.innerText = 'Transmitting...';
 
         const resDate = new Date(dayInput + "T" + timeSlotInput + ":00").getTime();
 
-        const localFormPayload = {
-            restaurantID: activeRestaurantTenantID,
-            firstName: document.getElementById('firstName').value,
-            surname: document.getElementById('surname').value,
-            email: document.getElementById('guestEmail').value,
-            phone: document.getElementById('phoneDigits').value,
-            partySize: parseInt(document.getElementById('partySize').value),
-            resDate: resDate,
-            occasion: document.getElementById('visitOccasion').value,
-            occasionDetails: document.getElementById('occasionOtherDetails').value,
-            hasAllergy: parseInt(document.getElementById('hasAllergySelect').value),
-            allergenNotes: document.getElementById('allergenNotes').value,
-            notes: document.getElementById('specialRequests').value
-        };
+        // 📡 TRANSIT VIA SECURE STANDARD URL FORM DECODERS TO PERMANENTLY BYPASS BROWSER BLOCKS
+        const formParams = new URLSearchParams();
+        formParams.append('restaurantID', activeRestaurantTenantID);
+        formParams.append('firstName', document.getElementById('firstName').value);
+        formParams.append('surname', document.getElementById('surname').value);
+        formParams.append('email', document.getElementById('guestEmail').value);
+        formParams.append('phone', document.getElementById('phoneDigits').value);
+        formParams.append('partySize', document.getElementById('partySize').value);
+        formParams.append('resDate', resDate);
+        formParams.append('occasion', document.getElementById('visitOccasion').value);
+        formParams.append('occasionDetails', document.getElementById('occasionOtherDetails').value);
+        formParams.append('hasAllergy', document.getElementById('hasAllergySelect').value);
+        formParams.append('allergenNotes', document.getElementById('allergenNotes').value);
+        formParams.append('notes', document.getElementById('specialRequests').value);
 
         // =========================================================================
-        // ✅ 100% BULLETPROOF NATIVE SCHEME SILENT BROADCAST ENGINE
-        // Packages the dataset and maps an invisible iframe to bypass browser alerts!
+        // ✅ LIVE PRODUCTION VERCEL PIPELINE: Routes traffic straight via your cloud function!
         // =========================================================================
-        const serializedPayload = btoa(unescape(encodeURIComponent(JSON.stringify(localFormPayload))));
-        const targetDeepLinkURI = "tablemaster://submitbooking?payload=" + serializedPayload;
-
-        // 🧠 THE SHIELD HACK: Mounts an invisible iframe frame to fire the link silently!
-        let hiddenSandboxedIframeConduit = document.getElementById('hiddenLinkBypassGatewayFrame');
-        if (!hiddenSandboxedIframeConduit) {
-            hiddenSandboxedIframeConduit = document.createElement('iframe');
-            hiddenSandboxedIframeConduit.id = 'hiddenLinkBypassGatewayFrame';
-            hiddenSandboxedIframeConduit.style.display = 'none';
-            document.body.appendChild(hiddenSandboxedIframeConduit);
-        }
-        hiddenSandboxedIframeConduit.src = targetDeepLinkURI;
-
-        // Display immediate localized clearance confirmation beautifully to the user
-        setTimeout(() => {
-            alert("🎉 Reservation Request Sent Successfully! Your table allocation is now processing on the native app ledger.");
-            document.getElementById('bookingForm').reset();
-            document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-            document.getElementById('selectedTimeSlot').value = "";
-            submitButton.disabled = false;
-            submitButton.innerText = 'Request Reservation';
-            executeInstantStaticTimetableDraw();
-        }, 400);
+        fetch('https://vercel.app', {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formParams.toString()
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("🎉 Reservation Request Sent Successfully! Your table allocation is now pending review on the host stand ledger.");
+                document.getElementById('bookingForm').reset();
+                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                document.getElementById('selectedTimeSlot').value = "";
+                submitButton.disabled = false;
+                submitButton.innerText = 'Request Reservation';
+                toggleOtherOccasionInputField(); toggleAllergenInputField(); executeInstantStaticTimetableDraw();
+            } else {
+                alert("⚠️ Transmission Error: " + JSON.stringify(data.error));
+                submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
+            }
+        })
+        .catch(err => {
+            alert("⚠️ Network Connection Failure: Ensure your server container instance is awake.");
+            submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
+        });
     }
 
 </script>
