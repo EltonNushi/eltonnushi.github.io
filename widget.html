@@ -178,7 +178,7 @@
         return hours + ":" + minutes;
     }
 
-           function executeCloudKitBookingSubmit(event) {
+                      function executeCloudKitBookingSubmit(event) {
         if (event) event.preventDefault();
         const dayInput = document.getElementById('reservationDay').value;
         const timeSlotInput = document.getElementById('selectedTimeSlot').value;
@@ -186,11 +186,11 @@
         
         const submitButton = event.target.querySelector('.submit-button');
         submitButton.disabled = true; 
-        submitButton.innerText = 'Processing...';
+        submitButton.innerText = 'Transmitting...';
         
         const resDate = new Date(dayInput + "T" + timeSlotInput + ":00").getTime();
         
-        // Construct standard form data parameters for cloud safety loops
+        // 📡 PACK PARAMETERS INTO STANDARD FORM ENCODERS FOR FULL COMPATIBILITY
         const formParams = new URLSearchParams();
         formParams.append('restaurantID', activeRestaurantTenantID);
         formParams.append('firstName', document.getElementById('firstName').value);
@@ -205,56 +205,35 @@
         formParams.append('allergenNotes', document.getElementById('allergenNotes').value);
         formParams.append('notes', document.getElementById('specialRequests').value);
 
-        const localFormPayload = Object.fromEntries(formParams.entries());
-        
         // =========================================================================
-        // ✅ 1. SILENT LOCAL NATIVE SCHEME ATTEMPT (Saves immediately if on-device)
+        // ✅ LIVE PRODUCTION CLOUD ROUTE: Points directly to your verified Vercel endpoint!
+        // Zero redirects, zero CORS blocks, instant execution.
         // =========================================================================
-        const serializedPayload = btoa(unescape(encodeURIComponent(JSON.stringify(localFormPayload))));
-        const targetDeepLinkURI = "tablemaster://submitbooking?payload=" + serializedPayload;
-        
-        let hiddenSandboxedIframeConduit = document.getElementById('hiddenLinkBypassGatewayFrame');
-        if (!hiddenSandboxedIframeConduit) {
-            hiddenSandboxedIframeConduit = document.createElement('iframe');
-            hiddenSandboxedIframeConduit.id = 'hiddenLinkBypassGatewayFrame';
-            hiddenSandboxedIframeConduit.style.display = 'none';
-            document.body.appendChild(hiddenSandboxedIframeConduit);
-        }
-        hiddenSandboxedIframeConduit.src = targetDeepLinkURI;
-        
-// =========================================================================
-// ✅ THE 100% CORRECT CORRECTED NETWORK PRODUCTION CONDUIT:
-// =========================================================================
-fetch('https://vercel.app', {
-method: 'POST',
-mode: 'cors',
-headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-body: formParams.toString()
-})
-
+        fetch('https://vercel.app', {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formParams.toString()
+        })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                clearAndConfirmBookingSuccess(submitButton);
+                alert("🎉 Reservation Request Sent Successfully! Your table allocation is now processing on the native app ledger.");
+                document.getElementById('bookingForm').reset();
+                document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
+                document.getElementById('selectedTimeSlot').value = "";
+                submitButton.disabled = false;
+                submitButton.innerText = 'Request Reservation';
+                executeInstantStaticTimetableDraw();
             } else {
-                // If Vercel fails but app intercept was active locally, clear it anyway
-                setTimeout(() => { clearAndConfirmBookingSuccess(submitButton); }, 300);
+                alert("⚠️ Transmission Error: " + JSON.stringify(data.error));
+                submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
             }
         })
         .catch(err => {
-            // 🧠 CRASH SHIELD: If internet falls back but iframe processed locally, pass!
-            setTimeout(() => { clearAndConfirmBookingSuccess(submitButton); }, 300);
+            alert("⚠️ Network Connection Failure: Cloud function proxy could not be reached.");
+            submitButton.disabled = false; submitButton.innerText = 'Request Reservation';
         });
-    }
-
-    function clearAndConfirmBookingSuccess(submitButton) {
-        alert("🎉 Reservation Request Sent Successfully! Your table allocation has been received.");
-        document.getElementById('bookingForm').reset();
-        document.querySelectorAll('.time-chip-item').forEach(c => c.classList.remove('active'));
-        document.getElementById('selectedTimeSlot').value = "";
-        submitButton.disabled = false;
-        submitButton.innerText = 'Request Reservation';
-        executeInstantStaticTimetableDraw();
     }
 
 
