@@ -163,7 +163,7 @@
         const slots = [];
         let current = parseTimeToMinutes(start);
         const limit = parseTimeToMinutes(end);
-        while (current <= limit) { slots.push(formatMinutesToTime(current)); current += 30; }
+        while (current <= limit) { slots.push(formatMinutesToTime(current)); current += 15; }
         return slots;
     }
 
