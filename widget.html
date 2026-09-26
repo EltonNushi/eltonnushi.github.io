@@ -205,15 +205,15 @@
         formParams.append('allergenNotes', document.getElementById('allergenNotes').value);
         formParams.append('notes', document.getElementById('specialRequests').value);
 
-       // =========================================================================
-// ✅ REPLACE IT WITH THIS DEFINITIVE DEPLOYMENT ENDPOINT PATH:
-// =========================================================================
-fetch('https://vercel.app', {
-method: 'POST',
-mode: 'cors',
-headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-body: formParams.toString()
-})
+        // =========================================================================
+        // ✅ THE 100% CORRECT DEPLOYED ROUTE PATHWAY:
+        // =========================================================================
+        fetch('https://vercel.app', {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formParams.toString()
+        })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
