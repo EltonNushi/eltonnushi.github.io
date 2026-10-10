@@ -2,18 +2,34 @@
 // const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact
 
 const Pusher = require('pusher');
+const { Resend } = require('resend');
 
-// =========================================================================
-// 🔒 INITIALIZE REAL-TIME BROKER CONDUIT (ZERO CLOUDKIT CLOUD KEY DEPENDENCY)
-// Paste your exact unique text credentials from your Pusher App Keys tab!
-// =========================================================================
+// 🔒 1. Initialize Real-Time WebSocket Broker Conduit
 const pusher = new Pusher({
   appId: "2201499",
   key: "56736f02064b5a079245",
-  secret: "1a7a47e3e7021837fe99",
+  secret: "1a7a47e3e7021837fe99", // Value pulled safely from your Pusher Keys tab
   cluster: "eu",
   useTLS: true
 });
+
+// 🔒 2. Initialize Resend Email Delivery Engine
+// Automatically pulls your key from Vercel's Environment Variables panel!
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// =========================================================================
+// 📡 DYNAMIC MULTI-TENANT EMAIL ROUTING MATRIX
+// Dynamically maps incoming venue IDs straight to their corporate inboxes!
+// =========================================================================
+const venueEmailRegistry = {
+    "loro_di_elton": "elton_nushi@yahoo.co.uk",
+    "roma_pasta_bar": "manager@romapastabar.co.uk",
+    "bistro_test_venue": "eltonnushi@example.com"
+};
+
+// Extract the matching target destination inbox dynamically
+const restaurantDestinationInbox = venueEmailRegistry[activeVenue] || process.env.RESTAURANT_ALERT_EMAIL;
+
 
 module.exports = async (req, res) => {
     // Enable Global CORS clearance natively
@@ -27,32 +43,95 @@ module.exports = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
-            // Read incoming parameters from your website widget
             const payloadData = req.body;
-            console.log("📥 Inbound reservation parameters received:", payloadData);
-
             const activeVenue = (payloadData.restaurantID || "loro_di_elton").trim().toLowerCase();
 
-            // Construct standardized unified JSON data package matching your iPad parameters
+            // Construct standard layout data parameters
+            const firstName = payloadData.firstName || "Guest";
+            const surname = payloadData.surname || "";
+            const guestEmail = payloadData.email || "";
+            const guestPhone = payloadData.phone || "";
+            const partySize = parseInt(payloadData.partySize) || 2;
+            const timeStampMs = parseFloat(payloadData.resDate) || Date.now();
+
+            // Format an elegant date label string for text block insertion
+            let bookingDateLabel = new Date(timeStampMs).toLocaleString('en-GB', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
             const broadcastPayload = {
                 restaurantID: activeVenue,
-                firstName: payloadData.firstName || "",
-                surname: payloadData.surname || "",
-                email: payloadData.email || "",
-                phone: payloadData.phone || "",
-                partySize: parseInt(payloadData.partySize) || 2,
-                resDate: parseFloat(payloadData.resDate) || Date.now(),
+                firstName: firstName,
+                surname: surname,
+                email: guestEmail,
+                phone: guestPhone,
+                partySize: partySize,
+                resDate: timeStampMs,
                 occasion: payloadData.occasion || "Standard Dining",
                 allergenNotes: payloadData.allergenNotes || ""
             };
 
             // =========================================================================
-            // 🚀 FIRE HIGH-SPEED REAL-TIME BROADCAST PAYLOAD
-            // Triggers an instant websocket push isolated down to the venue's custom channel!
+            // 🚀 PIPELINE INTERCEPT A: TRIGGER SOCKET DATA DROPS TO THE IPAD APP
             // =========================================================================
             await pusher.trigger(`channel-${activeVenue}`, "new-booking", broadcastPayload);
 
-            return res.status(200).json({ success: true, logged: "Real-time stream pushed successfully via Pusher." });
+            // =========================================================================
+            // ✉️ PIPELINE INTERCEPT B: FIRE TRANSACTIONAL EMAIL AUTOMATIONS
+            // =========================================================================
+            if (guestEmail && process.env.RESEND_API_KEY) {
+
+                // Email Pass 1: Send pristine confirmation receipt to the incoming GUEST
+                await resend.emails.send({
+                    from: 'TableMaster Pro <booking@swifttechmobile.co.uk>',
+                    to: guestEmail,
+                    subject: `Your Reservation Confirmation at ${activeVenue.replace(/_/g, ' ').toUpperCase()}`,
+                    html: `
+                        <div style="font-family:sans-serif; max-width:600px; margin:0 auto; padding:20px; background:#1c1c1e; color:#fff; border-radius:12px;">
+                            <h2 style="color:#ff2d55;">Reservation Confirmed! 🎉</h2>
+                            <p>Hello ${firstName},</p>
+                            <p>Thank you for your table booking request. Your allocation details have been synced straight onto our floor plan ledger.</p>
+                            <hr style="border:1px solid #2a2a35;" />
+                            <p><strong>📍 Venue:</strong> ${activeVenue.replace(/_/g, ' ').toUpperCase()}</p>
+                            <p><strong>📅 Date & Time:</strong> ${bookingDateLabel}</p>
+                            <p><strong>👥 Table Covers:</strong> ${partySize} People</p>
+                            <hr style="border:1px solid #2a2a35;" />
+                            <p style="font-size:12px; color:#a1a1a6;">If you need to alter or cancel this request, please contact the front-of-house stand operator directly.</p>
+                        </div>
+                    `
+                });
+
+                // Email Pass 2: Send internal reservation notification alert straight to the RESTAURANT
+                const restaurantDestinationInbox = process.env.RESTAURANT_ALERT_EMAIL || 'notification-fallback@swifttechmobile.co.uk';
+                await resend.emails.send({
+                    from: 'TableMaster Network <alert@swifttechmobile.co.uk>',
+                    to: restaurantDestinationInbox,
+                    subject: `🚨 New Web Booking Received - ${firstName} ${surname} (Party of ${partySize})`,
+                    html: `
+                        <div style="font-family:sans-serif; max-width:600px; margin:0 auto; padding:20px; background:#000; color:#fff; border:1px solid #ff2d55; border-radius:12px;">
+                            <h2 style="color:#ff2d55; margin-top:0;">New Web Reservation Alert 🛎️</h2>
+                            <p>A fresh booking has been processed from your web widget frame and transited straight to the iPad cockpit ledger context tracks.</p>
+                            <table style="width:100%; border-collapse:collapse; margin:20px 0; color:#fff;">
+                                <tr><td style="padding:8px; background:#1c1c1e;"><strong>Guest Name:</strong></td><td style="padding:8px; background:#1c1c1e;">${firstName} ${surname}</td></tr>
+                                <tr><td style="padding:8px;"><strong>Covers/Size:</strong></td><td style="padding:8px;">${partySize} People</td></tr>
+                                <tr><td style="padding:8px; background:#1c1c1e;"><strong>Date Requested:</strong></td><td style="padding:8px; background:#1c1c1e;">${bookingDateLabel}</td></tr>
+                                <tr><td style="padding:8px;"><strong>Contact Phone:</strong></td><td style="padding:8px;">${guestPhone}</td></tr>
+                                <tr><td style="padding:8px; background:#1c1c1e;"><strong>Allergen Notes:</strong></td><td style="padding:8px; background:#1c1c1e; color:#ff2d55;">${broadcastPayload.allergenNotes || "None"}</td></tr>
+                            </table>
+                            <p style="font-size:12px; color:#a1a1a6;">TableMaster Pro Network Layer Automation.</p>
+                        </div>
+                    `
+                });
+
+                console.log("✉️ Transactional emails successfully dispatched to both channels.");
+            }
+
+            return res.status(200).json({ success: true, logged: "Real-time socket payload and confirmation emails deployed safely." });
 
         } catch (error) {
             console.error("❌ Backend Error:", error.message);
