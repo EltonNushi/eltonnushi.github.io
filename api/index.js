@@ -14,22 +14,17 @@ const pusher = new Pusher({
 });
 
 // 🔒 2. Initialize Resend Email Delivery Engine
-// Automatically pulls your key from Vercel's Environment Variables panel!
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // =========================================================================
-// 📡 DYNAMIC MULTI-TENANT EMAIL ROUTING MATRIX
-// Dynamically maps incoming venue IDs straight to their corporate inboxes!
+// 📡 STATIC MULTI-TENANT EMAIL REGISTRY
+// Placed globally so the handler function can access the map lookup natively!
 // =========================================================================
 const venueEmailRegistry = {
     "loro_di_elton": "elton_nushi@yahoo.co.uk",
     "roma_pasta_bar": "manager@romapastabar.co.uk",
     "bistro_test_venue": "eltonnushi@example.com"
 };
-
-// Extract the matching target destination inbox dynamically
-const restaurantDestinationInbox = venueEmailRegistry[activeVenue] || process.env.RESTAURANT_ALERT_EMAIL;
-
 
 module.exports = async (req, res) => {
     // Enable Global CORS clearance natively
@@ -44,6 +39,8 @@ module.exports = async (req, res) => {
     if (req.method === 'POST') {
         try {
             const payloadData = req.body;
+
+            // ✅ FIXED: Variable declared FIRST before being utilized by down-stream logic targets!
             const activeVenue = (payloadData.restaurantID || "loro_di_elton").trim().toLowerCase();
 
             // Construct standard layout data parameters
@@ -106,8 +103,11 @@ module.exports = async (req, res) => {
                     `
                 });
 
+                // ✅ FIXED VALUE ALLOCATION HOOK:
+                // Evaluates your multi-tenant registry map first, then drops down to the environment variable!
+                const restaurantDestinationInbox = venueEmailRegistry[activeVenue] || process.env.RESTAURANT_ALERT_EMAIL || 'notification-fallback@swifttechmobile.co.uk';
+
                 // Email Pass 2: Send internal reservation notification alert straight to the RESTAURANT
-                const restaurantDestinationInbox = process.env.RESTAURANT_ALERT_EMAIL || 'notification-fallback@swifttechmobile.co.uk';
                 await resend.emails.send({
                     from: 'TableMaster Network <alert@swifttechmobile.co.uk>',
                     to: restaurantDestinationInbox,
@@ -128,7 +128,7 @@ module.exports = async (req, res) => {
                     `
                 });
 
-                console.log("✉️ Transactional emails successfully dispatched to both channels.");
+                console.log(`✉️ Transactional emails successfully dispatched to guest and registry endpoint: ${restaurantDestinationInbox}`);
             }
 
             return res.status(200).json({ success: true, logged: "Real-time socket payload and confirmation emails deployed safely." });
