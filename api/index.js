@@ -1,61 +1,41 @@
 // const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026"; // ✅ FIXED: Restored complete Apple ID prefix!
 // const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";       // 👈 Paste your exact
 
-const path = require('path');
-const fs = require('fs');
+const Pusher = require('pusher');
 
 // =========================================================================
-// 🔒 CRITICAL SYSTEM ENVIRONMENT KEYS (PRODUCTION HARDENED OVERRIDES)
+// 🔒 INITIALIZE REAL-TIME BROKER CONDUIT (ZERO CLOUDKIT CLOUD KEY DEPENDENCY)
+// Paste your exact unique text credentials from your Pusher App Keys tab!
 // =========================================================================
-const CONTAINER_ID     = "iCloud.com.tablemanagement.com.TableMaster2026";
-const KEY_ID           = "e06db9ceffd92a09c8f4ad05a805b15b6a20735449ee2a18e8ecb47721f40080";
-const PRIVATE_KEY_PATH = path.join(__dirname, 'eckey.pem'); // 👈 References your exact eckey.pem file natively!
-
-// Global connections pool to track active iPad socket hooks
-let activeAppListeners = [];
+const pusher = new Pusher({
+  appId: "2201499",
+  key: "56736f02064b5a079245",
+  secret: "1a7a47e3e7021837fe99",
+  cluster: "eu",
+  useTLS: true
+});
 
 module.exports = async (req, res) => {
     // Enable Global CORS clearance natively
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS, GET');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
 
-    // =========================================================================
-    // ⚡ 1. GET HANDSHAKE PROTOCOL: Connects the iPad App background listener task
-    // =========================================================================
-    if (req.method === 'GET') {
-        res.setHeader('Content-Type', 'text/event-stream');
-        res.setHeader('Cache-Control', 'no-cache');
-        res.setHeader('Connection', 'keep-alive');
-
-        // Add this specific hardware device channel connection to the listener pool
-        activeAppListeners.push(res);
-        console.log(`📡 New iPad connection established. Active app listeners pool count: ${activeAppListeners.length}`);
-
-        req.on('close', () => {
-            activeAppListeners = activeAppListeners.filter(connection => connection !== res);
-            console.log(`🔕 iPad disconnected. Active app listeners pool count: ${activeAppListeners.length}`);
-        });
-        return;
-    }
-
-    // =========================================================================
-    // 📡 2. POST HANDSHAKE PROTOCOL: Ingests reservations sent from your website widget
-    // =========================================================================
     if (req.method === 'POST') {
         try {
-            // Read incoming parameters from request stream body frames
+            // Read incoming parameters from your website widget
             const payloadData = req.body;
+            console.log("📥 Inbound reservation parameters received:", payloadData);
 
-            console.log("📥 Inbound reservation parameters received from web widget:", payloadData);
+            const activeVenue = (payloadData.restaurantID || "loro_di_elton").trim().toLowerCase();
 
-            // Construct standard unified JSON data string parameters layout package
-            const broadcastPayloadString = JSON.stringify({
-                restaurantID: payloadData.restaurantID || "loro_di_elton",
+            // Construct standardized unified JSON data package matching your iPad parameters
+            const broadcastPayload = {
+                restaurantID: activeVenue,
                 firstName: payloadData.firstName || "",
                 surname: payloadData.surname || "",
                 email: payloadData.email || "",
@@ -64,24 +44,21 @@ module.exports = async (req, res) => {
                 resDate: parseFloat(payloadData.resDate) || Date.now(),
                 occasion: payloadData.occasion || "Standard Dining",
                 allergenNotes: payloadData.allergenNotes || ""
-            });
+            };
 
-            // Dispatch message down into all active iPad connection socket nodes simultaneously
-            if (activeAppListeners.length > 0) {
-                activeAppListeners.forEach(clientChannel => {
-                    clientChannel.write(`data: ${broadcastPayloadString}\n\n`);
-                });
-                console.log(`⚡ Real-time packet successfully broadcast to ${activeAppListeners.length} active apps.`);
-            } else {
-                console.log("⚠️ Broadcast Warning: No active iPad listeners are currently logged online.");
-            }
+            // =========================================================================
+            // 🚀 FIRE HIGH-SPEED REAL-TIME BROADCAST PAYLOAD
+            // Triggers an instant websocket push isolated down to the venue's custom channel!
+            // =========================================================================
+            await pusher.trigger(`channel-${activeVenue}`, "new-booking", broadcastPayload);
 
-            // Return pristine structural success validation confirmation back to browser widget
-            return res.status(200).json({ success: true, logged: "WebSocket Broadcast Dispatched via index.js." });
+            return res.status(200).json({ success: true, logged: "Real-time stream pushed successfully via Pusher." });
 
         } catch (error) {
-            console.error("❌ Backend Script Error:", error.message);
+            console.error("❌ Backend Error:", error.message);
             return res.status(500).json({ success: false, error: error.message });
         }
     }
+
+    return res.status(405).json({ error: "Method not allowed" });
 };
