@@ -1,14 +1,15 @@
 {
   "name": "tablemaster-backend",
-  "version": "1.0.0",
-  "description": "Secure Proxy for CloudKit with Realtime WebSocket Relay",
-  "main": "api/index.js",
-  "scripts": {
-    "start": "node api/index.js"
-  },
+   "version": "1.0.0",
+   "description": "Secure Proxy for CloudKit with Realtime WebSocket Relay and Automated Mailers",
+   "main": "api/index.js",
+   "scripts": {
+     "start": "node api/index.js"
+   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "pusher": "^5.2.0"
+    "resend": "^4.0.0"
   }
 }
