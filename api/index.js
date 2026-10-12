@@ -4,14 +4,17 @@
 const Pusher = require('pusher');
 const { Resend } = require('resend');
 
-// 🔒 1. Initialize Real-Time WebSocket Broker Conduit
+// =========================================================================
+// 🔒 1. INITIALIZE REAL-TIME WEBSOCKET BROKER CONDUIT (100% EXPOSURE-PROOF)
+// =========================================================================
 const pusher = new Pusher({
-  appId: "2201499",
-  key: "56736f02064b5a079245",
-  secret: "1a7a47e3e7021837fe99", // Value pulled safely from your Pusher Keys tab
-  cluster: "eu",
+  appId: "2201499",  // 👈 Paste your actual public App ID string here
+  key: "1350da310ac3d13a9179",        // 👈 Paste your actual public Key string here
+  secret: process.env.PUSHER_SECRET,   // 🛑 KEEP THIS EXACTLY AS IS (Pulls securely from Vercel)
+  cluster: "eu",                       // 👈 Ensure this matches your dashboard cluster (e.g., 'eu' or 'us2')
   useTLS: true
 });
+
 
 // 🔒 2. Initialize Resend Email Delivery Engine
 const resend = new Resend(process.env.RESEND_API_KEY);
